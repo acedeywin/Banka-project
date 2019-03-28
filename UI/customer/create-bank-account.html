@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Banka | Creating Account...</title>
+	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../styles/main.css">
+	<link rel="shortcut icon" type="image/png" href="../images/logo2.png">
+</head>
+
+<body class="background">
+
+  <!--Main page starts here-->
+	<div class="main-body">
+
+		<!--Page Logo-->
+		<div class="main__my-logo">
+      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+    </div>
+
+    <!--Page Logo-sub -->
+    <div class="sub__my-logo hide">
+      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+    </div>
+
+    <!--Hidden navigation starts here-->
+    <div class="navigation hide">
+
+      <div class="menu">
+        <span class="bar"></span>
+      </div>
+
+      <nav class="nav">
+        
+        <div class="overlay"> 
+          <ul>
+            <li><a href="account-profile.html" class="navigation__link link acct-profile">Account Profile</a></li>
+            <li><a href="#" class="navigation__link link create-acct green-bg">Create Bank Account</a></li>
+            <li><a href="transaction-history.html" class="navigation__link link transac-history">Transaction History</a></li>
+            <li><a href="contact.html" class="navigation__link link contact">Contact</a></li>
+            <li><a href="../../index.html" class="navigation__link link log-out">Log out</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+    </div>
+    <!--Hidden navigation ends here-->
+
+    <!--Navbar starts here-->
+    <nav class="navbar">
+      <ul>
+        <li class="acct-profile"><a href="account-profile.html">Account Profile</a></li>
+        <li class="create-acct green-bg"><a href="#">Create Bank Account</a></li>
+        <li class="transac-history"><a href="transaction-history.html">Transaction History</a></li>
+        <li class="contact"><a href="contact.html">Contact</a></li>
+        <li class="log-out"><a href="../../index.html">Log out</a></li>  
+      </ul>
+    </nav>
+    <!--Navbar ends here-->
+
+    <!--Page wrapper (row) starts here-->
+    <div class="row content">
+
+      <!--Main content wrapper starts here-->
+      <div class="row__main--wrapper">
+
+           <h1>Create Account</h1>
+
+         <!--Create account page starts here-->
+      <div class="create-account">
+
+      <!--First column starts here-->
+        <div class="col-1-of-3">
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Full Name" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="number" placeholder="BVN Number" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="date" placeholder="Date of Birth" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Residential Address" required>
+          </div>
+
+          <div class="mark">
+            <select class="textbox select-id">
+              <option disabled selected>Means of Identification</option>
+            </select>
+          </div>
+
+        </div>
+        <!--First column ends here-->
+
+        <!--Second column starts here-->
+        <div class="col-1-of-3">
+
+          <div class="textbox mark">
+            <input type="email" placeholder="Email Address" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Occupation" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Next of Kin" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Permanent Address" required>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="ID Number" required>
+          </div>
+
+        </div>
+        <!--Second column ends here-->
+
+        <!--Third column starts here-->
+        <div class="col-1-of-3">
+
+          <div class="textbox mark">
+            <input type="number" placeholder="Phone Number" required>
+          </div>
+
+          <div class="mark">
+            <select class="textbox select-account">
+              <option disabled selected>Account Type</option>
+            </select>
+          </div>
+
+          <div class="textbox mark">
+            <input type="text" placeholder="Relationship" required>
+          </div>
+
+          <div class="mark">
+            <select class="textbox select-sex">
+              <option disabled selected>What is your Sex?</option>
+            </select>
+          </div>
+
+          <div class="mark">
+            <select class="textbox select-status">
+              <option disabled selected>Marital Status</option>
+            </select>
+          </div>
+
+          <button class="btn btn-space">Create</button>
+          <button class="btn btn-space">Cancel</button>
+
+        </div>
+        <!--Third column ends here--> 
+      </div>
+      <!--Create account page ends here-->
+    
+    </div>
+    <!--Main content wrapper ends here-->
+    </div>
+    <!--Page wrapper (row) ends here--> 
+
+    <!--Page footer-->
+    <footer class="footer">
+      &copy;<span class="year"></span>
+    </footer>
+    
+  </div>
+  <!--Main page ends here-->
+
+  <script>window.jQuery || document.write('<script src="../scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/dashboard.js"></script>
+
+</body>
+
+</html>

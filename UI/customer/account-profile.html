@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Banka | Dashboard</title>
+	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../styles/main.css">
+	<link rel="shortcut icon" type="image/png" href="../images/logo2.png">
+</head>
+
+<body class="background">
+
+  <!--Main page starts here-->
+	<div class="main-body">
+
+		<!--Page Logo-->
+		<div class="main__my-logo">
+      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+    </div>
+
+    <!--Page Logo-sub -->
+    <div class="sub__my-logo hide">
+      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+    </div>
+
+    <!--Hidden navigation starts here-->
+    <div class="navigation hide">
+
+      <div class="menu">
+        <span class="bar"></span>
+      </div>
+
+      <nav class="nav">
+        
+        <div class="overlay"> 
+          <ul>
+            <li><a href="#" class="navigation__link link acct-profile green-bg">Account Profile</a></li>
+            <li><a href="create-bank-account.html" class="navigation__link link create-acct">Create Bank Account</a></li>
+            <li><a href="transaction-history.html" class="navigation__link link transac-history">Transaction History</a></li>
+            <li><a href="contact.html" class="navigation__link link contact">Contact</a></li>
+            <li><a href="../../index.html" class="navigation__link link log-out">Log out</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+    </div>
+    <!--Hidden navigation ends here-->
+
+    <!--Navbar starts here-->
+    <nav class="navbar">
+      <ul>
+        <li class="acct-profile green-bg"><a href="#">Account Profile</a></li>
+        <li class="create-acct"><a href="create-bank-account.html">Create Bank Account</a></li>
+        <li class="transac-history"><a href="transaction-history.html">Transaction History</a></li>
+        <li class="contact"><a href="contact.html">Contact</a></li>
+        <li class="log-out"><a href="../../index.html">Log out</a></li>  
+      </ul>
+    </nav>
+    <!--Navbar ends here-->    
+
+    <!--Page wrapper (row) starts here-->
+    <div class="row content">
+
+      <!--Main content wrapper starts here-->
+      <div class="row__main--wrapper">
+
+        <h1>Account Profile</h1>
+
+        <div class="col-1-of-3">
+          <div><i class="far fa-user"></i><p>Upload image</p></div>
+        </div>
+
+        <div class="col-1-of-3 ">
+          <div class="detail">Account ID:</div>
+          <div class="detail">Account Number:</div>
+          <div class="detail">Account Type:</div>
+          <div class="detail">Date Created:</div>
+          <div class="detail">Account Owner:</div>
+        </div>
+
+
+        <div class="col-1-of-3">
+          <div class="detail">Currency:</div>
+          <div class="detail">Account Status:</div>
+          <div class="detail">Total Credit:</div>
+          <div class="detail">Total Debit:</div>
+          <div class="detail">Account Balance:</div>
+        </div>
+
+    </div>
+    <!--Main content wrapper ends here-->
+    </div>
+    <!--Page wrapper (row) ends here-->
+
+    <!--Page footer-->
+    <footer class="footer">
+      &copy;<span class="year"></span>
+    </footer>
+    
+  </div>
+  <!--Main page ends here-->
+
+  <script>window.jQuery || document.write('<script src="../scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/dashboard.js"></script>
+
+</body>
+
+</html>
