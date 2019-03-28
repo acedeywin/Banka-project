@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Banka | User Login</title>
+	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./UI/styles/main.css">
+	<link rel="shortcut icon" type="image/png" href="./UI/images/logo2.png">
+</head>
+
+<body>
+
+	<!--Main page starts here-->
+	<div class="main home">
+
+			<!--Page Logo-->
+			<div class="main__my-logo">
+          		<a href="index.html"><img class="main__logo" src="./UI/images/logo1.png" alt="logo" /></a>
+      		</div>
+
+      		<!--Page Logo-sub -->
+      		<div class="sub__my-logo hide">
+          		<a href="index.html"><img class="sub__logo" src="./UI/images/logo2.png" alt="logo" /></a>
+      		</div>
+
+		<!--User login starts here-->
+		<div class="user-login">
+
+	      	<div class="personnel">Authorized Personnel
+	      		<ul class="hide-personnel">
+		      		<li class="admin hover" title="Admin Only">Admin</li>
+		      		<li class="staff hover" title="Staff Only">Staff</li>
+	      		</ul>
+	      	</div>
+
+			<div class="row">
+
+				<div class="col-1-of-2 wrapper">
+					
+					<h1 class="name">
+						<span class="name--main">Banka</span>
+						<span class="name--sub">...Your money is safe with us</span>
+					</h1>			
+
+				</div>
+
+					<div class="col-1-of-2 wrapper">
+						<div class="login-box">
+
+							<h1>Customer Login</h1>
+
+							<div class="textbox">
+								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+							</div>
+
+							<div class="textbox">
+								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+							</div>
+							
+							<button class="btn btn-space"><a href="./UI/customer/account-profile.html">Sign in</a></button>
+							<button class="btn btn-signup"><a href="./UI/customer/signup.html">Sign up</a></button>
+							<span class="forgot-btn"><a href="#">Forgot Password?</a></span>
+						</div>
+					</div>		
+
+			</div>
+
+		</div>
+		<!--User login ends here-->
+
+		<!--Admin login starts here-->
+		<div class="admin-login hide">
+
+	      	<div class="login-btn">
+	      		<ul>
+		      		<li class="user" title="User Login">User</li>
+		      		<li class="staff hover arrow" title="Staff Only">Staff</li>
+	      		</ul>
+	      	</div>
+
+      
+			<div class="row">
+
+					<div class="col-1-of-2 wrapper"  id="row">
+					
+						<h1 class="name">
+							<span class="admin--main">Authorized Personnel Only</span>				
+						</h1>			
+
+				</div>
+
+					<div class="col-1-of-2 wrapper">
+						<div class="login-box">
+
+							<h1>Admin Login</h1>
+
+							<div class="textbox">
+								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+							</div>
+
+							<div class="textbox">
+								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+							</div>
+							
+							<button class="btn"><a href="./UI/admin/create-account.html">Sign in</a></button>
+						</div>
+					</div>		
+
+			</div>	
+
+		</div>
+		<!--Admin login ends here-->
+
+		<!--Staff login starts here-->
+		<div class="staff-login hide">
+
+	      	<div class="login-btn">
+	      		<ul >
+	      			<li class="user" title="User Login">User</li>
+		      		<li class="admin hover arrow" title="Admin Only">Admin</li>
+	      		</ul>
+	      	</div>
+
+      
+			<div class="row">
+
+					<div class="col-1-of-2 wrapper"  id="row">
+					
+						<h1 class="name">
+							<span class="staff--main">Authorized Bank Personnel Only</span>
+						</h1>			
+
+				</div>
+
+					<div class="col-1-of-2 wrapper">
+						<div class="login-box">
+
+							<h1>Staff Login</h1>
+
+							<div class="textbox">
+								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+							</div>
+
+							<div class="textbox">
+								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+							</div>
+							
+							<button class="btn"><a href="./UI/staff/transactions.html">Sign in</a></button>
+						</div>
+					</div>		
+
+			</div>
+
+		</div>
+		<!--Staff login ends here-->
+
+	<!-- Start footer -->
+	<footer class="footer">	
+	    <a href="https://www.facebook.com/stephen.okpala.7" target="_blank"><i class="fab fa-facebook"></i></a>
+	    <a href="https://www.instagram.com/acedeywin" target="_blank"><i class="fab fa-instagram"></i></a>
+	    <a href="https://www.github.com/acedeywin" target="_blank"><i class="fab fa-github"></i></a>
+	    <a href="https://www.twitter.com/acedeywinn" target="_blank"><i class="fab fa-twitter"></i></a>
+	    <a href="https://www.linkedin.com/in/stevon04" target="_blank"><i class="fab fa-linkedin"></i></a>
+	    <div>&copy;<span class="year"></span></div>
+	</footer>
+	<!-- End footer -->
+	</div>
+	<!--Main page ends here-->
+	
+  <script>window.jQuery || document.write('<script src="./UI/scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./UI/scripts/jquery.js"></script>
+
+</body>
+
+</html>

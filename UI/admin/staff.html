@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  	<title>Banka | Staff Accounts</title>
+  	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  	<link rel="stylesheet" type="text/css" href="../styles/main.css">
+  	<link rel="shortcut icon" type="image/png" href="../images/logo2.png">
+  </head>
+
+<body class="background">
+
+
+  <!--Main page starts here-->
+	<div class="main-body">
+
+		<!--Page Logo-->
+		<div class="main__my-logo">
+      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+    </div>
+
+    <!--Page Logo-sub -->
+    <div class="sub__my-logo hide">
+      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+    </div>
+
+    <!--Hidden navigation starts here-->
+    <div class="navigation hide">
+
+      <div class="menu">
+        <span class="bar"></span>
+      </div>
+
+      <nav class="nav">
+        
+        <div class="overlay"> 
+          <ul>
+            <li><a href="create-account.html" class="navigation__link link user-acct">Create Account</a></li>
+            <li><a href="#" class="navigation__link view-acct green-bg">View Account</a></li>
+              <li><a href="admin.html" class="navigation__link link hide-view-acct">Admin</a></li>
+              <li><a href="#" class="navigation__link link hide-view-acct green-bg">Staff</a></li>
+            <li><a href="#" class="navigation__link client-acct">Client Account</a></li> 
+              <li><a href="current-accounts.html" class="navigation__link link hide-client-acct">Current</a></li>
+              <li><a href="savings-accounts.html" class="navigation__link link hide-client-acct">Savings</a></li>
+            <li><a href="#" class="navigation__link link log-out">Log out</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+    </div>
+    <!--Hidden navigation ends here-->    
+
+      	<!--Navbar starts here-->
+      	<div class="navbar">
+      		<ul>
+         		<li class="user-acct"><a href="create-account.html">Create Account</a></li>
+         		<li class="admin-staff green-bg"><a>View Account
+              <ul>
+                <a href="admin.html"><li>Admin</li></a>
+                <a href="#"><li class="green-bg">Staff</li></a>
+            </ul>
+            </a></li>
+
+         		<li class="show-acct "><a>Client Account
+              <ul><a>
+                <a href="current-accounts.html"><li class="">Current</li></a>
+                <a href="savings-accounts.html"><li>Savings</li></a>
+              </a></ul>
+            </li>
+         		<li class="log-out"><a>Log out</a></li>
+         	</ul>
+      	</div>
+
+      <!--Row starts here-->  
+      <div class="row">
+
+      <!--Row-wrapper starts here-->
+      <div class="row__main--wrapper"> 
+
+        <table>
+
+          <thead>
+            <tr id="title">
+              <th colspan="8">Staff Accounts</th>
+            </tr>
+
+            <tr id="header">
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email Address</th>
+              <th>Account Type</th>
+              <th>Date Created</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="user-account">
+            <tr>
+              <td>1234</td>
+              <td>John</td>
+              <td>Snow</td>
+              <td>snow@gmail.com</td>
+              <td>Admin</td>
+              <td>04/03/2019</td>
+              <td><button>Delete</button></td>
+              <td><button>Deactivate</button></td>
+            </tr>
+
+            <tr>
+              <td>1234</td>
+              <td>John</td>
+              <td>Snow</td>
+              <td>snow@gmail.com</td>
+              <td>Admin</td>
+              <td>04/03/2019</td>
+              <td><button>Delete</button></td>
+              <td><button>Deactivate</button></td>
+            </tr>
+
+            <tr>
+              <td>1234</td>
+              <td>John</td>
+              <td>Snow</td>
+              <td>snow@gmail.com</td>
+              <td>Admin</td>
+              <td>04/03/2019</td>
+              <td><button>Delete</button></td>
+              <td><button>Deactivate</button></td>
+            </tr>
+
+            <tr>
+              <td>1234</td>
+              <td>John</td>
+              <td>Snow</td>
+              <td>snow@gmail.com</td>
+              <td>Admin</td>
+              <td>04/03/2019</td>
+              <td><button>Delete</button></td>
+              <td><button>Deactivate</button></td>
+            </tr>
+          </tbody>
+
+        </table>        
+
+      </div>
+      <!--Row ends here-->
+
+  </div>
+  <!--Main page ends here-->
+
+  <!--Page footer-->
+  <footer class="footer">
+    &copy;<span class="year"></span>
+  </footer>
+
+  <script>window.jQuery || document.write('<script src="../scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/admin.js"></script>
+</body>
+
+</html>

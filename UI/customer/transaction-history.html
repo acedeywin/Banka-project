@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Banka | Transaction History</title>
+	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../styles/main.css">
+	<link rel="shortcut icon" type="image/png" href="../images/logo2.png">
+</head>
+
+<body class="background">
+
+  <!--Main page starts here-->
+	<div class="main-body">
+
+		<!--Page Logo-->
+		<div class="main__my-logo">
+      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+    </div>
+
+    <!--Page Logo-sub -->
+    <div class="sub__my-logo hide">
+      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+    </div>
+
+    <!--Hidden navigation starts here-->
+    <div class="navigation hide">
+
+      <div class="menu">
+        <span class="bar"></span>
+      </div>
+
+      <nav class="nav">
+        
+        <div class="overlay"> 
+          <ul>
+            <li><a href="account-profile.html" class="navigation__link link acct-profile">Account Profile</a></li>
+            <li><a href="create-bank-account.html" class="navigation__link link create-acct">Create Bank Account</a></li>
+            <li><a href="transaction-history.html" class="navigation__link link transac-history green-bg">Transaction History</a></li>
+            <li><a href="contact.html" class="navigation__link link contact">Contact</a></li>
+            <li><a href="../../index.html" class="navigation__link link log-out">Log out</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+    </div>
+    <!--Hidden navigation ends here-->
+
+    <!--Navbar starts here-->
+    <nav class="navbar">
+      <ul>
+        <li class="acct-profile"><a href="account-profile.html">Account Profile</a></li>
+        <li class="create-bank-account.html"><a href="#">Create Bank Account</a></li>
+        <li class="transac-history green-bg"><a href="#">Transaction History</a></li>
+        <li class="contact"><a href="contact.html">Contact</a></li>
+        <li class="log-out"><a href="../../index.html">Log out</a></li>  
+      </ul>
+    </nav>
+    <!--Navbar ends here-->
+
+    <!--Page wrapper (row) starts here-->
+    <div class="row">
+
+      <!--Main content wrapper starts here-->
+      <div class="row__main--wrapper">
+
+        <table>
+          <thead>
+            <tr id="title">
+              <th colspan="6">Transaction History</th>
+            </tr>
+
+            <tr id="header">
+              <th>TransDate</th>
+              <th>Account-Type</th>
+              <th>Transaction-Type</th>
+              <th>Deposit</th>
+              <th>Withdrawal</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+
+          <tbody id="transaction-history">
+            <tr>
+              <td>1/2/2019</td>
+              <td>Savings</td>
+              <td>Credit</td>
+              <td>20000.04</td>
+              <td>000.00</td>
+              <td>21000.04</td>
+            </tr>
+
+            <tr>
+              <td>3/2/2019</td>
+              <td>Savings</td>
+              <td>Debit</td>
+              <td>000.00</td>
+              <td>6000.00</td>
+              <td>15000.04</td>
+            </tr>
+
+            <tr>
+              <td>1/2/2019</td>
+              <td>Savings</td>
+              <td>Credit</td>
+              <td>20000.04</td>
+              <td>000.00</td>
+              <td>21000.04</td>
+            </tr>
+
+            <tr>
+              <td>3/2/2019</td>
+              <td>Savings</td>
+              <td>Debit</td>
+              <td>000.00</td>
+              <td>6000.00</td>
+              <td>15000.04</td>
+            </tr>
+          </tbody>
+        </table>      
+    
+      </div>
+      <!--Main content wrapper ends here-->
+    </div>
+    <!--Page wrapper (row) ends here--> 
+
+    <!--Page footer-->
+    <footer class="footer">
+      &copy;<span class="year"></span>
+    </footer>
+    
+  </div>
+  <!--Main page ends here-->
+
+  <script>window.jQuery || document.write('<script src="../scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/dashboard.js"></script>
+
+</body>
+
+</html>
