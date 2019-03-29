@@ -64,7 +64,7 @@ body {
 
 .main {
   height: 100vh;
-  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(../images/main.jpg);
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(../images/main.jpeg);
   background-size: cover;
   background-position: center;
   position: relative; }

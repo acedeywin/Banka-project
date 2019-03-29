@@ -13,7 +13,7 @@ $(document).ready(() => {
 		$userLogin.show();
 		$adminLogin.hide();
 		$staffLogin.hide();
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/main.jpg)');
+		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/main.jpeg)');
 		$('title').text('Banka | User Login');
 	});
 
@@ -23,7 +23,7 @@ $(document).ready(() => {
 		$staffLogin.hide();
 		$adminLogin.show();
 		$('.admin--main').css('font-size', '5rem');
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/admin.jpg)');
+		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/admin.jpeg)');
 		$('title').text('Banka | Admin Login');
 	});
 
@@ -33,7 +33,7 @@ $(document).ready(() => {
 		$adminLogin.hide();
 		$staffLogin.show();
 		$('.staff--main').css('font-size', '5rem');
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/staff.jpg)');
+		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/staff.jpeg)');
 		$('title').text('Banka | Staff Login');
 	});
 
