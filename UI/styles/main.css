@@ -832,8 +832,6 @@ table tr td button:hover {
  .signup {
   margin-bottom: -7rem;
  }
-
-
 }
 
 @media (max-width: 26.563em){/*425px*/
@@ -843,7 +841,17 @@ table tr td button:hover {
   .login-btn ul li{
     margin: 3rem 1rem 0rem 0rem;
     padding: 1rem 1.5rem 1rem 1.5rem;
-  }  
+  }
+  
+  .btn-signup {
+    margin-left: -4rem;
+  }
+  
+}
+
+@media (max-width: 15.313em){/*245px*/
+  html{font-size: 30%;
+  }
 }
 
 @media only screen and (max-width: 47.5em), 

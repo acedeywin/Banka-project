@@ -1,0 +1,25 @@
+{
+  "name": "banka-project",
+  "version": "1.0.0",
+  "description": "core banking app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acedeywin/Banka-project.git"
+  },
+  "author": "acedeywin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acedeywin/Banka-project/issues"
+  },
+  "homepage": "https://github.com/acedeywin/Banka-project#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3"
+  }
+}
