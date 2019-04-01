@@ -23,12 +23,12 @@
 
 		<!--Page Logo-->
 		<div class="main__my-logo">
-      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+      <a href="../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
     </div>
 
     <!--Page Logo-sub -->
     <div class="sub__my-logo hide">
-      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+      <a href="../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
     </div>
 
     <!--Hidden navigation starts here-->
@@ -46,7 +46,7 @@
             <li><a href="#" class="navigation__link link create-acct green-bg">Create Bank Account</a></li>
             <li><a href="transaction-history.html" class="navigation__link link transac-history">Transaction History</a></li>
             <li><a href="contact.html" class="navigation__link link contact">Contact</a></li>
-            <li><a href="../../index.html" class="navigation__link link log-out">Log out</a></li>
+            <li><a href="../index.html" class="navigation__link link log-out">Log out</a></li>
           </ul>
         </div>
 
@@ -62,7 +62,7 @@
         <li class="create-acct green-bg"><a href="#">Create Bank Account</a></li>
         <li class="transac-history"><a href="transaction-history.html">Transaction History</a></li>
         <li class="contact"><a href="contact.html">Contact</a></li>
-        <li class="log-out"><a href="../../index.html">Log out</a></li>  
+        <li class="log-out"><a href="../index.html">Log out</a></li>  
       </ul>
     </nav>
     <!--Navbar ends here-->
@@ -77,95 +77,98 @@
 
          <!--Create account page starts here-->
       <div class="create-account">
+        
+        <form>
+          <!--First column starts here-->
+          <div class="col-1-of-3">
 
-      <!--First column starts here-->
-        <div class="col-1-of-3">
+            <div class="textbox mark">
+              <input type="text" placeholder="Full Name" required>
+            </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Full Name" required>
-          </div>
+            <div class="textbox mark">
+              <input type="number" placeholder="BVN Number" required>
+            </div>
 
-          <div class="textbox mark">
-            <input type="number" placeholder="BVN Number" required>
-          </div>
+            <div class="textbox mark">
+              <input type="date" placeholder="Date of Birth" required>
+            </div>
 
-          <div class="textbox mark">
-            <input type="date" placeholder="Date of Birth" required>
-          </div>
+            <div class="textbox mark">
+              <input type="text" placeholder="Residential Address" required>
+            </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Residential Address" required>
-          </div>
+            <div class="mark">
+              <select class="textbox select-id">
+                <option disabled selected>Means of Identification</option>
+              </select>
+            </div>
 
-          <div class="mark">
-            <select class="textbox select-id">
-              <option disabled selected>Means of Identification</option>
-            </select>
-          </div>
+            </div>
+            <!--First column ends here-->
 
-        </div>
-        <!--First column ends here-->
+            <!--Second column starts here-->
+            <div class="col-1-of-3">
 
-        <!--Second column starts here-->
-        <div class="col-1-of-3">
+              <div class="textbox mark">
+                <input type="email" placeholder="Email Address" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="email" placeholder="Email Address" required>
-          </div>
+              <div class="textbox mark">
+                <input type="text" placeholder="Occupation" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Occupation" required>
-          </div>
+              <div class="textbox mark">
+                <input type="text" placeholder="Next of Kin" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Next of Kin" required>
-          </div>
+              <div class="textbox mark">
+                <input type="text" placeholder="Permanent Address" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Permanent Address" required>
-          </div>
+              <div class="textbox mark">
+                <input type="text" placeholder="ID Number" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="ID Number" required>
-          </div>
+            </div>
+            <!--Second column ends here-->
 
-        </div>
-        <!--Second column ends here-->
+            <!--Third column starts here-->
+            <div class="col-1-of-3">
 
-        <!--Third column starts here-->
-        <div class="col-1-of-3">
+              <div class="textbox mark">
+                <input type="number" placeholder="Phone Number" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="number" placeholder="Phone Number" required>
-          </div>
+              <div class="mark">
+                <select class="textbox select-account">
+                  <option disabled selected>Account Type</option>
+                </select>
+              </div>
 
-          <div class="mark">
-            <select class="textbox select-account">
-              <option disabled selected>Account Type</option>
-            </select>
-          </div>
+              <div class="textbox mark">
+                <input type="text" placeholder="Relationship" required>
+              </div>
 
-          <div class="textbox mark">
-            <input type="text" placeholder="Relationship" required>
-          </div>
+              <div class="mark">
+                <select class="textbox select-sex">
+                  <option disabled selected>What is your Sex?</option>
+                </select>
+              </div>
 
-          <div class="mark">
-            <select class="textbox select-sex">
-              <option disabled selected>What is your Sex?</option>
-            </select>
-          </div>
+              <div class="mark">
+                <select class="textbox select-status">
+                  <option disabled selected>Marital Status</option>
+                </select>
+              </div>
 
-          <div class="mark">
-            <select class="textbox select-status">
-              <option disabled selected>Marital Status</option>
-            </select>
-          </div>
+              <button class="btn btn-space">Create</button>
+              <button class="btn btn-space">Cancel</button>
 
-          <button class="btn btn-space">Create</button>
-          <button class="btn btn-space">Cancel</button>
-
-        </div>
-        <!--Third column ends here--> 
+            </div>
+            <!--Third column ends here-->
+        </form>
+         
       </div>
       <!--Create account page ends here-->
     

@@ -12,8 +12,8 @@
 	
 	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="./UI/styles/main.css">
-	<link rel="shortcut icon" type="image/png" href="./UI/images/logo2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/main.css">
+	<link rel="shortcut icon" type="image/png" href="../images/logo2.png">
 </head>
 
 <body>
@@ -23,12 +23,12 @@
 
 			<!--Page Logo-->
 			<div class="main__my-logo">
-          		<a href="index.html"><img class="main__logo" src="./UI/images/logo1.png" alt="logo" /></a>
+          		<a href="index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
       		</div>
 
       		<!--Page Logo-sub -->
       		<div class="sub__my-logo hide">
-          		<a href="index.html"><img class="sub__logo" src="./UI/images/logo2.png" alt="logo" /></a>
+          		<a href="index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
       		</div>
 
 		<!--User login starts here-->
@@ -57,17 +57,20 @@
 
 							<h1>Customer Login</h1>
 
-							<div class="textbox">
-								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
-							</div>
-
-							<div class="textbox">
-								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
-							</div>
+							<form>
+								<div class="textbox">
+									<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+								</div>
+	
+								<div class="textbox">
+									<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+								</div>
+								
+								<button class="btn btn-space"><a href="#">Sign in</a></button><!--../customer/account-profile.html-->
+								<button class="btn btn-signup"><a href="#">Sign up</a></button>
+								<span class="forgot-btn"><a href="#">Forgot Password?</a></span>
+							</form>
 							
-							<button class="btn btn-space"><a href="./UI/customer/account-profile.html">Sign in</a></button>
-							<button class="btn btn-signup"><a href="./UI/customer/signup.html">Sign up</a></button>
-							<span class="forgot-btn"><a href="#">Forgot Password?</a></span>
 						</div>
 					</div>		
 
@@ -102,15 +105,20 @@
 
 							<h1>Admin Login</h1>
 
-							<div class="textbox">
-								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
-							</div>
+							<form>
 
-							<div class="textbox">
-								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
-							</div>
-							
-							<button class="btn"><a href="./UI/admin/create-account.html">Sign in</a></button>
+								<div class="textbox">
+									<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+								</div>
+	
+								<div class="textbox">
+									<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+								</div>
+								
+								<button class="btn"><a href="#">Sign in</a></button> <!--../admin/create-account.html--->
+
+							</form>
+
 						</div>
 					</div>		
 
@@ -145,15 +153,19 @@
 
 							<h1>Staff Login</h1>
 
-							<div class="textbox">
-								<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
-							</div>
+							<form>
+									<div class="textbox">
+											<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
+										</div>
+			
+										<div class="textbox">
+											<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
+										</div>
+										
+										<button class="btn"><a href="#">Sign in</a></button>
+							</form>
 
-							<div class="textbox">
-								<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
-							</div>
 							
-							<button class="btn"><a href="./UI/staff/transactions.html">Sign in</a></button>
 						</div>
 					</div>		
 
@@ -175,9 +187,9 @@
 	</div>
 	<!--Main page ends here-->
 	
-  <script>window.jQuery || document.write('<script src="./UI/scripts/jquery-3.3.1.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="../scripts/jquery-3.3.1.js"><\/script>')</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="./UI/scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
 
 </body>
 

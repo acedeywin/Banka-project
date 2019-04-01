@@ -24,12 +24,12 @@
 
 		<!--Page Logo-->
 		<div class="main__my-logo">
-      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+      <a href="../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
     </div>
 
     <!--Page Logo-sub -->
     <div class="sub__my-logo hide">
-      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+      <a href="../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
     </div>
 
     <!--Hidden navigation starts here-->
@@ -80,53 +80,54 @@
 
         <!--Transaction section starts here-->  
         <div class="transaction">
+          <form>
 
-          <div class="col-1-of-2">
-            
-            <div class="textbox mark">
-              <input type="text" placeholder="Customer's Full Name" required>
+            <div class="col-1-of-2">
+              
+              <div class="textbox mark">
+                <input type="text" placeholder="Customer's Full Name" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="number" placeholder="Account ID" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="number" placeholder="Amount" required>
+              </div>
+
+              <div class="mark">
+                <select class="textbox select-transaction">
+                  <option disabled selected>Type of Transaction</option>
+                </select>
+              </div>
+
             </div>
 
-            <div class="textbox mark">
-              <input type="number" placeholder="Account ID" required>
+            <div class="col-1-of-2">
+
+              <div class="textbox mark">
+                <input type="email" placeholder="Email Address" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="number" placeholder="Account Number" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="date" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="number" placeholder="Staff ID" required>
+              </div>
+
+              <button class="btn btn-space">Post</button>
+              <button class="btn btn-space">Cancel</button>
+
             </div>
 
-            <div class="textbox mark">
-              <input type="number" placeholder="Amount" required>
-            </div>
-
-            <div class="mark">
-              <select class="textbox select-transaction">
-                <option disabled selected>Type of Transaction</option>
-              </select>
-            </div>
-
-          </div>
-
-          <div class="col-1-of-2">
-
-            <div class="textbox mark">
-              <input type="email" placeholder="Email Address" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="number" placeholder="Account Number" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="date" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="number" placeholder="Staff ID" required>
-            </div>
-
-            <button class="btn btn-space">Post</button>
-            <button class="btn btn-space">Cancel</button>
-
-          </div>
-
-
+          </form>
         </div>
         <!--Transaction section ends here-->
 

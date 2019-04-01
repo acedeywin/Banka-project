@@ -24,12 +24,12 @@
 
 		<!--Page Logo-->
 		<div class="main__my-logo">
-      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+      <a href="../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
     </div>
 
     <!--Page Logo-sub -->
     <div class="sub__my-logo hide">
-      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+      <a href="../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
     </div>
 
     <!--Hidden navigation starts here-->
@@ -91,46 +91,49 @@
         <!--Transaction section starts here-->  
         <div class="transaction create-user-acct">
 
-          <div class="col-1-of-2">
+          <form>
+            <div class="col-1-of-2">
+              
+              <div class="textbox mark">
+                <input type="text" placeholder="First Name" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="text" placeholder="Last Name" required>
+              </div>
+
+              <div class="mark">
+                <select class="textbox select-account">
+                  <option disabled selected>Account Type</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="col-1-of-2">
+
+              <div class="textbox mark">
+                <input type="email" placeholder="Email Address" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="number" placeholder="User ID" required>
+              </div>
+
+              <div class="textbox mark">
+                <input type="date" placeholder="Date" required>
+              </div>
+
+
+              <button class="btn btn-space">Create</button>
+              <button class="btn btn-space">Cancel</button>
+
+            </div>
+        </form>
             
-            <div class="textbox mark">
-              <input type="text" placeholder="First Name" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="text" placeholder="Last Name" required>
-            </div>
-
-            <div class="mark">
-              <select class="textbox select-account">
-                <option disabled selected>Account Type</option>
-              </select>
-            </div>
-
-          </div>
-
-          <div class="col-1-of-2">
-
-            <div class="textbox mark">
-              <input type="email" placeholder="Email Address" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="number" placeholder="User ID" required>
-            </div>
-
-            <div class="textbox mark">
-              <input type="date" required>
-            </div>
-
-
-            <button class="btn btn-space">Create</button>
-            <button class="btn btn-space">Cancel</button>
-
-          </div>
-
         </div>
         <!--Transaction section ends here-->
+        
 
       </div>
       <!--Row-wrapper ends here-->
