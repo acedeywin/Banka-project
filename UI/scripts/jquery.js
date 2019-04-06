@@ -1,5 +1,5 @@
 
-$(document).ready(() => {
+$(window).on('load', () => {
 
 	$('.green-bg').css('background-color', 'rgb(51, 153, 102)')
 	//Navigating through the various login pages
