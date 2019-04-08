@@ -1,22 +1,30 @@
 //Math.floor(1000 + Math.random() * 9000)
 
-const userSignup = [];
+const userSignup = [], userLogin = [], staffLogin = [], adminLogin = [],
 
-const userLogin = [];
+     savingsBankAccount = [], currentBankAccount = [], contactMessage = [],
 
-const userBankAccount = [];
+     staffAccount = [], adminAccount = [], transactions = [], maindb = [],
 
-const contactMessage = [];
+     history = [], userProfile = [], accountProfile = [], allHistory = [],
+     
+     allAccount = [];
 
-const staffAccount = [];
-
-const adminAccount = [];
-
-module.exports = {
+export default {
+    allAccount : allAccount,
+    allHistory : allHistory,
+    accountProfile : accountProfile,
+    userProfile : userProfile,
+    history : history,
+    maindb : maindb,
+    transactions : transactions,
     adminAccount : adminAccount,
     staffAccount : staffAccount,
     contactMessage : contactMessage,
-    userBankAccount : userBankAccount,
+    currentBankAccount : currentBankAccount,
+    savingsBankAccount : savingsBankAccount,
+    adminLogin : adminLogin,
+    staffLogin : staffLogin,
     userLogin : userLogin,
     userSignup : userSignup,
 }

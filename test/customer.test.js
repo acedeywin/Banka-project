@@ -1,16 +1,18 @@
-const customer = require('../routers/customer'),
-      chai = require('chai'),
-      chaiHttp = require('chai-http'),
-      request = require('supertest');
+import server from '../server';
+import apiRouter from '../routers/apiRouter';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import request from 'supertest';
+
+const expect = chai.expect();
       
 chai.use(chaiHttp);
 
 describe('Server', () => {
 
     //Start server.js before running test
-    let server;
     before((done) => {
-        server = require('../server');
+        server;
         done();
     });
         
@@ -36,7 +38,7 @@ describe('Server', () => {
         }; 
     
         it('Should create a customer', () => {
-            request(customer)
+            request(apiRouter)
                 .post('/signup')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -49,16 +51,20 @@ describe('Server', () => {
     });
     
     //Test for the login API
-    describe('api/v1/login/:id', () => {
+    describe('api/v1/user login', () => {
     
         const login = {
+            id : Number,
             email : String,
-            password : String
+            password : String,
+            firstName : String,
+            lastName : String,
+            token : String
         }
     
         it('Should login in a customer', () => {
-            request(customer)
-                .post('/login/:id')
+            request(apiRouter)
+                .post('/customer-login/:id')
                 .set('Accept', 'appplication/json')
                 .expect('Content-Type', /json/)
                 .end((err, res) => {
@@ -78,7 +84,7 @@ describe('Server', () => {
             fullName : String,
             owner: Number,
             bvnNumber : Number,
-            createdOn : Date.now,
+            createdOn : new Date(),
             residentialAddress : String,
             meansOfIdentification : String,
             emailAddress : String,
@@ -91,11 +97,17 @@ describe('Server', () => {
             sex: String,
             maritalStatus : String,
             currency : String,
-            balance : Number
+            openingBalance : Number,
+            credit : Number,
+            debit : Number,
+            totalCredit : Number,
+            totalDebit : Number,
+            oldBalance : Number,
+            newBalance : Number
         };
 
         it('Customer should be able to create account', () => {
-            request(customer)
+            request(apiRouter)
                 .post('/create-bank-account/:id')
                 .set('Accept', 'appplication/json')
                 .expect('Content-Type', /json/)
@@ -110,14 +122,14 @@ describe('Server', () => {
     describe('api/v1/account-profile/:id', () => {
 
         it('should get a customer account profile', () => {
-            request(customer)
+            request(apiRouter)
                  .get('/account-profile/:id')
                  .set('Accept', 'application/json')
                  .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200)
                      expect(res.body).to.be.an('array');
-                     expect(res.body).to.deep.equal(bankadb.createBankAccount);
+                     expect(res.body).to.deep.equal(bankadb.accountProfile);
                  });
          });
     })
@@ -131,7 +143,7 @@ describe('Server', () => {
         };
 
         it('Customer should be able to send messages', () => {
-            request(customer)
+            request(apiRouter)
                 .post('/contact/:id')
                 .set('Accept', 'appplication/json')
                 .expect('Content-Type', /json/)
@@ -141,8 +153,31 @@ describe('Server', () => {
                     expect(err.status).to.equal(406);
                 });        
         });
-    })
+    });
 
-    
+    describe('api/v1/transaction-history/:id', () => {
+
+        const transactionHistory = {
+            id : Number,
+            transactionDate : new Date(),
+            accountType : String,
+            transactionType : String,
+            deposit : Number,
+            withdrawal : Number,
+            balance : String
+        };
+
+        it('Customer should be able to view their account transaction history', () => {
+            request(apiRouter)
+                .post('/transaction-history/:id')
+                .set('Accept', 'appplication/json')
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200)
+                    expect(transactionHistory.res.body).to.be.an('object');
+                    expect(err.status).to.equal(406);
+                });        
+        });
+    })    
 });
 

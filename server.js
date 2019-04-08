@@ -1,18 +1,16 @@
-//Math.floor(1000 + Math.random() * 9000)
-const express = require('express'),
-      bodyParser = require('body-parser'),
-      customer = require('./routers/customer'),
-      admin = require('./routers/admin'),
+import express from 'express';
+import bodyParser from 'body-parser';
+import apiRouter from './routers/apiRouter';
 
-      //set up express app
-      app = express();
+//set up express app
+const  app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('UI'));
 
-app.use('/api/v1', customer);
-app.use('/api/v1', admin);
+//Mount the routers
+app.use('/api/v1', apiRouter);
 
 //Catch error
 app.use((req, res, next) => {
@@ -37,7 +35,7 @@ const server = app.listen(process.env.port || PORT, () => {
     console.log('Server is up...');
 });
 
-module.exports = server;
+export default server;
 
 
 
