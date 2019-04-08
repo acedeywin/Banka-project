@@ -481,7 +481,7 @@ class AdminStaffController{
     //API for staff to credit/debit a current account
     updateCurrentAccount(req, res, next){
         const id = parseInt(req.params.id);
-        let validUser, validCashier;
+        let validUser;
 
         bankadb.currentBankAccount.map((user) => {
             if (user.id === id) {

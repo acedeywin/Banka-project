@@ -217,7 +217,7 @@ class CustomerController {
         });
     }
 
-    //API for user(customer) savings account profile
+    //API for user(customer) account profile
     getAccountProfile(req, res, next){
 
         const id = parseInt(req.params.id);
