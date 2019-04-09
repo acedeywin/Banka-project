@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-	<title>Banka | Dashboard</title>
+	<title>Banka | Staff Profile</title>
   <meta name="description" content="">
 
 	<link href="https://fonts.googleapis.com/css?family=Kanit|Play" rel="stylesheet">
@@ -23,12 +23,12 @@
 
 		<!--Page Logo-->
 		<div class="main__my-logo">
-      <a href="../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
+      <a href="../../index.html"><img class="main__logo" src="../images/logo1.png" alt="logo" /></a>
     </div>
 
     <!--Page Logo-sub -->
     <div class="sub__my-logo hide">
-      <a href="../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
+      <a href="../../index.html"><img class="sub__logo" src="../images/logo2.png" alt="logo" /></a>
     </div>
 
     <!--Hidden navigation starts here-->
@@ -38,33 +38,34 @@
         <span class="bar"></span>
       </div>
 
-      <nav class="nav">
-        
+      <nav class="nav">      
         <div class="overlay"> 
           <ul>
-            <li><a href="#" class="navigation__link link acct-profile green-bg">Account Profile</a></li>
-            <li><a href="create-bank-account.html" class="navigation__link link create-acct">Create Bank Account</a></li>
-            <li><a href="transaction-history.html" class="navigation__link link transac-history">Transaction History</a></li>
-            <li><a href="contact.html" class="navigation__link link contact">Contact</a></li>
-            <li><a href="../index.html" class="navigation__link link log-out">Log out</a></li>
+            <li><a href="#" class="navigation__link link user-acct green-bg">Account Profile</a></li>
+            <li><a href="#" class="navigation__link client-acct ">Client Account</a></li> 
+              <li><a href="current-accounts.html" class="navigation__link link hide-client-acct">Current</a></li>
+              <li><a href="#" class="navigation__link link hide-client-acct">Savings</a></li>
+            <li><a href="#" class="navigation__link link log-out">Log out</a></li>
           </ul>
         </div>
-
       </nav>
 
     </div>
     <!--Hidden navigation ends here-->
 
     <!--Navbar starts here-->
-    <nav class="navbar">
+    <div class="navbar">
       <ul>
-        <li class="acct-profile green-bg"><a href="#">Account Profile</a></li>
-        <li class="create-acct"><a href="create-bank-account.html">Create Bank Account</a></li>
-        <li class="transac-history"><a href="transaction-history.html">Transaction History</a></li>
-        <li class="contact"><a href="contact.html">Contact</a></li>
-        <li class="log-out"><a href="../index.html">Log out</a></li>  
-      </ul>
-    </nav>
+         <li class="user-acct green-bg"><a >Account Profile</a></li>
+         <li class="show-acct"><a>Client Account
+          <ul><a>
+            <a href="current-accounts.html"><li>Current</li></a>
+            <a><li >Savings</li></a>
+          </a></ul>
+        </li>
+         <li class="log-out"><a>Log out</a></li>
+       </ul>
+    </div>
     <!--Navbar ends here-->    
 
     <!--Page wrapper (row) starts here-->
@@ -75,28 +76,20 @@
 
         <h1>Account Profile</h1>
 
-        <div class="col-1-of-3">
+        <div class="col-1-of-2">
           <div><i class="far fa-user img-icon"></i>
             <p class="upload" title="Upload Image"><i class="fas fa-camera"></i></p>
             <p class="reset">Reset Password</p>
           </div>
         </div>
 
-        <div class="col-1-of-3 ">
+        <div class="col-1-of-2">
           <div class="detail">Account ID:</div>
-          <div class="detail">Account Number:</div>
+          <div class="detail">First Name:</div>
+          <div class="detail">Last Name:</div>
+          <div class="detail">Email Address</div>
           <div class="detail">Account Type:</div>
           <div class="detail">Date Created:</div>
-          <div class="detail">Account Owner:</div>
-        </div>
-
-
-        <div class="col-1-of-3">
-          <div class="detail">Currency:</div>
-          <div class="detail">Account Status:</div>
-          <div class="detail">Total Credit:</div>
-          <div class="detail">Total Debit:</div>
-          <div class="detail">Account Balance:</div>
         </div>
 
     </div>
