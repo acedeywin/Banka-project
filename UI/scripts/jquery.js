@@ -128,17 +128,29 @@ $(window).on('load', () => {
 	});
 
 	//Modal pop-up functionalities
-	const $viewButton = $('td button');
+	const $viewButton = $('.view');
+	const $resetPassword = $('.reset');
 
 	$viewButton.click(() => {
 		$('.modal').css('display', 'flex');
 		$('.table').css('display', 'none');
-	})
+	});
 
 	$('.close').click(() => {
 		$('.modal').css('display', 'none');
 		$('.table').css('display', 'inline');
-	})
+	});
+
+	$resetPassword.click(() => {
+		$('.modal').css('display', 'flex');
+	});
+
+	$('.reset-close').click(() => {
+		$('.modal').css('display', 'none');
+	});
+	$('.reset-cancel').click(() => {
+		$('.modal').css('display', 'none');
+	});
 });
 
 //Year displayed on the page footer

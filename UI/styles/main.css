@@ -580,19 +580,31 @@ form {
   margin-bottom: 2rem;
 }
 
-.content i {
+.img-icon {
   font-size: 10rem;
-  border: .2rem solid white;
+  border: .2rem solid var(--white-color);
   border-radius: 50%;
   padding: 1rem 2rem 2rem 2rem;
   margin-left: 10rem;
+}
+.upload {
+  position: relative;
+  top: -12rem;
+  left: 21rem;
+  color: var(--white-color);
+  font-size: 2.7rem;
+}
+.upload:hover {
+  color: var(--main-green-color);
+  cursor: pointer;
 }
 
 .content .col-1-of-3 {
   font-size: 1.5rem;
 }
-.content p {
-  text-align: center;
+
+.content .col-1-of-2 {
+  font-size: 1.5rem;
 }
 
 .content .create-account{
@@ -605,7 +617,7 @@ form {
 }
 
 .content .staff-width {
-  width: 28%
+  width: 30%;
 }
 
  table {
@@ -677,6 +689,52 @@ table tr td button:hover {
   height: 60rem;
   background-color: var(--darker-black-color);
   text-align: center;
+}
+
+.reset{
+  margin-left: 11rem;
+  margin-top: -3rem;
+  font-weight: 300
+}
+
+.reset:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.reset-modal{
+  background-color: var(--white-shodow-color);
+}
+.reset-form .textbox{
+  max-width: 80%;
+  padding: 0rem;
+  margin-left: 4rem;
+  margin-top: 2rem;
+}
+
+.reset-content{
+  width: 40rem;
+  height: 35rem;
+  margin-top: 15rem;
+  text-align: left;
+  border-radius: .3rem;
+  box-shadow: 0 1.5rem 4rem var(--content-box-shadow);
+}
+
+.reset-btn{
+ float: right;
+ margin-top: 2rem;
+ margin-right: 4rem;
+}
+
+.reset-close{
+  color: (--white-color);
+  font-size: 5rem;
+  position: relative;
+  top: 12rem;
+  left: 30rem;
+  transform: rotate(45deg);
+  cursor: pointer;
 }
 
 .close {
@@ -849,6 +907,14 @@ table tr td button:hover {
  .signup {
   margin-bottom: -7rem;
  }
+
+ .upload{
+  top: -12rem;
+  left: 10rem;
+ }
+ .reset{
+  margin-left: 16rem;
+}
 }
 
 @media (max-width: 26.563em){/*425px*/
@@ -912,17 +978,18 @@ table tr td button:hover {
   }
 
   td:nth-child(1):before {content: " ";}
-  td:nth-child(2):before {content: "Account ID";}
-  td:nth-child(3):before {content: "Account Name";}
-  td:nth-child(4):before {content: "Account Number";}
-  td:nth-child(5):before {content: "Email Address";}
-  td:nth-child(6):before {content: "Account Type";}
-  td:nth-child(7):before {content: "Date Created";}
-  td:nth-child(8):before {content: "Currency";}
-  td:nth-child(9):before {content: "Account Status";}
-  td:nth-child(10):before {content: "Total Credit";}
-  td:nth-child(11):before {content: "Total Debit";}
-  td:nth-child(12):before {content: "Account Balance";}
+  td:nth-child(2):before {content: " ";}
+  td:nth-child(3):before {content: "Account ID";}
+  td:nth-child(4):before {content: "Account Name";}
+  td:nth-child(5):before {content: "Account Number";}
+  td:nth-child(6):before {content: "Email Address";}
+  td:nth-child(7):before {content: "Account Type";}
+  td:nth-child(8):before {content: "Date Created";}
+  td:nth-child(9):before {content: "Currency";}
+  td:nth-child(10):before {content: "Account Status";}
+  td:nth-child(11):before {content: "Total Credit";}
+  td:nth-child(12):before {content: "Total Debit";}
+  td:nth-child(13):before {content: "Account Balance";}
   
   #user-account td:nth-child(1):before {content: "User ID";}
   #user-account td:nth-child(2):before {content: "First Name";}
