@@ -1,1 +1,6 @@
 language: node_js
+
+push: 
+      git remote add bankatravis https://${TB_TOKEN}@github.com/acedeywin/Banka-project
+
+      git push bankatravis
