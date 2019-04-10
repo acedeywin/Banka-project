@@ -7,6 +7,7 @@ class AdminStaffController{
         res.status(200).send({
             success: true,
             message: 'All Accounts',
+            signupCustomer : bankadb.userSignup,
             savingsBankAccount: bankadb.savingsBankAccount,
             currentBankAccount : bankadb.currentBankAccount,
             adminAccount : bankadb.adminAccount,
@@ -238,15 +239,26 @@ class AdminStaffController{
             err.status = 406;
             return next(err);
         }
+        else if(!req.body.password || !req.body.confirmPassword){
+            let err = new Error('Enter a valid password');
+            err.status = 406;
+            return next(err);
+        }
+        else if(req.body.password !== req.body.confirmPassword){
+            let err = new Error('Password mismatch');
+            err.status = 406;
+            return next(err);
+        }
 
         const createUserAccount = {
+            id : parseInt(req.body.id),
             token : '45erkjherht45495783',
             firstName : req.body.firstName,
             lastName : req.body.lastName,
             userEmail : req.body.userEmail,
             password : req.body.password,
+            confirmPassword : req.body.confirmPassword,
             userAccountType : req.body.userAccountType,
-            id : parseInt(req.body.id),
             accountStatus : 'Active',
             createdOn : new Date(),
             isAdmin : req.body.isAdmin
@@ -269,6 +281,82 @@ class AdminStaffController{
             success: true,
             message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Created Successfully`,
             createUserAccount
+        });
+    }
+
+    //API for user(admin) account profile
+    getAdminProfile(req, res, next){
+
+        const id = parseInt(req.params.id);
+
+        let validUser;
+        
+        bankadb.adminAccount.map((user) => {
+            if (user.id === id) {
+                validUser = user;    
+            }
+        });
+
+        if(!validUser){
+            let err = new Error('User not found');
+            err.status = 404;
+            return next(err);
+        }
+
+        const adminProfile = {
+            id : validUser.id,
+            firstName : validUser.firstName,
+            lastName : validUser.lastName,
+            email : validUser.userEmail,
+            accountType : validUser.accountType,
+            createdOn : validUser.createdOn,
+            accountStatus : validUser.accountStatus,
+        };
+
+        bankadb.adminProfile.push(adminProfile);
+
+        res.status(200).send({
+            success: true,
+            message: `${validUser.accountType} Account Profile`,
+            adminProfile
+        });
+    }
+
+    //API for user(admin) account profile
+    getStaffProfile(req, res, next){
+
+        const id = parseInt(req.params.id);
+
+        let validUser;
+        
+        bankadb.staffAccount.map((user) => {
+            if (user.id === id) {
+                validUser = user;    
+            }
+        });
+
+        if(!validUser){
+            let err = new Error('User not found');
+            err.status = 404;
+            return next(err);
+        }
+
+        const staffProfile = {
+            id : validUser.id,
+            firstName : validUser.firstName,
+            lastName : validUser.lastName,
+            email : validUser.userEmail,
+            accountType : validUser.accountType,
+            createdOn : validUser.createdOn,
+            accountStatus : validUser.accountStatus,
+        };
+
+        bankadb.staffProfile.push(staffProfile);
+
+        res.status(200).send({
+            success: true,
+            message: `${validUser.accountType} Account Profile`,
+            staffProfile
         });
     }
 
@@ -504,11 +592,6 @@ class AdminStaffController{
             err.status = 406;
             return next(err);
         }
-        else if(!req.body.transactionDate){
-            let err = new Error('Date is required');
-            err.status = 406;
-            return next(err);
-        }
         else if(!req.body.staffId){
             let err = new Error('Staff ID is required');
             err.status = 406;
@@ -539,7 +622,7 @@ class AdminStaffController{
             accountNumber : validUser.accountNumber,
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
-            transactionDate : new Date(req.body.transactionDate),
+            transactionDate : Date.now(),
             staffId : parseInt(req.body.staffId),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),
@@ -584,11 +667,7 @@ class AdminStaffController{
             err.status = 406;
             return next(err);
         }
-        else if(!req.body.transactionDate){
-            let err = new Error('Date is required');
-            err.status = 406;
-            return next(err);
-        }
+        
         else if(!req.body.staffId){
             let err = new Error('Staff ID is required');
             err.status = 406;
@@ -619,7 +698,7 @@ class AdminStaffController{
             accountNumber : validUser.accountNumber,
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
-            transactionDate : new Date(req.body.transactionDate),
+            transactionDate : Date.now(),
             staffId : parseInt(req.body.staffId),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),

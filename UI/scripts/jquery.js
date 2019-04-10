@@ -1,5 +1,5 @@
 
-$(window).on('load', () => {
+$(document).ready(() => {
 
 	$('.green-bg').css('background-color', 'rgb(51, 153, 102)')
 	//Navigating through the various login pages
@@ -141,6 +141,7 @@ $(window).on('load', () => {
 		$('.table').css('display', 'inline');
 	});
 
+	//Reset password pop-up functionalities
 	$resetPassword.click(() => {
 		$('.modal').css('display', 'flex');
 	});

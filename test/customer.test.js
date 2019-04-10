@@ -84,7 +84,8 @@ describe('Server', () => {
             fullName : String,
             owner: Number,
             bvnNumber : Number,
-            createdOn : new Date(),
+            dateOfBirth : String,
+            createdOn : Date.now(),
             residentialAddress : String,
             meansOfIdentification : String,
             emailAddress : String,
@@ -159,7 +160,7 @@ describe('Server', () => {
 
         const transactionHistory = {
             id : Number,
-            transactionDate : new Date(),
+            transactionDate : Date.now(),
             accountType : String,
             transactionType : String,
             deposit : Number,

@@ -146,7 +146,7 @@ describe('Server', () => {
             userEmail : String,
             userAccountType : String,
             id : Number,
-            createOn : new Date(),
+            createOn : Date.now(),
             accountStatus : String,
             isAdmin : Boolean
         }
@@ -163,6 +163,33 @@ describe('Server', () => {
                 });
         });
     });
+
+    describe('api/v1/user profile', () => {
+
+        it('should get an admin account profile', () => {
+            request(apiRouter)
+                 .get('/admin-profile/:id')
+                 .set('Accept', 'application/json')
+                 .expect('Content-Type', /json/)
+                 .end((err, res) => {
+                     expect(res.status).to.equal(200)
+                     expect(res.body).to.be.an('array');
+                     expect(res.body).to.deep.equal(bankadb.adminProfile);
+                 });
+         });
+
+         it('should get a staff account profile', () => {
+            request(apiRouter)
+                 .get('/staff-profile/:id')
+                 .set('Accept', 'application/json')
+                 .expect('Content-Type', /json/)
+                 .end((err, res) => {
+                     expect(res.status).to.equal(200)
+                     expect(res.body).to.be.an('array');
+                     expect(res.body).to.deep.equal(bankadb.staffProfile);
+                 });
+         });
+    })
 
     describe('api/v1/admin', () => {
 
@@ -295,7 +322,7 @@ describe('Server', () => {
             accountNumber : String,
             amount : parseFloat(Number),
             typeOfTranscation : String,
-            transactionDate : new Date(),
+            transactionDate : Date.now(),
             staffId : Number,
             transactionType : String,
             totalCredit : String,
@@ -326,7 +353,7 @@ describe('Server', () => {
             accountNumber : String,
             amount : parseFloat(Number),
             typeOfTranscation : String,
-            transactionDate : new Date(),
+            transactionDate : Date.now(),
             staffId : Number,
             transactionType : String,
             totalCredit : String,

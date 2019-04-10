@@ -128,6 +128,11 @@ class CustomerController {
             err.status = 406;
             return next(err);
         }
+        else if(!req.body.dateOfBirth){
+            let err = new Error('Date of Birth is required');
+            err.status = 406;
+            return next(err);
+        }
         else if(!req.body.residentialAddress){
             let err = new Error('Residential Address is required');
             err.status = 406;
@@ -135,6 +140,11 @@ class CustomerController {
         }
         else if(!req.body.meansOfIdentification){
             let err = new Error('Means of Identification is required');
+            err.status = 406;
+            return next(err);
+        }
+        else if(req.body.idNumber){
+            let err = new Error('A valid Identification Number is required');
             err.status = 406;
             return next(err);
         }
@@ -148,8 +158,8 @@ class CustomerController {
             err.status = 406;
             return next(err);
         }
-        else if(isNaN(req.body.idNumber)){
-            let err = new Error('A valid Identification Number is required');
+        else if(req.body.relationshipToNextOfKin){
+            let err = new Error('Relationship to Next of Kin is required');
             err.status = 406;
             return next(err);
         }
@@ -175,19 +185,21 @@ class CustomerController {
             fullName :  `${validUser.firstName} ${validUser.lastName}`,
             owner: validUser.id,
             bvnNumber : parseInt(req.body.bvnNumber),
-            createdOn : new Date(),
+            dateOfBirth : req.body.dateOfBirth,
             residentialAddress : req.body.residentialAddress,
             meansOfIdentification : req.body.meansOfIdentification,
+            idNumber : parseInt(req.body.idNumber),
             emailAddress : validUser.email,
             occupation : req.body.occupation,
             nextOfKin : req.body.nextOfKin,
-            idNumber : parseInt(req.body.idNumber),
+            relationshipToNextOfKin : req.body.relationshipToNextOfKin,
             phoneNumber : validUser.phoneNumber,
             accountType : req.body.accountType,
             accountStatus : 'Active',
             sex: req.body.sex,
             maritalStatus : req.body.maritalStatus,
             currency : 'NGN',
+            createdOn : Date.now(),
             openingBalance : parseFloat(0),
             credit : parseFloat(0),
             debit : parseFloat(0),
@@ -253,7 +265,7 @@ class CustomerController {
 
         res.status(200).send({
             success: true,
-            message: 'Account Profile',
+            message: `${validUser.fullName} Account Profile`,
             accountProfile
         });
     }
@@ -284,6 +296,7 @@ class CustomerController {
         }
 
         const contact = {
+            id : validUser.id,
             fullName : validUser.fullName,
             email : validUser.emailAddress,
             message : req.body.message
@@ -311,7 +324,7 @@ class CustomerController {
         });
 
         if(!validUser){
-            let err = new Error('User not found');
+            let err = new Error('No Transaction found');
             err.status = 404;
             return next(err);
         }

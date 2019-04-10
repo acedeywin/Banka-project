@@ -6,13 +6,15 @@ const userSignup = [], userLogin = [], staffLogin = [], adminLogin = [],
 
      staffAccount = [], adminAccount = [], transactions = [], maindb = [],
 
-     history = [], userProfile = [], accountProfile = [], allHistory = [],
-     
-     allAccount = [];
+     history = [], userProfile = [], accountProfile = [], adminProfile = [],
+    
+     staffProfile = [], userImages = [], allAccount = [];
 
 export default {
     allAccount : allAccount,
-    allHistory : allHistory,
+    userImages : userImages,
+    staffProfile : staffProfile,
+    adminProfile : adminProfile,
     accountProfile : accountProfile,
     userProfile : userProfile,
     history : history,
