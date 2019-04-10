@@ -4,8 +4,7 @@
   "description": "core banking app",
   "main": "server.js",
   "scripts": {
-    "start": "node_modules/.bin/nodemon server.js --exec babel-node --",
-    "test": "mocha --require babel-register"
+    "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
   },
   "repository": {
     "type": "git",

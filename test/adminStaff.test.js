@@ -23,7 +23,7 @@ describe('Server', () => {
     });
 
     describe('api/v1/bank-accounts', () => {
-        it('admin should get all bank accounts from memory', () => {
+        it('admin should get all accounts from memory', () => {
            request(apiRouter)
                 .get('/all')
                 .set('Accept', 'application/json')
