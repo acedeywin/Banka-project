@@ -260,7 +260,7 @@ class AdminStaffController{
             confirmPassword : req.body.confirmPassword,
             userAccountType : req.body.userAccountType,
             accountStatus : 'Active',
-            createdOn : new Date(),
+            createdOn : Date.now(),
             isAdmin : req.body.isAdmin
         }  
     

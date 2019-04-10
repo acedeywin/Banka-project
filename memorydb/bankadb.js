@@ -1,4 +1,5 @@
 //Math.floor(1000 + Math.random() * 9000)
+//"test": "mocha --require babel-polyfill --require babel-register"
 
 const userSignup = [], userLogin = [], staffLogin = [], adminLogin = [],
 

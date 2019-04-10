@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
-  },
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acedeywin/Banka-project.git"
@@ -23,6 +23,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
@@ -32,7 +33,8 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "eslint": "^5.15.3",
-    "mocha": "^6.0.2",
+    "express": "^4.16.4",
+    "mocha": "^6.1.2",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"
   }
