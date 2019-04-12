@@ -8,7 +8,7 @@ node_modules
 
 apiArchives
 
-.env
+*/.env
 
 .nyc_output
 

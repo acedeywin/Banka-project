@@ -40,10 +40,13 @@ app.use((err, req, res, next) => {
 });
 
 //listen for request
-const PORT = 3005;
-const server = app.listen(process.env.port || PORT, () => {
-    console.log(`Server is up @ ${PORT}... And running!!!`);
-});
+let port = process.env.PORT;
+
+if (port == null || port == "") {
+  port = 3005;
+  console.log(`Server is up @ ${PORT}... And running!!!`);
+}
+app.listen(port);
 
 export default server;
 
