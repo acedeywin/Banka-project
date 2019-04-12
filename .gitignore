@@ -11,3 +11,5 @@ apiArchives
 .env
 
 .nyc_output
+
+npm-debug.log
