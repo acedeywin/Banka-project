@@ -1,6 +1,6 @@
 //Math.floor(1000 + Math.random() * 9000)
 //"test": "mocha --require babel-polyfill --require babel-register"
-
+//nyc --require babel-core/register mocha server/test/**.test.js --exit -w --runInBand
 const userSignup = [], userLogin = [], staffLogin = [], adminLogin = [],
 
      savingsBankAccount = [], currentBankAccount = [], contactMessage = [],
