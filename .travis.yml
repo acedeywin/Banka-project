@@ -10,5 +10,12 @@ before_script:
 script:
 - npm run test-single
 after_success: npm run coverage
+deploy:
+  provider: heroku
+  api_key: 0b7f3950-27e6-44ae-97e6-e8a96950b8cd
+  app: Banka-project
+  on:
+    repo: acedeywin/Banka-project
+    branch: develop
 
 

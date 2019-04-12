@@ -8,3 +8,7 @@ deposit money
 
 [![Build Status](https://travis-ci.com/acedeywin/Banka-project.svg?branch=develop)](https://travis-ci.com/acedeywin/Banka-project)
 
+[![Coverage Status](https://coveralls.io/repos/github/acedeywin/Banka-project/badge.svg?branch=develop)](https://coveralls.io/github/acedeywin/Banka-project?branch=develop)
+
+
+
