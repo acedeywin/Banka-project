@@ -12,7 +12,7 @@ script:
 after_success: npm run coverage
 deploy:
   provider: heroku
-  api_key: 0b7f3950-27e6-44ae-97e6-e8a96950b8cd
+  api_key: 1e18feba-bc2f-41d5-84b3-62d28ead1ac9
   app: Banka-project
   on:
     repo: acedeywin/Banka-project
