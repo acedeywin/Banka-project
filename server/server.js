@@ -41,12 +41,11 @@ app.use((err, req, res, next) => {
 
 //listen for request
 let port = process.env.PORT;
-
 if (port == null || port == "") {
   port = 3005;
-  console.log(`Server is up @ ${PORT}... And running!!!`);
+  console.log(`Server is up @ ${port}... And running!!!`);
 }
-app.listen(port);
+const server = app.listen(port);
 
 export default server;
 
