@@ -4,14 +4,15 @@
   "description": "core banking app",
   "main": "server.js",
   "scripts": {
-    "start": "node_modules/.bin/nodemon server/server.js --exec babel-node --",
+    "start": "node server/dist/app.js",
+		            "build": "babel server -d server/dist",
+    "start-dev": "nodemon --exec babel-node server/server.js",
     "test": "nyc --require babel-core/register mocha server/test/**.test.js --exit -w",
-    "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit --runInBand",
+            "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acedeywin/Banka-project.git"
+  "bin": {
+    "coveralls": "./bin/coveralls.js"
   },
   "author": "acedeywin",
   "license": "ISC",
@@ -44,5 +45,8 @@
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "supertest": "^4.0.2"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   }
 }
