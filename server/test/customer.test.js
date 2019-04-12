@@ -1,8 +1,8 @@
-import server from '../server';
-//import apiRouter from '../routers/apiRouter';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import request from 'supertest';
+import server from '../server';
+import apiRouter from '../routers/apiRouter';
+//import request from 'supertest';
 
 const {expect} = chai;
       
@@ -11,7 +11,7 @@ chai.use(chaiHttp);
     //Test for the signup API
     describe('api/v1/signup', () => {
 
-        const signup = {
+        const signupTest = {
             id : 1234,
             email : "me@wor.com",
             firstName : "Tom",
@@ -24,15 +24,14 @@ chai.use(chaiHttp);
             isAdmin: false
         }; 
     
-        it('Should create a customer', () => {
-          request(server)
+        it('Should create a customer', (done) => {
+          chai.request(server)
                 .post('/signup')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .send(signup)
-                .end((err, res) => {
+                .send(signupTest)
+                .end((err, res,) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    done();
                 });
         }); 
     });
@@ -49,14 +48,13 @@ chai.use(chaiHttp);
             token : '45erkjherht45495783'
         }
     
-        it('Should login in a customer', () => {
-            request(server)
+        it('Should login in a customer', (done) => {
+            chai.request(server)
                 .post('/customer-login/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
+                    done();
                 });
         });    
     });
@@ -91,28 +89,26 @@ chai.use(chaiHttp);
             newBalance : 0
         };
 
-        it('Customer should be able to create account', () => {
-            request(server)
+        it('Customer should be able to create account', (done) => {
+            chai.request(server)
                 .post('/create-bank-account/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
+                    done();
                 });
         }); 
     });
 
     describe('api/v1/account-profile/:id', () => {
 
-        it('should get a customer account profile', () => {
-            request(server)
+        it('should get a customer account profile', (done) => {
+            chai.request(server)
                  .get('/account-profile/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200)
                      expect(res.body).to.be.an('object');
+                     done();
                  });
          });
     })
@@ -125,14 +121,13 @@ chai.use(chaiHttp);
             message : "Hello world"
         };
 
-        it('Customer should be able to send messages', () => {
-            request(server)
+        it('Customer should be able to send messages', (done) => {
+            chai.request(server)
                 .post('/contact/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
+                    done();
                 });        
         });
     });
@@ -149,14 +144,13 @@ chai.use(chaiHttp);
             balance : 5000
         };
 
-        it('Customer should be able to view their account transaction history', () => {
-            request(server)
+        it('Customer should be able to view their account transaction history', (done) => {
+            chai.request(server)
                 .post('/transaction-history/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
+                    done();
                 });        
         });
     });    

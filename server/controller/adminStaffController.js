@@ -253,7 +253,6 @@ class AdminStaffController{
 
         const createUserAccount = {
             id : parseInt(req.body.id),
-            token : '45erkjherht45495783',
             firstName : req.body.firstName,
             lastName : req.body.lastName,
             userEmail : req.body.userEmail,
@@ -282,7 +281,7 @@ class AdminStaffController{
         return res.status(200).send({
             success: true,
             message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Created Successfully`,
-            createUserAccount
+            createUserAccount: createUserAccount
         });
     }
 

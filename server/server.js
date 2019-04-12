@@ -6,15 +6,18 @@ import apiRouter from './routers/apiRouter';
 const  app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));
 app.use(express.static('./UI'));
 
 //Mount the routers
 app.use('/api/v1', apiRouter);
 
-app.use((req, res) => {
+//Handling non-error input
+app.use( (req, res) => {
     res.status(200);
-    res.json({
+    res.send({
         message: "200 OK"
     })
 })

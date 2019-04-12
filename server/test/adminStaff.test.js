@@ -1,114 +1,129 @@
-import server from '../server';
-//import apiRouter from '../routers/apiRouter';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import request from 'supertest';
+import server from '../server';
+//import apiRouter from '../routers/apiRouter';
+//import request from 'supertest';
+import adminStaffController from '../controller/adminStaffController';
 
-const {expect} = chai;
+const {expect, assert} = chai;
 
 chai.use(chaiHttp);
 
+    // describe('class constructor', () => {
+        
+    //     //class adminStaffController.createUserAccount{.to.have.nested.property('id');};
+
+    //     it('should get all user account', (done) => {
+    //         expect(adminStaffController.getAllUserAccount()).to.have.property('object');
+    //         done();
+    //     })
+    // })
+
     describe('api/v1/bank-accounts', () => {
-        it('admin should get all accounts from memory', () => {
-           request(server)
+        it('admin should get all accounts from memory', (done) => {
+            chai.request(server)
                 .get('/all')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
 
     describe('api/v1/ get bank accounts', () => {
         
-        it('admin should get a speciific savings account from memory', () => {
-           request(server)
+        it('admin should get a speciific savings account from memory', (done) => {
+            chai.request(server)
                 .get('/savings-accounts/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
 
-        it('admin should get all savings account from memory', () => {
-            request(server)
+        it('admin should get all savings account from memory', (done) => {
+            chai.request(server)
                  .get('/savings-accounts')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
 
-        it('admin should get a speciific current account from memory', () => {
-            request(server)
+        it('admin should get a speciific current account from memory', (done) => {
+            chai.request(server)
                  .get('/current-accounts/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
 
-         it('admin should get all current account from memory', () => {
-            request(server)
+         it('admin should get all current account from memory', (done) => {
+            chai.request(server)
                  .get('/current-accounts')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
     });
 
     describe('api/v1/ delete a bank account', () => {
-        it('admin should be able to delete a savings account', () => {
-           request(server)
+        it('admin should be able to delete a savings account', (done) => {
+            chai.request(server)
                 .delete('/savings-accounts/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
 
-        it('admin should be able to delete a current account', () => {
-            request(server)
+        it('admin should be able to delete a current account', (done) => {
+            chai.request(server)
                  .delete('/current-accounts/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
+                     expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
         });
     });
 
     describe('api/v1/ activate/deactivate a bank account', () => {
 
-        it('admin should be able to activate/deactivate a savings account', () => {
-           request(server)
+        it('admin should be able to activate/deactivate a savings account', (done) => {
+            chai.request(server)
                 .patch('/savings-accounts/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
 
-        it('admin should be able to activate/deactivate a current account', () => {
-            request(server)
+        it('admin should be able to activate/deactivate a current account', (done) => {
+            chai.request(server)
                  .patch('/current-accounts/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
+                     expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
     });
@@ -127,39 +142,40 @@ chai.use(chaiHttp);
             isAdmin : Boolean
         }
 
-        it('admin should be able to create user(staff/admin) accounts', () => {
-           request(server)
+        it('admin should be able to create user(staff/admin) accounts', (done) => {
+            chai.request(server)
                 .post('/create-user-account')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+                .send(createUserAccount)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);          
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
 
     describe('api/v1/user profile', () => {
 
-        it('should get an admin account profile', () => {
-            request(server)
+        it('should get an admin account profile', (done) => {
+            chai.request(server)
                  .get('/admin-profile/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
 
-         it('should get a staff account profile', () => {
-            request(server)
+         it('should get a staff account profile', (done) => {
+            chai.request(server)
                  .get('/staff-profile/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200)
                      expect(res.body).to.be.an('object');
+                     expect(res.body).to.have.property('message');
+                     done();
                  });
          });
     })
@@ -167,25 +183,25 @@ chai.use(chaiHttp);
     describe('api/v1/ view admin and staff account', () => {
 
 
-        it('admin should be able to view all user (admin) account', () => {
-           request(server)
+        it('admin should be able to view all user (admin) account', (done) => {
+            chai.request(server)
                 .get('/admin')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
-                    //expect(res.status).to.equal(200);
+                    expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
 
-        it('admin should be able to view all user (staff) account', () => {
-           request(server)
+        it('admin should be able to view all user (staff) account', (done) => {
+            chai.request(server)
                 .get('/staff')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
-                    //expect(res.status).to.equal(200);
+                    expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
@@ -198,77 +214,81 @@ chai.use(chaiHttp);
             password : "123wer",
         }
     
-        it('Should login in a user(admin)', () => {
-            request(server)
+        it('Should login in a user(admin)', (done) => {
+            chai.request(server)
                 .post('/admin-login/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         }); 
         
-        it('Should login in a user(staff)', () => {
-            request(server)
+        it('Should login in a user(staff)', (done) => {
+            chai.request(server)
                 .post('/staff-login/:id')
-                .set('Accept', 'appplication/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         }); 
     });
 
     describe('api/v1/admin/:id', () => {
 
-        it('admin should be able to delete a user (admin) account', () => {
-           request(server)
+        it('admin should be able to delete a user (admin) account', (done) => {
+            chai.request(server)
                 .delete('/admin/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
 
     describe('api/v1/staff/:id', () => {
 
-        it('admin should be able to delete a user (staff) account', () => {
-           request(server)
+        it('admin should be able to delete a user (staff) account', (done) => {
+           chai.request(server)
                 .delete('/staff/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
 
     describe('api/v1/staff/:id', () => {
 
-        it('admin should be able to activate/deactivate a user (staff) account', () => {
-           request(server)
+        it('admin should be able to activate/deactivate a user (staff) account', (done) => {
+           chai.request(server)
                 .patch('/staff/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
 
     describe('api/v1/admin/:id', () => {
 
-        it('admin should be able to activate/deactivate a user (admin) account', () => {
-           request(server)
+        it('admin should be able to activate/deactivate a user (admin) account', (done) => {
+           chai.request(server)
                 .patch('/admin/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
@@ -290,14 +310,14 @@ chai.use(chaiHttp);
             newBalance : 0
         }
 
-        it('staff should ba able to credit/debit a current account', () => {
-           request(server)
+        it('staff should ba able to credit/debit a current account', (done) => {
+           chai.request(server)
                 .put('/current-accounts/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });
@@ -318,14 +338,14 @@ chai.use(chaiHttp);
             oldBalance : 0,
             newBalance : 0
         }
-        it('staff should ba able to credit/debit a savings account', () => {
-           request(server)
+        it('staff should ba able to credit/debit a savings account', (done) => {
+           chai.request(server)
                 .put('/savings-accounts/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('message');
+                    done();
                 });
         });
     });

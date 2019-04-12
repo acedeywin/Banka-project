@@ -2,7 +2,7 @@ import server from '../server';
 //import apiRouter from '../routers/apiRouter';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import request from 'supertest';
+//import request from 'supertest';
 
 const {expect} = chai;
 
@@ -17,36 +17,33 @@ chai.use(chaiHttp);
             confirmPassword : "1234wer"
         }
     
-        it('Customer should be able to reset account password', () => {
-         request(server)
+        it('Customer should be able to reset account password', (done) => {
+            chai.request(server)
                 .put('/customer-reset-password/:id')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    done();
                 });
         });
 
-        it('Admin should be able to reset account password', () => {
-            request(server)
+        it('Admin should be able to reset account password', (done) => {
+            chai.request(server)
                  .put('/admin-reset-password/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     done();
                  });
          });
 
-         it('Staff should be able to reset account password', () => {
-            request(server)
+         it('Staff should be able to reset account password', (done) => {
+            chai.request(server)
                  .put('/staff-reset-password/:id')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
+                     done();
                  });
          });
     });
@@ -55,14 +52,13 @@ chai.use(chaiHttp);
         const storage = {};
          const upload = {};
 
-        it('should be able to upload an image', () => {
-            request(server)
+        it('should be able to upload an image', (done) => {
+            chai.request(server)
                  .put('/uploads')
-                 .set('Accept', 'application/json')
-                 .expect('Content-Type', /json/)
                  .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
+                    done();
                  })
         })
     })
