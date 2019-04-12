@@ -5,10 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/dist/app.js",
-		            "build": "babel server -d server/dist",
+    "build": "babel server -d server/dist",
     "start-dev": "nodemon --exec babel-node server/server.js",
     "test": "nyc --require babel-core/register mocha server/test/**.test.js --exit -w",
-            "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit",
+    "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "bin": {
@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/acedeywin/Banka-project/issues"
   },
-  "homepage": "https://github.com/acedeywin/Banka-project#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
