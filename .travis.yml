@@ -6,7 +6,5 @@ cache:
   directories:
   - node_modules
 
-push: 
-      git remote add bankatravis https://${TB_TOKEN}@github.com/acedeywin/Banka-project
+install: travis_wait mvn install
 
-      git push bankatravis

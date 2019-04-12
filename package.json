@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node_modules/.bin/nodemon server/server.js --exec babel-node --",
-    "test": "mocha server/test/**.test.js --require babel-polyfill --require babel-register",
+    "test": "nyc --require babel-core/register mocha server/test/**.test.js --exit -w",
     "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit --runInBand",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
