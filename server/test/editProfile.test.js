@@ -1,68 +1,52 @@
 import server from '../server';
-import apiRouter from '../routers/apiRouter';
+//import apiRouter from '../routers/apiRouter';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import request from 'supertest';
 
-const expect = chai.expect();
+const {expect} = chai;
 
 chai.use(chaiHttp);
 
-describe('Server', () => {
-
-    //Start server.js before running test
-    before((done) => {
-        server;
-        done();
-    });
-        
-    //Close server after running test
-    after((done) => {
-        server.close();
-        done();
-    });
-
+    
     describe('api/v1/reset-password', () => {
 
         const resetPassword = {
-            id : Number,
-            password : String,
-            confirmPassword : String
+            id : 1234,
+            password : "1234wer",
+            confirmPassword : "1234wer"
         }
     
         it('Customer should be able to reset account password', () => {
-           request(apiRouter)
+         request(server)
                 .put('/customer-reset-password/:id')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
-                    expect(err.status).to.equal(404);
-                    expect(resetPassword.res.body).to.be.an('object');
+                    expect(res.body).to.be.an('object');
                 });
         });
 
         it('Admin should be able to reset account password', () => {
-            request(apiRouter)
+            request(server)
                  .put('/admin-reset-password/:id')
                  .set('Accept', 'application/json')
                  .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
-                     expect(err.status).to.equal(404);
-                     expect(resetPassword.res.body).to.be.an('object');
+                     expect(res.body).to.be.an('object');
                  });
          });
 
          it('Staff should be able to reset account password', () => {
-            request(apiRouter)
+            request(server)
                  .put('/staff-reset-password/:id')
                  .set('Accept', 'application/json')
                  .expect('Content-Type', /json/)
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
-                     expect(err.status).to.equal(404);
-                     expect(resetPassword.res.body).to.be.an('object');
+                     expect(res.body).to.be.an('object');
                  });
          });
     });
@@ -72,19 +56,15 @@ describe('Server', () => {
          const upload = {};
 
         it('should be able to upload an image', () => {
-            request(apiRouter)
+            request(server)
                  .put('/uploads')
                  .set('Accept', 'application/json')
                  .expect('Content-Type', /json/)
                  .end((err, res) => {
                     expect(res.status).to.equal(200);
-                    expect(err.status).to.equal(406).to.be.an(error);
-                    expect(storage.res.body).to.be.an('object');
-                    expect(upload.res.body).to.be.an('object');
+                    expect(res.body).to.be.an('object');
                  })
         })
     })
 
-
-});
 

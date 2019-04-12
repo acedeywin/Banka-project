@@ -1,4 +1,5 @@
 import bankadb from '../memorydb/bankadb';
+import createToken from '../lib/token';
 
 class CustomerController {
 
@@ -36,23 +37,23 @@ class CustomerController {
         }
 
         const signup = {
-            id : 1000 + bankadb.userSignup.length,
+            id : req.body.id = 1000 + bankadb.userSignup.length,
             email : req.body.email,
             firstName : req.body.firstName,
             lastName : req.body.lastName,
             phoneNumber : parseInt(req.body.phoneNumber),
             password: req.body.password,
             confirmPassword : req.body.confirmPassword,
-            token : '45erkjherht45495783',
-            type : req.body.type = 'customer',
-            };       
-    
+            accountType : 'Customer',
+            token : createToken(req.body.token)
+        };       
+
         bankadb.userSignup.push(signup);
         
         return res.status(200).send({
         success: true,
         message: 'You have succesfully signed up!',
-        signup
+        signup,
         });           
     }
 
@@ -92,7 +93,7 @@ class CustomerController {
             password : req.body.password,
             firstName : validUser.firstName,
             lastName : validUser.lastName,
-            token : validUser.token
+            token : createToken(validUser.token)
         }
     
        bankadb.userLogin.push(login);
@@ -100,7 +101,7 @@ class CustomerController {
         res.status(200).send({
             success: true,
             message: 'Login Successful',
-            login
+            login,
         });
     }
 
@@ -143,7 +144,7 @@ class CustomerController {
             err.status = 406;
             return next(err);
         }
-        else if(req.body.idNumber){
+        else if(!req.body.idNumber){
             let err = new Error('A valid Identification Number is required');
             err.status = 406;
             return next(err);
@@ -199,7 +200,7 @@ class CustomerController {
             sex: req.body.sex,
             maritalStatus : req.body.maritalStatus,
             currency : 'NGN',
-            createdOn : Date.now(),
+            createdOn : new Date(),
             openingBalance : parseFloat(0),
             credit : parseFloat(0),
             debit : parseFloat(0),

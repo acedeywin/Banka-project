@@ -7,3 +7,7 @@ UI/images/signup.jpg
 node_modules
 
 apiArchives
+
+.env
+
+.nyc_output

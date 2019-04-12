@@ -1,4 +1,5 @@
 import bankadb from '../memorydb/bankadb';
+import createToken from '../lib/token';
 
 class AdminStaffController{
 
@@ -10,8 +11,8 @@ class AdminStaffController{
             signupCustomer : bankadb.userSignup,
             savingsBankAccount: bankadb.savingsBankAccount,
             currentBankAccount : bankadb.currentBankAccount,
-            adminAccount : bankadb.adminAccount,
-            staffAccount : bankadb.staffAccount,
+            adminAccount : bankadb.adminUserAccount,
+            staffAccount : bankadb.staffUserAccount,
             transactions : bankadb.transactions
         });
     }
@@ -52,7 +53,7 @@ class AdminStaffController{
             return next(err);
         }
 
-        res.status(200).send({
+        return res.status(200).send({
             success: true,
             message: `${validUser.fullName}'s ${validUser.accountType} Account Profile`,
             validUser
@@ -199,7 +200,7 @@ class AdminStaffController{
         res.status(200).send({
             success: true,
             message: 'Admin User Accounts',
-            adminAccount: bankadb.adminAccount
+            adminAccount: bankadb.adminUserAccount
         });
     }
 
@@ -208,7 +209,7 @@ class AdminStaffController{
         res.status(200).send({
             success: true,
             message: 'Staff User Accounts',
-            staffAccount: bankadb.staffAccount
+            staffAccount: bankadb.staffUserAccount
         });
     }
 
@@ -260,24 +261,25 @@ class AdminStaffController{
             confirmPassword : req.body.confirmPassword,
             userAccountType : req.body.userAccountType,
             accountStatus : 'Active',
-            createdOn : Date.now(),
-            isAdmin : req.body.isAdmin
+            createdOn : new Date(),
+            isAdmin : req.body.isAdmin,
+            token : createToken(req.body.token)
         }  
     
         if(req.body.userAccountType == 'Staff'){
             req.body.isAdmin = false;
-            bankadb.staffAccount.push(createUserAccount);
+            bankadb.staffUserAccount.push(createUserAccount);
         }
         else if(req.body.userAccountType == 'Admin'){
             req.body.isAdmin = true;
-            bankadb.adminAccount.push(createUserAccount)
+            bankadb.adminUserAccount.push(createUserAccount)
         }else{
             let err = new Error('Account Type not defined');
             err.status = 406;
             return next(err);
         }
     
-        res.status(200).send({
+        return res.status(200).send({
             success: true,
             message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Created Successfully`,
             createUserAccount
@@ -291,7 +293,7 @@ class AdminStaffController{
 
         let validUser;
         
-        bankadb.adminAccount.map((user) => {
+        bankadb.adminUserAccount.map((user) => {
             if (user.id === id) {
                 validUser = user;    
             }
@@ -315,7 +317,7 @@ class AdminStaffController{
 
         bankadb.adminProfile.push(adminProfile);
 
-        res.status(200).send({
+        return res.status(200).send({
             success: true,
             message: `${validUser.accountType} Account Profile`,
             adminProfile
@@ -329,7 +331,7 @@ class AdminStaffController{
 
         let validUser;
         
-        bankadb.staffAccount.map((user) => {
+        bankadb.staffUserAccount.map((user) => {
             if (user.id === id) {
                 validUser = user;    
             }
@@ -367,7 +369,7 @@ class AdminStaffController{
     
             let validUser;
             
-            bankadb.adminAccount.map((user) => {
+            bankadb.adminUserAccount.map((user) => {
                 if (user.id === id) {
                     validUser = user;            
                 }
@@ -396,7 +398,7 @@ class AdminStaffController{
                 password : req.body.password,
                 firstName : validUser.firstName,
                 lastName : validUser.lastName,
-                token : validUser.token
+                token : createToken(validUser.token)
             }
         
            bankadb.adminLogin.push(login);
@@ -415,7 +417,7 @@ class AdminStaffController{
     
             let validUser;
             
-            bankadb.staffAccount.map((user) => {
+            bankadb.staffUserAccount.map((user) => {
                 if (user.id === id) {
                     validUser = user;            
                 }
@@ -444,7 +446,7 @@ class AdminStaffController{
                 password : req.body.password,
                 firstName : validUser.firstName,
                 lastName : validUser.lastName,
-                token : validUser.token
+                token : createToken(validUser.token)
             }
         
            bankadb.staffLogin.push(login);
@@ -461,10 +463,10 @@ class AdminStaffController{
         const id = parseInt(req.params.id);
         let validUser;
 
-        bankadb.adminAccount.map((user, index) => {
+        bankadb.adminUserAccount.map((user, index) => {
             if (user.id === id) {
                 validUser = user
-                bankadb.adminAccount.splice(index, 1);
+                bankadb.adminUserAccount.splice(index, 1);
             }
         });
 
@@ -485,10 +487,10 @@ class AdminStaffController{
         const id = parseInt(req.params.id);
         let validUser;
 
-        bankadb.staffAccount.map((user, index) => {
+        bankadb.staffUserAccount.map((user, index) => {
             if (user.id === id) {
                 validUser = user
-                bankadb.staffAccount.splice(index, 1);
+                bankadb.staffUserAccount.splice(index, 1);
             }
         });
 
@@ -509,7 +511,7 @@ class AdminStaffController{
         const id = parseInt(req.params.id);
         let validUser;
 
-        bankadb.adminAccount.map((user) => {
+        bankadb.adminUserAccount.map((user) => {
             if (user.id === id) {
                 validUser = user;
             }
@@ -540,7 +542,7 @@ class AdminStaffController{
         const id = parseInt(req.params.id);
         let validUser;
 
-        bankadb.staffAccount.map((user) => {
+        bankadb.staffUserAccount.map((user) => {
             if (user.id === id) {
                 validUser = user;
             }
@@ -622,7 +624,7 @@ class AdminStaffController{
             accountNumber : validUser.accountNumber,
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
-            transactionDate : Date.now(),
+            transactionDate : new Date(),
             staffId : parseInt(req.body.staffId),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),
@@ -698,7 +700,7 @@ class AdminStaffController{
             accountNumber : validUser.accountNumber,
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
-            transactionDate : Date.now(),
+            transactionDate : new Date(),
             staffId : parseInt(req.body.staffId),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),

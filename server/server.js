@@ -12,6 +12,13 @@ app.use(express.static('./UI'));
 //Mount the routers
 app.use('/api/v1', apiRouter);
 
+app.use((req, res) => {
+    res.status(200);
+    res.json({
+        message: "200 OK"
+    })
+})
+
 //Catch error
 app.use((req, res, next) => {
     let err = new Error('Not found');

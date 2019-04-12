@@ -5,7 +5,7 @@ const userSignup = [], userLogin = [], staffLogin = [], adminLogin = [],
 
      savingsBankAccount = [], currentBankAccount = [], contactMessage = [],
 
-     staffAccount = [], adminAccount = [], transactions = [], maindb = [],
+     staffUserAccount = [], adminUserAccount = [], transactions = [], maindb = [],
 
      history = [], userProfile = [], accountProfile = [], adminProfile = [],
     
@@ -21,8 +21,8 @@ export default {
     history : history,
     maindb : maindb,
     transactions : transactions,
-    adminAccount : adminAccount,
-    staffAccount : staffAccount,
+    adminUserAccount : adminUserAccount,
+    staffUserAccount : staffUserAccount,
     contactMessage : contactMessage,
     currentBankAccount : currentBankAccount,
     savingsBankAccount : savingsBankAccount,
