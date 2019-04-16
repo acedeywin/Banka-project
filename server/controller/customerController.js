@@ -53,17 +53,7 @@ class CustomerController {
         return res.status(200).send({
         success: true,
         message: 'You have succesfully signed up!',
-        signup:{
-            id : req.body.id = 1000 + bankadb.userSignup.length,
-            email : req.body.email,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            phoneNumber : parseInt(req.body.phoneNumber),
-            password: req.body.password,
-            confirmPassword : req.body.confirmPassword,
-            accountType : 'Customer',
-            token : createToken(req.body.token)
-        }
+        signup
         });           
     }
 
