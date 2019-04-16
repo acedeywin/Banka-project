@@ -366,7 +366,9 @@ class AdminStaffController{
 
             const id = parseInt(req.params.id);
     
-            let validUser;
+            let validUser,
+                err = new Error('Invalid User');
+                err.status = 404;
             
             bankadb.adminUserAccount.map((user) => {
                 if (user.id === id) {
@@ -374,20 +376,14 @@ class AdminStaffController{
                 }
             });
     
-            if(!validUser){
-                let err = new Error('User not found');
-                err.status = 404;
+            if(!validUser){   
                 return next(err);
             }
     
             if(req.body.email !== validUser.userEmail){
-                let err = new Error('A valid email is required');
-                err.status = 406;
                 return next(err);
             }
             else if(req.body.password !== validUser.password){
-                    let err = new Error('A valid password is required');
-                    err.status = 406;
                     return next(err);
             }
     
@@ -414,7 +410,9 @@ class AdminStaffController{
 
             const id = parseInt(req.params.id);
     
-            let validUser;
+            let validUser,
+                err = new Error('Invalid User');
+                err.status = 404;
             
             bankadb.staffUserAccount.map((user) => {
                 if (user.id === id) {
@@ -423,19 +421,13 @@ class AdminStaffController{
             });
     
             if(!validUser){
-                let err = new Error('User not found');
-                err.status = 404;
                 return next(err);
             }
     
             if(req.body.email !== validUser.userEmail){
-                let err = new Error('A valid email is required');
-                err.status = 406;
                 return next(err);
             }
             else if(req.body.password !== validUser.password){
-                    let err = new Error('A valid password is required');
-                    err.status = 406;
                     return next(err);
             }
     
@@ -624,14 +616,13 @@ class AdminStaffController{
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
             transactionDate : new Date(),
-            staffId : parseInt(req.body.staffId),
+            cashier : parseInt(req.body.cashier),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),
             totalDebit : validUser.totalDebit.toString(),
             oldBalance : validUser.oldBalance.toString(),
             newBalance : validUser.newBalance.toString()
-        }
-        
+        }    
     
         bankadb.transactions.push(accountTransactions);
     
@@ -700,7 +691,7 @@ class AdminStaffController{
             amount : parseFloat(req.body.amount),
             accountType : validUser.accountType,
             transactionDate : new Date(),
-            staffId : parseInt(req.body.staffId),
+            cashier : parseInt(req.body.cashier),
             transactionType : req.body.transactionType,
             totalCredit : validUser.totalCredit.toString(),
             totalDebit : validUser.totalDebit.toString(),
