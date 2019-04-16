@@ -52,7 +52,7 @@ class CustomerController {
         
         return res.status(200).send({
         success: true,
-        message: 'You have succesfully signed up!',
+        message: 'You have succesfully signed up',
         signup
         });           
     }

@@ -273,7 +273,7 @@ class AdminStaffController{
             req.body.isAdmin = true;
             bankadb.adminUserAccount.push(createUserAccount)
         }else{
-            let err = new Error('Account Type not defined');
+            let err = new Error('Account type not defined');
             err.status = 406;
             return next(err);
         }
