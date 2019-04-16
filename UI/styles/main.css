@@ -633,7 +633,7 @@ form {
 table, td {
   border: .1rem solid var(--main-green-color);
   border-collapse: collapse;
-  font-size: 1.24rem
+  font-size: 1.55rem
 }
 
 th, td {
@@ -663,6 +663,10 @@ table tr td button:hover {
   cursor: pointer;
 }
 
+.trans-history{
+  width: 90%;
+}
+
 #header {
   background-color: var(--main-green-color);
   border-left: solid var(--white-color);
@@ -685,8 +689,8 @@ table tr td button:hover {
   margin-top: 2rem;
   margin-left: auto;
   margin-right: auto;
-  width: 60rem;
-  height: 60rem;
+  width: 80%;
+  height: 60%;
   background-color: var(--darker-black-color);
   text-align: center;
 }
@@ -814,6 +818,11 @@ table tr td button:hover {
   .textbox i {
   margin-left: 29rem 
   }
+
+  .trans-history{
+    width: 70%;
+  }
+
 }
 
 @media (max-width: 56.25em){/*908px*/
@@ -914,7 +923,8 @@ table tr td button:hover {
  }
  .reset{
   margin-left: 16rem;
-}
+ }
+ 
 }
 
 @media (max-width: 26.563em){/*425px*/
@@ -977,19 +987,21 @@ table tr td button:hover {
     font-size: 2rem
   }
 
-  td:nth-child(1):before {content: " ";}
-  td:nth-child(2):before {content: " ";}
-  td:nth-child(3):before {content: "Account ID";}
-  td:nth-child(4):before {content: "Account Name";}
-  td:nth-child(5):before {content: "Account Number";}
-  td:nth-child(6):before {content: "Email Address";}
-  td:nth-child(7):before {content: "Account Type";}
-  td:nth-child(8):before {content: "Date Created";}
-  td:nth-child(9):before {content: "Currency";}
-  td:nth-child(10):before {content: "Account Status";}
-  td:nth-child(11):before {content: "Total Credit";}
-  td:nth-child(12):before {content: "Total Debit";}
-  td:nth-child(13):before {content: "Account Balance";}
+  td:nth-child(1):before {content: "Account ID";}
+  td:nth-child(2):before {content: "Account Name";}
+  td:nth-child(3):before {content: "Account Number";}
+  td:nth-child(4):before {content: "Email Address";}
+  td:nth-child(5):before {content: "Account Type";}
+  td:nth-child(6):before {content: "Date Created";}
+  td:nth-child(7):before {content: "Currency";}
+  td:nth-child(8):before {content: "Account Status";}
+  td:nth-child(9):before {content: "Total Credit";}
+  td:nth-child(10):before {content: "Total Debit";}
+  td:nth-child(11):before {content: "Account Balance";}
+  td:nth-child(12):before {content: "Delete Account";}
+  td:nth-child(13):before {content: "Update Status";}
+  td:nth-child(14):before {content: "View Account";}
+  td:nth-child(15):before {content: "Perform a Transaction";}
   
   #user-account td:nth-child(1):before {content: "User ID";}
   #user-account td:nth-child(2):before {content: "First Name";}
