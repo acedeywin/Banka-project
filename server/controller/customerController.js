@@ -52,18 +52,8 @@ class CustomerController {
         
         return res.status(200).send({
         success: true,
-        message: 'You have succesfully signed up!',
-        signup:{
-            id : req.body.id = 1000 + bankadb.userSignup.length,
-            email : req.body.email,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            phoneNumber : parseInt(req.body.phoneNumber),
-            password: req.body.password,
-            confirmPassword : req.body.confirmPassword,
-            accountType : 'Customer',
-            token : createToken(req.body.token)
-        }
+        message: 'You have succesfully signed up',
+        signup
         });           
     }
 
@@ -72,7 +62,9 @@ class CustomerController {
 
         const id = parseInt(req.params.id);
 
-        let validUser;
+        let validUser,
+            err = new Error('Invalid User');
+            err.status = 404;
         
         bankadb.userSignup.map((user) => {
             if (user.id === id) {
@@ -80,20 +72,14 @@ class CustomerController {
             }
         });
 
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
+        if(!validUser){    
             return next(err);
         }
 
         if(req.body.email !== validUser.email){
-            let err = new Error('A valid email is required');
-            err.status = 406;
             return next(err);
         }
         else if(req.body.password !== validUser.password){
-                let err = new Error('A valid password is required');
-                err.status = 406;
                 return next(err);
         }
 

@@ -15,7 +15,7 @@ app.use(express.static('./UI'));
 app.use('/api/v1', apiRouter);
 
 //Handling non-error input
-app.use( (req, res) => {
+app.use( (req, res, next) => {
     res.status(200);
     res.send({
         message: "200 OK"
