@@ -125,8 +125,8 @@
               <td>5000.00</td>
               <td>3000.00</td>
               <td>2000.00</td>
-              <td><button>Delete</button></td>
-              <td><button>Deactivate</button></td>
+              <td><button class="btn-danger delete-btn">Delete</button></td>
+              <td><button class="btn-warning update-btn">Deactivate</button></td>
               <td><button class="view">View</button></td>
             </tr>
 
@@ -142,8 +142,8 @@
               <td>5000.00</td>
               <td>3000.00</td>
               <td>2000.00</td>
-              <td><button>Delete</button></td>
-              <td><button>Deactivate</button></td>
+              <td><button class="btn-danger delete-btn">Delete</button></td>
+              <td><button class="btn-warning update-btn">Deactivate</button></td>
               <td><button class="view">View</button></td>
             </tr>
 
@@ -159,8 +159,8 @@
               <td>5000.00</td>
               <td>3000.00</td>
               <td>2000.00</td>
-              <td><button>Delete</button></td>
-              <td><button>Deactivate</button></td>
+              <td><button class="btn-danger delete-btn">Delete</button></td>
+              <td><button class="btn-warning update-btn">Deactivate</button></td>
               <td><button class="view">View</button></td>
             </tr>
 
@@ -176,8 +176,8 @@
               <td>5000.00</td>
               <td>3000.00</td>
               <td>2000.00</td>
-              <td><button>Delete</button></td>
-              <td><button>Deactivate</button></td>
+              <td><button class="btn-danger delete-btn">Delete</button></td>
+              <td><button class="btn-warning update-btn">Deactivate</button></td>
               <td><button class="view">View</button></td>
             </tr>
           </tbody>
@@ -251,10 +251,33 @@
               </tbody>
             </table>      
           </div>
-          <!--Modal content ends here-->
-          
+          <!--Modal content ends here-->     
         </div>
-        <!--Modal for account detail ends here-->        
+        <!--Modal for account detail ends here-->
+        
+        <!--Modal content for delete warning starts here-->
+        <div class="delete-modal reset-modal">
+            <div class="modal-content warning-content"> 
+              
+                  <h1 class="warning">Sure you want to delete this Account?</h1> 
+      
+                  <button class="btn btn-danger reset-cancel">No</button>
+                  <button class="btn btn-go update">Yes</button>                 
+            </div>
+        </div>
+        <!--Modal content for delete warning ends here-->
+  
+        <!--Modal content for status update warning starts here-->
+        <div class="update-modal reset-modal">
+            <div class="modal-content warning-content"> 
+              
+                  <h1 class="warning">Sure you want to Update this Account Status?</h1> 
+      
+                  <button class="btn btn-danger reset-cancel">No</button>
+                  <button class="btn btn-go delete">Yes</button>                 
+            </div>
+        </div>
+        <!--Modal content for status update warning ends here-->
 
       </div>
       <!--Row-wrapper ends here-->
