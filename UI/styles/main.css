@@ -24,6 +24,9 @@ rgb(51, 153, 102), rgb(140, 217, 179)
   --content-black-color: rgb(38, 38, 38);
   --content-box-shadow: rgba(38, 38, 38, 0.8); 
   --primary-font: 1.6rem;
+  --main-danger: rgb(204, 0, 0);
+  --main-warning: rgb(204, 82, 0);
+  --main-blue: rgb(0, 102, 204);
 }
 
 /*Global variables*/
@@ -381,6 +384,8 @@ input[type="date"]:focus:before {
   text-decoration: none;
   font-size: var(--primary-font);
 }
+
+
 
 .btn:hover{
     cursor: pointer;
