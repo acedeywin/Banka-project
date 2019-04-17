@@ -26,7 +26,7 @@ chai.use(chaiHttp);
     
         it('Should create a customer', (done) => {
           chai.request(server)
-                .post('/signup')
+                .post('/auth/signup')
                 .send(signupTest)
                 .end((err, res,) => {
                     expect(res.status).to.equal(200);
@@ -50,7 +50,7 @@ chai.use(chaiHttp);
     
         it('Should login in a customer', (done) => {
             chai.request(server)
-                .post('/customer-login/:id')
+                .post('/auth/login/customers/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
@@ -91,7 +91,7 @@ chai.use(chaiHttp);
 
         it('Customer should be able to create account', (done) => {
             chai.request(server)
-                .post('/create-bank-account/:id')
+                .post('/accounts/customers/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');
@@ -104,7 +104,7 @@ chai.use(chaiHttp);
 
         it('should get a customer account profile', (done) => {
             chai.request(server)
-                 .get('/account-profile/:id')
+                 .get('/profile/customers/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200)
                      expect(res.body).to.be.an('object');
@@ -146,7 +146,7 @@ chai.use(chaiHttp);
 
         it('Customer should be able to view their account transaction history', (done) => {
             chai.request(server)
-                .post('/transaction-history/:id')
+                .post('/transactions/history/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200)
                     expect(res.body).to.be.an('object');

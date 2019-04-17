@@ -22,7 +22,7 @@ chai.use(chaiHttp);
     describe('api/v1/bank-accounts', () => {
         it('admin should get all accounts from memory', (done) => {
             chai.request(server)
-                .get('/all')
+                .get('/users')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -36,7 +36,7 @@ chai.use(chaiHttp);
         
         it('admin should get a speciific savings account from memory', (done) => {
             chai.request(server)
-                .get('/savings-accounts/:id')
+                .get('/accounts/savings/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -47,7 +47,7 @@ chai.use(chaiHttp);
 
         it('admin should get all savings account from memory', (done) => {
             chai.request(server)
-                 .get('/savings-accounts')
+                 .get('/accounts/savings')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -58,7 +58,7 @@ chai.use(chaiHttp);
 
         it('admin should get a speciific current account from memory', (done) => {
             chai.request(server)
-                 .get('/current-accounts/:id')
+                 .get('/accounts/current/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -69,7 +69,7 @@ chai.use(chaiHttp);
 
          it('admin should get all current account from memory', (done) => {
             chai.request(server)
-                 .get('/current-accounts')
+                 .get('/accounts/current')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -82,7 +82,7 @@ chai.use(chaiHttp);
     describe('api/v1/ delete a bank account', () => {
         it('admin should be able to delete a savings account', (done) => {
             chai.request(server)
-                .delete('/savings-accounts/:id')
+                .delete('/accounts/savings/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -93,7 +93,7 @@ chai.use(chaiHttp);
 
         it('admin should be able to delete a current account', (done) => {
             chai.request(server)
-                 .delete('/current-accounts/:id')
+                 .delete('/accounts/current/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -107,7 +107,7 @@ chai.use(chaiHttp);
 
         it('admin should be able to activate/deactivate a savings account', (done) => {
             chai.request(server)
-                .patch('/savings-accounts/:id')
+                .patch('/accounts/savings/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -118,7 +118,7 @@ chai.use(chaiHttp);
 
         it('admin should be able to activate/deactivate a current account', (done) => {
             chai.request(server)
-                 .patch('/current-accounts/:id')
+                 .patch('/accounts/current/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -144,7 +144,7 @@ chai.use(chaiHttp);
 
         it('admin should be able to create user(staff/admin) accounts', (done) => {
             chai.request(server)
-                .post('/create-user-account')
+                .post('/auth/personnel')
                 .send(createUserAccount)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);          
@@ -159,7 +159,7 @@ chai.use(chaiHttp);
 
         it('should get an admin account profile', (done) => {
             chai.request(server)
-                 .get('/admin-profile/:id')
+                 .get('/profile/admin/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -170,7 +170,7 @@ chai.use(chaiHttp);
 
          it('should get a staff account profile', (done) => {
             chai.request(server)
-                 .get('/staff-profile/:id')
+                 .get('/profile/staff/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200)
                      expect(res.body).to.be.an('object');
@@ -216,7 +216,7 @@ chai.use(chaiHttp);
     
         it('Should login in a user(admin)', (done) => {
             chai.request(server)
-                .post('/admin-login/:id')
+                .post('/login/admin/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -227,7 +227,7 @@ chai.use(chaiHttp);
         
         it('Should login in a user(staff)', (done) => {
             chai.request(server)
-                .post('/staff-login/:id')
+                .post('/login/staff/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -312,7 +312,7 @@ chai.use(chaiHttp);
 
         it('staff should ba able to credit/debit a current account', (done) => {
            chai.request(server)
-                .put('/current-accounts/:id')
+                .put('/transactions/current/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -340,7 +340,7 @@ chai.use(chaiHttp);
         }
         it('staff should ba able to credit/debit a savings account', (done) => {
            chai.request(server)
-                .put('/savings-accounts/:id')
+                .put('/transactions/savings/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
