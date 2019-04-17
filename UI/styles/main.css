@@ -385,9 +385,24 @@ input[type="date"]:focus:before {
   font-size: var(--primary-font);
 }
 
+.btn-danger:hover {
+  cursor: pointer;
+  background-color: var(--main-danger);
+  border: .1rem solid var(--main-danger)
+}
 
+.btn-warning:hover {
+  cursor: pointer;
+  background-color: var(--main-warning);
+  border: .1rem solid var(--main-warning);
+}
+.btn-go:hover {
+  cursor: pointer;
+  background-color: var(--main-blue);
+  border: .1rem solid var(--main-blue);
+}
 
-.btn:hover{
+.btn-main:hover{
     cursor: pointer;
     background-color: var(--main-green-color);
     box-shadow: 0 1rem 3rem var(--box-shadow-color);
