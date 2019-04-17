@@ -152,6 +152,26 @@ $(document).ready(() => {
 	$('.reset-cancel').click(() => {
 		$('.modal').css('display', 'none');
 	});
+
+	//Delete and update buttons functionalities
+	const $delete = $('.delete-btn');
+	const $update = $('.update-btn');
+
+	$delete.click(() => {
+		$('.delete-modal').css('display', 'flex');
+	});
+
+	$('.reset-cancel').click(() => {
+		$('.delete-modal').css('display', 'none');
+	});
+
+	$update.click(() => {
+		$('.update-modal').css('display', 'flex');
+	});
+
+	$('.reset-cancel').click(() => {
+		$('.update-modal').css('display', 'none');
+	});
 });
 
 //Year displayed on the page footer
