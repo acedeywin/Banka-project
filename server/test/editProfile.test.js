@@ -19,7 +19,7 @@ chai.use(chaiHttp);
     
         it('Customer should be able to reset account password', (done) => {
             chai.request(server)
-                .put('/customer-reset-password/:id')
+                .put('/password/customers/:id')
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
@@ -29,7 +29,7 @@ chai.use(chaiHttp);
 
         it('Admin should be able to reset account password', (done) => {
             chai.request(server)
-                 .put('/admin-reset-password/:id')
+                 .put('/password/admin/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -39,7 +39,7 @@ chai.use(chaiHttp);
 
          it('Staff should be able to reset account password', (done) => {
             chai.request(server)
-                 .put('/staff-reset-password/:id')
+                 .put('/password/staff/:id')
                  .end((err, res) => {
                      expect(res.status).to.equal(200);
                      expect(res.body).to.be.an('object');
@@ -54,7 +54,7 @@ chai.use(chaiHttp);
 
         it('should be able to upload an image', (done) => {
             chai.request(server)
-                 .put('/uploads')
+                 .post('/uploads')
                  .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('object');
