@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/dist/app.js",
     "build": "babel server -d server/dist",
-    "start-dev": "nodemon --exec babel-node server/server.js",
+    "start-dev": "nodemon --exec babel-node server/server.js --watch",
     "test": "nyc --require babel-core/register mocha server/test/**.test.js --exit -w",
     "test-single": "nyc --require babel-core/register mocha server/test/**.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
@@ -23,6 +23,7 @@
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.1"
   },

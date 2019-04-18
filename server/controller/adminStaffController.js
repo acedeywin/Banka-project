@@ -11,9 +11,10 @@ class AdminStaffController{
             signupCustomer : bankadb.userSignup,
             savingsBankAccount: bankadb.savingsBankAccount,
             currentBankAccount : bankadb.currentBankAccount,
+            accountProfile : bankadb.accountProfile,
             adminAccount : bankadb.adminUserAccount,
             staffAccount : bankadb.staffUserAccount,
-            transactions : bankadb.transactions
+            transactions : bankadb.transactions 
         });
     }
 
@@ -36,131 +37,51 @@ class AdminStaffController{
     }
 
     //API for viewing a specific savings account
-    getSavingsAccounts(req, res, next){
-        const id = parseInt(req.params.id);
-
-        let validUser;
+    getSavingsAccounts(req, res){
         
-        bankadb.savingsBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;    
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-
         return res.status(200).send({
             success: true,
-            message: `${validUser.fullName}'s ${validUser.accountType} Account Profile`,
-            validUser
+            message: `${req.body.fullName}'s ${req.body.accountType} Account Profile`,
+            validUser: req.body.validUser
         });
     }
 
     //API for viewing a specific current account
-    getCurrentAccounts(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
+    getCurrentAccounts(req, res){
         
-        bankadb.currentBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;    
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-
         res.status(200).send({
             success: true,
-            message: `${validUser.fullName}'s ${validUser.accountType} Account Profile`,
-            validUser
+            message: `${req.body.fullName}'s ${req.body.accountType} Account Profile`,
+            validUser: req.body.validUser
         });
     }
 
     //API for deleting a savings account
-    deleteSavingsAccount(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.savingsBankAccount.map((user, index) => {
-            if (user.id === id) {
-                validUser = user
-                bankadb.savingsBankAccount.splice(index, 1);
-            }
-        });
-
-        if(validUser){
+    deleteSavingsAccount(req, res){
+        
             res.status(200).send({
                 success: true,
-                message: `${validUser.fullName}'s ${validUser.accountType} Account has been Successfully Deleted`
+                message: `${req.body.fullName}'s ${req.body.accountType} Account has been Successfully Deleted`
             });
-        }else{
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }   
+          
     }
 
     //API for deleting a current account
     deleteCurrentAccount(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.currentBankAccount.map((user, index) => {
-            if (user.id === id) {
-                validUser = user
-                bankadb.currentBankAccount.splice(index, 1);
-            }
+          
+        res.status(200).send({
+            success: true,
+            message: `${req.body.fullName}'s ${req.body.accountType} Account has been Successfully Deleted`
         });
-
-        if(validUser){
-            res.status(200).send({
-                success: true,
-                message: `${validUser.fullName}'s ${validUser.accountType} Account has been Successfully Deleted`
-            });
-        }else{
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }   
     }
 
     //API for activating/deactivating a savings account
-    patchSavingsAccount(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.savingsBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-
-        if(validUser.accountStatus == 'Active'){
-            validUser.accountStatus = 'Dormant';
-            
-        }
-        else if(validUser.accountStatus == 'Dormant'){
-            validUser.accountStatus = 'Active';
-        }
-        
+    patchSavingsAccount(req, res){
+         
         res.status(200).send({
             success: true,
-            message: `${validUser.fullName}'s ${validUser.accountType} Account is now ${validUser.accountStatus}`,
-            validUser
+            message: `${req.body.fullName}'s ${req.body.accountType} Account is now ${req.body.accountStatus}`,
+            validUser: req.body.validUser
         });
     }
 
