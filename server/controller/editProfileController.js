@@ -7,191 +7,55 @@ import path from 'path';
 class EditProfileController{
     
     //API for customer to reset password
-    updateCustomerPassword(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.userSignup.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-            }
-        });
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-        if(!req.body.newPassword){
-            let err = new Error('Enter New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(!req.body.confirmNewPassword){
-            let err = new Error('Confirm your New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword !== req.body.confirmNewPassword){
-            let err = new Error('New Password mismatch');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword === validUser.password){
-            let err = new Error('New Password must be different from the previous one');
-            err.status = 406;
-            return next(err);
-        }
-
-        if(req.body.newPassword){
-            validUser.password = req.body.newPassword;
-        }
-        if(req.body.confirmNewPassword){
-            validUser.confirmPassword = req.body.confirmNewPassword;
-        }
+    updateCustomerPassword(req, res){
 
         const resetPassword = {
-            id : validUser.id,
+            id : req.body.id,
             newPassword : req.body.newPassword,
             confirmNewPassword : req.body.confirmNewPassword
         }
 
         res.status(200).send({
             success: true,
-            message: `Dear ${validUser.firstName} ${validUser.lastName}, your password was successfully updated.`,
-            validUser,
+            message: `Dear ${req.body.firstName} ${req.body.lastName}, your password was successfully updated.`,
+            validUser: req.body.validUser,
             resetPassword
         });
     }
 
-    updateAdminPassword(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.adminAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-            }
-        });
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-        if(!req.body.newPassword){
-            let err = new Error('Enter New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(!req.body.confirmNewPassword){
-            let err = new Error('Confirm your New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword !== req.body.confirmNewPassword){
-            let err = new Error('New Password mismatch');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword === validUser.password){
-            let err = new Error('New Password must be different from the previous one');
-            err.status = 406;
-            return next(err);
-        }
-
-        if(req.body.newPassword){
-            validUser.password = req.body.newPassword;
-        }
-        if(req.body.confirmNewPassword){
-            validUser.confirmPassword = req.body.confirmNewPassword;
-        }
-
+    updateAdminPassword(req, res){
+        
         const resetPassword = {
-            id : validUser.id,
+            id : req.body.id,
             newPassword : req.body.newPassword,
             confirmNewPassword : req.body.confirmNewPassword
         }
 
         res.status(200).send({
             success: true,
-            message: `Dear ${validUser.firstName} ${validUser.lastName}, your password was successfully updated.`,
-            validUser,
+            message: `Dear ${req.body.firstName} ${req.body.lastName}, your password was successfully updated.`,
+            validUser: req.body.validUser,
             resetPassword
         });
     }
 
-    updateStaffPassword(req, res, next){
-        const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.staffAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-            }
-        });
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-        if(!req.body.newPassword){
-            let err = new Error('Enter New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(!req.body.confirmNewPassword){
-            let err = new Error('Confirm your New Password');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword !== req.body.confirmNewPassword){
-            let err = new Error('New Password mismatch');
-            err.status = 406;
-            return next(err);
-        }
-        else if(req.body.newPassword === validUser.password){
-            let err = new Error('New Password must be different from the previous one');
-            err.status = 406;
-            return next(err);
-        }
-
-        if(req.body.newPassword){
-            validUser.password = req.body.newPassword;
-        }
-        if(req.body.confirmNewPassword){
-            validUser.confirmPassword = req.body.confirmNewPassword;
-        }
-
+    updateStaffPassword(req, res){
+        
         const resetPassword = {
-            id : validUser.id,
+            id : req.body.id,
             newPassword : req.body.newPassword,
             confirmNewPassword : req.body.confirmNewPassword
         }
 
         res.status(200).send({
             success: true,
-            message: `Dear ${validUser.firstName} ${validUser.lastName}, your password was successfully updated.`,
-            validUser,
+            message: `Dear ${req.body.firstName} ${req.body.lastName}, your password was successfully updated.`,
+            validUser: req.body.validUser,
             resetPassword
         });
     }
 
     postUploadPhoto(req, res, next){
-
-        // const id = parseInt(req.params.id);
-
-        // let validUser;
-        
-        // bankadb.userSignup.map((user) => {
-        //     if (user.id === id) {
-        //         validUser = user;    
-        //     }
-        // })
-
-        // if(!validUser){
-        //     let err = new Error('User not found');
-        //     err.status = 404;
-        //     return next(err);
-        // }
 
         //Set storage engine
         const storage = multer.diskStorage({
@@ -217,32 +81,17 @@ class EditProfileController{
             //Check for mimetype
             const mimetype = filetypes.test(file.mimetype);
 
-            if(mimetype && extname){
-                cb(null, true);
-            }else{
-                cb(new Error('Error: Image must be jpeg, jpg, or png'), false);
-            }
+            mimetype && extname ? cb(null, true) : cb(new Error('Error: Image must be jpeg, jpg, or png'), false);
+            
         };
-
-        // if(!req.file){
-        //     let err = new Error('An image is required');
-        //     err.status = 404;
-        //     return next(err);
-        // }
-
-        // const uploadImage = {
-        //     id  : validUser.id,
-        //     image : req.file
-        // }
 
         upload(req, res, (err) => {
             if(err){
                 res.status(406).send({
-                    err: err.status,
+                    status: 'error', 
                     message: 'Invalid Image'
-                })
-            }
-            else {
+                }); 
+            }else{
                 res.status(200).send({
                     success: true,
                     message: `Profile image successfully uploaded`,
@@ -250,6 +99,7 @@ class EditProfileController{
                 });
             }      
         });
+        return next();
     }
 
 

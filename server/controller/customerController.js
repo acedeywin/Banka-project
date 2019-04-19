@@ -37,7 +37,7 @@ class CustomerController {
                 password : req.body.password,
                 firstName : req.body.firstName,
                 lastName : req.body.lastName,
-                token : createToken(req.body.token)
+                token : req.body.token
             }
             bankadb.userLogin.push(login);
         
@@ -93,75 +93,37 @@ class CustomerController {
     }
 
     //API for user(customer) account profile
-    getAccountProfile(req, res, next){
-
-        const id = parseInt(req.params.id);
-
-        let validUser;
-        
-        bankadb.accountProfile.map((user) => {
-            if (user.id === id) {
-                validUser = user;    
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
+    getAccountProfile(req, res){
 
         const accountProfile = {
-            id : validUser.id,
-            accountNumber : validUser.accountNumber,
-            accountType : validUser.accountType,
-            createdOn : validUser.createdOn,
-            accountOwner : validUser.fullName,
-            currency : validUser.currency,
-            accountStatus : validUser.accountStatus,
-            totalCredit : validUser.totalCredit,
-            totalDebit : validUser.totalDebit,
-            accountBalance : validUser.newBalance
+            id : req.body.id,
+            accountNumber : req.body.accountNumber,
+            accountType : req.body.accountType,
+            createdOn : req.body.createdOn,
+            accountOwner : req.body.fullName,
+            currency : req.body.currency,
+            accountStatus : req.body.accountStatus,
+            totalCredit : req.body.totalCredit,
+            totalDebit : req.body.totalDebit,
+            accountBalance : req.body.newBalance
         };
 
         bankadb.userProfile.push(accountProfile);
 
         res.status(200).send({
             success: true,
-            message: `${validUser.fullName} Account Profile`,
+            message: `${req.body.fullName} Account Profile`,
             accountProfile
         });
     }
 
     //API for user(customer) contact page
-    postContactPage(req, res, next){
-
-        const id = parseInt(req.params.id);
-
-        let validUser;
-        
-        bankadb.userSignup.map((user) => {
-            if (user.id === id) {
-                validUser = user;    
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('User not found');
-            err.status = 404;
-            return next(err);
-        }
-
-        if(!req.body.message){
-            let err = new Error('Message is required');
-            err.status = 406;
-            return next(err);
-        }
+    postContactPage(req, res){
 
         const contact = {
-            id : validUser.id,
-            fullName : validUser.fullName,
-            email : validUser.emailAddress,
+            id : req.body.id,
+            fullName : req.body.fullName,
+            email : req.body.emailAddress,
             message : req.body.message
         };
 
@@ -174,41 +136,18 @@ class CustomerController {
         });
     }
 
-    getTransactionHistory(req, res, next){
+    getTransactionHistory(req, res){
 
-        const id = parseInt(req.params.id);
-
-        let validUser;
         
-        bankadb.transactions.map((user) => {
-            if (user.id === id) {
-                validUser = user;    
-            }
-        });
-
-        if(!validUser){
-            let err = new Error('No Transaction found');
-            err.status = 404;
-            return next(err);
-        }
-
-        if(validUser.transactionType == 'Credit'){
-            req.body.deposit = validUser.amount;
-            req.body.withdrawal = 0;
-        }
-        else if(validUser.transactionType == 'Debit'){
-            req.body.withdrawal = validUser.amount;
-            req.body.deposit = 0;
-        }
 
         const transactionHistory = {
-            id : validUser.id,
-            transactionDate : validUser.transactionDate,
-            accountType : validUser.accountType,
-            transactionType : validUser.transactionType,
+            id : req.body.id,
+            transactionDate : req.body.transactionDate,
+            accountType : req.body.accountType,
+            transactionType : req.body.transactionType,
             deposit : req.body.deposit,
             withdrawal : req.body.withdrawal,
-            balance : validUser.newBalance
+            balance : req.body.newBalance
         };
 
 
@@ -216,7 +155,7 @@ class CustomerController {
 
         res.status(200).send({
             success: true,
-            message: `Transaction History for ${validUser.fullName}`,
+            message: `Transaction History for ${req.body.fullName}`,
             transactionHistory
         });
 
