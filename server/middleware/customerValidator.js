@@ -1,42 +1,28 @@
-import bankadb from '../memorydb/bankadb';
+ import bankadb from '../memorydb/bankadb';
 
-     const validUserSignup = (req, res, next) => {
-         let err;
-        if(!req.body.email){
-            err = new Error('A valid email is required');
-            err.status = 406;
-        }
-        else if(!req.body.firstName){
-            err = new Error('A valid First Name is required');
-            err.status = 406;
-        }
-        else if(!req.body.lastName){
-            err = new Error('A valid Last Name is required');
-            err.status = 406;
-        } 
-        else if(isNaN(req.body.phoneNumber)){
-            err = new Error('Input a valid phone number');
-            err.status = 406;
-        }
-        else if(!req.body.password || !req.body.confirmPassword){
-            err = new Error('Enter a valid password');
-            err.status = 406;
+    export const validUserSignup = (req, res, next) => {
+         
+        if(!req.body.email || !req.body.firstName || !req.body.lastName || isNaN(req.body.phoneNumber) || !req.body.password || !req.body.confirmPassword){
+            res.status(406).send({
+                status: 'error', 
+                message: 'All fields are required'
+            });
         }
         else if(req.body.password !== req.body.confirmPassword){
-            err = new Error('Password mismatch');
-            err.status = 406;
-        }
-
-        res.status(406).send({
-            message: next(err)
+            res.status(406).send({
+                status: 'error', 
+                message: 'Password mismatch'
             });
+        }
+         return next();
+        
     };
     
-    const validUserLogin = (req, res, next) => {
+  export  const validUserLogin = (req, res, next) => {
     
         const id = parseInt(req.params.id);
     
-            let validUser, err;  
+            let validUser;  
             
             bankadb.userSignup.map((user) => {
                 if (user.id === id) {
@@ -49,25 +35,23 @@ import bankadb from '../memorydb/bankadb';
                 }
             });
     
-            if(!validUser){    
-                err = new Error('Invalid User');
-                err.status = 404;
+            if(!validUser){ 
+                res.status(404).send({
+                    status: 'error', 
+                    message: 'Invalid User'
+                });   
             }
     
-            if(req.body.email !== validUser.email){
-                err = new Error('Invalid User');
-                err.status = 404;
+            if(req.body.email !== validUser.email || req.body.password !== validUser.password){
+                res.status(404).send({
+                    status: 'error', 
+                    message: 'Invalid User'
+                }); 
             }
-            else if(req.body.password !== validUser.password){
-                    err = new Error('Invalid User');
-                    err.status = 404;
-            }
-        res.status(406).send({
-            message: next(err)
-            });
+            return next();
     };
     
-    const validBankAccount = (req, res, next) => {
+   export const validBankAccount = (req, res, next) => {
     
         const id = parseInt(req.params.id);
     
@@ -90,49 +74,11 @@ import bankadb from '../memorydb/bankadb';
                 err.status = 404;
             }
     
-            if(isNaN(req.body.bvnNumber)){
-                err = new Error('Invalid BVN Number');
-                err.status = 406;
-            }
-            else if(!req.body.dateOfBirth){
-                err = new Error('Date of Birth is required');
-                err.status = 406;
-            }
-            else if(!req.body.residentialAddress){
-                err = new Error('Residential Address is required');
-                err.status = 406;
-            }
-            else if(!req.body.meansOfIdentification){
-                err = new Error('Means of Identification is required');
-                err.status = 406;
-            }
-            else if(!req.body.idNumber){
-                err = new Error('A valid Identification Number is required');
-                err.status = 406;
-            }
-            else if(!req.body.occupation){
-                err = new Error('Occupation is required');
-                err.status = 406;
-            }
-            else if(!req.body.nextOfKin){
-                err = new Error('Next of Kin is required');
-                err.status = 406;
-            }
-            else if(req.body.relationshipToNextOfKin){
-                err = new Error('Relationship to Next of Kin is required');
-                err.status = 406;
-            }
-            else if(!req.body.accountType){
-                err = new Error('Account Type is required');
-                err.status = 406;
-            }
-            else if(!req.body.sex){
-                err = new Error('Your Sex is required');
-                err.status = 406;
-            }
-            else if(!req.body.maritalStatus) {
-                err = new Error('Marital Status is required');
-                err.status = 406;
+            if(isNaN(req.body.bvnNumber) || !req.body.dateOfBirth || !req.body.residentialAddress || !req.body.meansOfIdentification || !req.body.idNumber || !req.body.occupation || !req.body.nextOfKin || req.body.relationshipToNextOfKin || !req.body.accountType || !req.body.sex ||!req.body.maritalStatus){
+                res.status(406).send({
+                    status: 'error', 
+                    message: 'All fields are required'
+                });
             }
         
             // if(req.body.accountType == 'Savings'){
@@ -141,14 +87,109 @@ import bankadb from '../memorydb/bankadb';
             // else if (req.body.accountType == 'Current'){
             //     bankadb.currentBankAccount.push(currentBankAccount);
             // }
-            res.status(406).send({
-                message: next(err)
-                });
+            return next();
     };
+
+    export const validAccountProfile = (req, res, next) => {
+
+        const id = parseInt(req.params.id);
+
+        let validUser;
+        
+        bankadb.accountProfile.map((user) => {
+            if (user.id === id) {
+                validUser = user; 
+                
+            req.body.id = validUser.id;
+            req.body.accountNumber = validUser.accountNumber;
+            req.body.accountType = validUser.accountType;
+            req.body.createdOn = validUser.createdOn;
+            req.body.accountOwner = validUser.fullName;
+            req.body.currency = validUser.currency;
+            req.body.accountStatus = validUser.accountStatus;
+            req.body.totalCredit = validUser.totalCredit;
+            req.body.totalDebit = validUser.totalDebit;
+            req.body.accountBalance = validUser.newBalance;
+            req.body.fullName = validUser.fullName
+            }
+        });
+
+        if(!validUser){
+            res.status(406).send({
+                status: 'error', 
+                message: 'User not found'
+            });
+        }
+        return next();
+    }
+
+    export const validContactPage = (req, res, next) => {
+
+        const id = parseInt(req.params.id);
+
+        let validUser;
+        
+        bankadb.userSignup.map((user) => {
+            if (user.id === id) {
+                validUser = user;  
+                
+            req.body.id = validUser.id;
+            req.body.fullName = validUser.fullName;
+            req.body.email = validUser.emailAddress;
+            }
+        });
+
+        if(!validUser){
+            res.status(404).send({
+                status: 'error', 
+                message: 'User not found'
+            });
+        }
+
+        if(!req.body.message){
+            res.status(406).send({
+                status: 'error', 
+                message: 'Message is required'
+            });
+        }
+        return next();
+    }
+
+    export const validTransactionHistory = (req, res, next) => {
+
+        const id = parseInt(req.params.id);
+
+        let validUser;
+        
+        bankadb.transactions.map((user) => {
+            if (user.id === id) {
+                validUser = user; 
+                
+                req.body.id = validUser.id;
+                req.body.transactionDate = validUser.transactionDate;
+                req.body.accountType = validUser.accountType;
+                req.body.transactionType = validUser.transactionType;
+                req.body.balance = validUser.newBalance;
+                req.body.fullName = validUser.fullName
+            }
+        });
+
+        if(!validUser){
+            res.status(404).send({
+                status: 'error', 
+                message: 'No Transaction found'
+            });
+        }
+
+        if(validUser.transactionType == 'Credit'){
+            req.body.deposit = validUser.amount;
+            req.body.withdrawal = 0;
+        }
+        else if(validUser.transactionType == 'Debit'){
+            req.body.withdrawal = validUser.amount;
+            req.body.deposit = 0;
+        }
+        return next();
+    }
     
 
-
-
-export default {
-    validUserSignup, validUserLogin, validBankAccount
-};
