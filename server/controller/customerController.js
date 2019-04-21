@@ -1,31 +1,34 @@
 import bankadb from '../memorydb/bankadb';
-import createToken from '../lib/token';
+// import createToken from '../lib/token';
 import pool from '../lib/connectdb';
 
 class CustomerController {
 
     //API for user(customer) signup
-    postUserSignup(req, res){ 
+    postUserSignup(req, res){        
 
-        const signup = {
-            id : req.body.id = 1000 + bankadb.userSignup.length,
-            email : req.body.email,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            phoneNumber : parseInt(req.body.phoneNumber),
-            password: req.body.password,
-            confirmPassword : req.body.confirmPassword,
-            accountType : 'Customer',
-            token : createToken(req.body.token)
-        };        
+        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token} = req.body;
 
-        
-        
-        return res.status(200).send({
-            success: true,
-            message: 'You have succesfully signed up',
-            signup 
-            });            
+        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
+            if (error) {
+              throw error
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'You have succesfully signed up',
+                data: {
+                    id, 
+                    email, 
+                    firstName, 
+                    lastName, 
+                    phoneNumber, 
+                    password, 
+                    confirmPassword,
+                    accountType, 
+                    token
+                }
+            }); 
+          })             
     } 
 
     //API for user(customer) login

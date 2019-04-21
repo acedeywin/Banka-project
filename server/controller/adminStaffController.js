@@ -128,6 +128,7 @@ class AdminStaffController{
             isAdmin : req.body.isAdmin,
             token : createToken(req.body.token)
         }  
+        
     
         req.body.userAccountType == 'Staff' ? bankadb.staffUserAccount.push(createUserAccount) : req.body.userAccountType == 'Admin' ? bankadb.adminUserAccount.push(createUserAccount) : undefined;
         

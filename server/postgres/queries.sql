@@ -64,3 +64,12 @@ CREATE TABLE create_account (
     isAdmin BOOLEAN NOT NULL,
     token VARCHAR(5000) NOT NULL
 );
+
+const { name, email } = request.body
+
+  pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`User added with ID: ${result.insertId}`)
+  })
