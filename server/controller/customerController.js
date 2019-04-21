@@ -23,10 +23,9 @@ class CustomerController {
         return res.status(200).send({
             success: true,
             message: 'You have succesfully signed up',
-            signup
-            });
-                  
-    }
+            signup 
+            });            
+    } 
 
     //API for user(customer) login
     postUserLogin(req, res){
