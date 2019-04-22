@@ -1,19 +1,15 @@
  import bankadb from '../memorydb/bankadb';
  import { check, validationResult, body } from 'express-validator/check';
  import createToken from '../lib/token';
+ import from '../lib/emailCheck';
 
     export const validUserSignup = (req, res, next) => {
 
-        function validateEmail(email) {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-          }
-
-
-
+       
         req.body.id = Math.floor(1111 + Math.random() * 1999); 
         req.body.accountType = 'Customer';
         req.body.token = createToken(req.body.token);
+        req.body.email = validate(req.body.email);
          
         if(!req.body.email || !req.body.firstName || !req.body.lastName || isNaN(req.body.phoneNumber) || !req.body.password || !req.body.confirmPassword || !validateEmail(req.body.email)){
             res.status(406).send({
