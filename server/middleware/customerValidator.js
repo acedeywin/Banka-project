@@ -1,43 +1,43 @@
  import bankadb from '../memorydb/bankadb';
- import { check, validationResult, body } from 'express-validator/check';
+ //import pool from '../lib/connectdb';
  import createToken from '../lib/token';
- import from '../lib/emailCheck';
+ import validateEmail from '../lib/emailCheck';
 
     export const validUserSignup = (req, res, next) => {
 
-       
+        let {email, firstName, lastName, phoneNumber, password, confirmPassword} = req.body;
+
         req.body.id = Math.floor(1111 + Math.random() * 1999); 
         req.body.accountType = 'Customer';
         req.body.token = createToken(req.body.token);
-        req.body.email = validate(req.body.email);
          
-        if(!req.body.email || !req.body.firstName || !req.body.lastName || !req.body.password || !req.body.confirmPassword){
+        if(!email || !firstName || !lastName || !password || !confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'All fields are required'
             });
         }
-        else if(!validateEmail(req.body.email || isNaN(req.body.phoneNumber))){
+        else if(!validateEmail(email || isNaN(phoneNumber))){
             res.status(406).send({
                 status: 'error', 
                 message: 'Invalid Input'
             });
         }
-        else if(req.body.password !== req.body.confirmPassword){
+        else if(password !== confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'Password mismatch'
-            });
-        }
-        
-         return next();
-        
-    };
+            });    
+    }
+    return next();  
+}
         
     
   export  const validUserLogin = (req, res, next) => {
+
+    let {email, password} = req.body;
     
-            if(!req.body.email || !req.body.password){
+            if(!email || !password){
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'
@@ -65,8 +65,10 @@
             })
     
             if(!validUser){
-                err = new Error('User not found');
-                err.status = 404;
+                res.status(404).send({
+                    status: 'error', 
+                    message: 'User not found'
+                });
             }
     
             if(isNaN(req.body.bvnNumber) || !req.body.dateOfBirth || !req.body.residentialAddress || !req.body.meansOfIdentification || !req.body.idNumber || !req.body.occupation || !req.body.nextOfKin || req.body.relationshipToNextOfKin || !req.body.accountType || !req.body.sex ||!req.body.maritalStatus){

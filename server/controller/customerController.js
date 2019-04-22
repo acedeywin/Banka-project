@@ -1,6 +1,7 @@
 import bankadb from '../memorydb/bankadb';
-// import createToken from '../lib/token';
+//import createToken from '../lib/token';
 import pool from '../lib/connectdb';
+
 
 class CustomerController {
 
@@ -25,13 +26,19 @@ class CustomerController {
     postUserLogin(req, res){
 
             const id = parseInt(req.params.id);
-            let {email, password, firstName, lastName, token} = req.body;
+            let {email, password} = req.body;
             
             pool.query('SELECT * FROM signup WHERE id = $1', [id], (error, results) => {
                 if (error) {
                   throw error
                 }
-                res.status(200).json(results.rows)
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }   
+                  });
               })
     }
 

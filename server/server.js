@@ -23,7 +23,7 @@ app.use( (req, res) => {
 })
 
 //Catch error
-app.use((req, res) => {
+app.use((req, res, next) => {
     let err = new Error('Not found');
     err.status = 404;
     next(err);
