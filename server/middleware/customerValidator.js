@@ -1,90 +1,43 @@
  import bankadb from '../memorydb/bankadb';
- import pool from '../lib/connectdb';
+ //import pool from '../lib/connectdb';
  import createToken from '../lib/token';
- //import validate from '../lib/emailCheck';
+ import validateEmail from '../lib/emailCheck';
 
     export const validUserSignup = (req, res, next) => {
 
-        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token} = req.body;
+        let {email, firstName, lastName, phoneNumber, password, confirmPassword} = req.body;
 
-        id = Math.floor(1111 + Math.random() * 1999); 
-        accountType = 'Customer';
-        token = createToken(token);
-        
-        //email = validate(email);
-
-        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
-            if (error) {
-                res.status(406).send({
-                    status: 'error', 
-                    message: error
-                }); 
-            }
-        });
+        req.body.id = Math.floor(1111 + Math.random() * 1999); 
+        req.body.accountType = 'Customer';
+        req.body.token = createToken(req.body.token);
          
-<<<<<<< HEAD
-        if(!email || !firstName || !lastName || isNaN(phoneNumber) || !password || !confirmPassword /*|| !validate(email)*/){
-=======
-        if(!req.body.email || !req.body.firstName || !req.body.lastName || !req.body.password || !req.body.confirmPassword){
->>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
+        if(!email || !firstName || !lastName || !password || !confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'All fields are required'
             });
         }
-<<<<<<< HEAD
-        else if(password !== confirmPassword){
-=======
-        else if(!validateEmail(req.body.email || isNaN(req.body.phoneNumber))){
+        else if(!validateEmail(email || isNaN(phoneNumber))){
             res.status(406).send({
                 status: 'error', 
                 message: 'Invalid Input'
             });
         }
-        else if(req.body.password !== req.body.confirmPassword){
->>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
+        else if(password !== confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'Password mismatch'
-            });   
-         return next();   
-    };
+            });    
+    }
+    return next();  
 }
         
     
   export  const validUserLogin = (req, res, next) => {
 
-    let {email, password, firstName, lastName, token} = req.body;
-    
-<<<<<<< HEAD
-    //const id = parseInt(req.params.id);
-    
-        pool.query('SELECT email, _password, first_name, last_name, token FROM signup WHERE id = $1', [id], (error, results) => {
-            if (error) {
-                res.status(406).send({
-                    status: 'error', 
-                    message: error
-                }); 
-            }
-            else if(results.length > 0){
-                if(results[0].password == password){
-                    res.status(200).send({
-                        success: true,
-                        message: "login sucessfull"
-                          });
-                }else{
-                    res.status(406).send({
-                        status: 'error', 
-                        message: 'Invalid password'
-                    });
-                }
-            }
-        });
+    let {email, password} = req.body;
     
             if(!email || !password){
-=======
-            if(!req.body.email || !req.body.password){
->>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'

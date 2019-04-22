@@ -254,67 +254,25 @@ export const validStaffProfile = (req, res, next) => {
 
 export const validAdminLogin = (req, res, next) => {
 
-    const id = parseInt(req.params.id);
+    let {email, password} = req.body;
     
-            let validUser;
-            
-            
-            bankadb.adminUserAccount.map((user) => {
-                if (user.id === id) {
-                    validUser = user; 
-                    
-                req.body.id = validUser.id;
-                req.body.firstName = validUser.firstName;
-                req.body.lastName = validUser.lastName;
-                req.body.token = validUser.token;
-                }
-            });
-    
-            if(!validUser){   
-                res.status(404).send({
-                    status: 'error', 
-                    message: 'User not found'
-                });
-            }
-    
-            if(req.body.email !== validUser.userEmail || req.body.password !== validUser.password){
+            if(!email || !password){
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'
-                });
+                }); 
             }
-            return next();
+            return next();         
 }
 
 export const validStaffLogin = (req, res, next) => {
-    const id = parseInt(req.params.id);
+    let {email, password} = req.body;
     
-            let validUser;
-            
-            
-            bankadb.staffUserAccount.map((user) => {
-                if (user.id === id) {
-                    validUser = user; 
-                    
-                req.body.id = validUser.id;
-                req.body.firstName = validUser.firstName;
-                req.body.lastName = validUser.lastName;
-                req.body.token = validUser.token;
-                }
-            });
-    
-            if(!validUser){   
-                res.status(404).send({
-                    status: 'error', 
-                    message: 'User not found'
-                });
-            }
-    
-            if(req.body.email !== validUser.userEmail || req.body.password !== validUser.password){
+            if(!email || !password){
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'
-                });
+                }); 
             }
             return next();
 }

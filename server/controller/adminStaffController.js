@@ -187,43 +187,41 @@ class AdminStaffController{
         //API for admin login
         postAdminLogin(req, res){
     
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-        
-           bankadb.adminLogin.push(login);
-        
-            res.status(200).send({
-                success: true,
-                message: 'Login Successful',
-                login
-            });
+            const id = parseInt(req.params.id);
+            let {email, password} = req.body;
+            
+            pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }   
+                  });
+              })
         }
 
         //API for staff login
         postStaffLogin(req, res){
 
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-        
-           bankadb.staffLogin.push(login);
-        
-            res.status(200).send({
-                success: true,
-                message: 'Login Successful',
-                login
-            });
+            const id = parseInt(req.params.id);
+            let {email, password} = req.body;
+            
+            pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }   
+                  });
+              })
         }
 
     //API for deleting an admin account
