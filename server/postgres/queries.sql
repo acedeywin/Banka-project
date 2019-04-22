@@ -8,6 +8,7 @@ CREATE TABLE signup (
     _password VARCHAR(50) NOT NULL,
     confirm_password VARCHAR(50) NOT NULL,
     account_type VARCHAR(20) NOT NULL,
+    account_status VARCHAR(20) NOT NULL,
     token VARCHAR(5000) NOT NULL
 );
 

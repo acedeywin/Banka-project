@@ -1,13 +1,14 @@
  import bankadb from '../memorydb/bankadb';
  //import pool from '../lib/connectdb';
  import createToken from '../lib/token';
- import validateEmail from '../lib/emailCheck';
+ import {validateEmail, validateString} from '../lib/emailCheck';
 
     export const validUserSignup = (req, res, next) => {
 
         let {email, firstName, lastName, phoneNumber, password, confirmPassword} = req.body;
 
         req.body.id = Math.floor(1111 + Math.random() * 1999); 
+        req.body.accountStatus = 'Active';
         req.body.accountType = 'Customer';
         req.body.token = createToken(req.body.token);
          
@@ -17,7 +18,7 @@
                 message: 'All fields are required'
             });
         }
-        else if(!validateEmail(email || isNaN(phoneNumber))){
+        else if(!validateEmail(email) || isNaN(phoneNumber) || !validateString(firstName) || !validateString(lastName)){
             res.status(406).send({
                 status: 'error', 
                 message: 'Invalid Input'

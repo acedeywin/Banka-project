@@ -1,4 +1,6 @@
 import bankadb from '../memorydb/bankadb';
+import createToken from '../lib/token';
+import {validateEmail, validateString} from '../lib/emailCheck';
 
 export const validSavingsAccounts = (req, res, next) => {
 
@@ -172,23 +174,29 @@ export const validPatchCurrentAccount = (req, res, next) => {
 
 export const validAdminCreateAccount = (req, res, next) => {
 
-    if(!req.body.firstName || !req.body.lastName || !req.body.userEmail || !req.body.userAccountType || !req.body.id || !req.body.password || !req.body.confirmPassword){
+    let {id, email, firstName, lastName, password, confirmPassword, accountType} = req.body;
+    
+    req.body.token = createToken(req.body.token);
+    req.body.accountStatus = 'Active';
+    req.body.createdOn = new Date();
+
+    if(!validateString(firstName) || !validateString(lastName) || !validateEmail(email) || !validateString(accountType) || !id || !password || !confirmPassword){
         res.status(406).send({
             status: 'error', 
-            message: 'First name is required'
+            message: 'All inputs must be valid'
         });
     }
-    else if(req.body.password !== req.body.confirmPassword){
+    else if(password !== confirmPassword){
         res.status(406).send({
             status: 'error', 
             message: 'Password mismatch'
         });
     }
 
-    if(req.body.userAccountType == 'Staff'){
+    if(accountType == 'Staff'){
         req.body.isAdmin = false;
     }
-    else if(req.body.userAccountType == 'Admin'){
+    else if(accountType == 'Admin'){
         req.body.isAdmin = true;
     }
     return next();

@@ -8,9 +8,9 @@ class CustomerController {
     //API for user(customer) signup
     postUserSignup(req, res){        
 
-        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token} = req.body;
+        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token} = req.body;
 
-        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
+        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token], (error, results) => {
             if (error) {
               throw error
             }
@@ -37,7 +37,7 @@ class CustomerController {
                         res.status(200).json(results.rows);
                     }else{
                         res.status(404).json('User not found');
-                    }   
+                    }  
                   });
               })
     }
