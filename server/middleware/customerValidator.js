@@ -11,10 +11,16 @@
         req.body.token = createToken(req.body.token);
         req.body.email = validate(req.body.email);
          
-        if(!req.body.email || !req.body.firstName || !req.body.lastName || isNaN(req.body.phoneNumber) || !req.body.password || !req.body.confirmPassword || !validateEmail(req.body.email)){
+        if(!req.body.email || !req.body.firstName || !req.body.lastName || !req.body.password || !req.body.confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'All fields are required'
+            });
+        }
+        else if(!validateEmail(req.body.email || isNaN(req.body.phoneNumber))){
+            res.status(406).send({
+                status: 'error', 
+                message: 'Invalid Input'
             });
         }
         else if(req.body.password !== req.body.confirmPassword){
@@ -31,29 +37,7 @@
     
   export  const validUserLogin = (req, res, next) => {
     
-        const id = parseInt(req.params.id);
-    
-            let validUser;  
-            
-            bankadb.userSignup.map((user) => {
-                if (user.id === id) {
-                    validUser = user;
-                    
-                    req.body.id = validUser.id;
-                    req.body.firstName = validUser.firstName;
-                    req.body.lastName = validUser.lastName;
-                    req.body.token = validUser.token;
-                }
-            });
-    
-            if(!validUser){ 
-                res.status(404).send({
-                    status: 'error', 
-                    message: 'Invalid User'
-                });   
-            }
-    
-            if(req.body.email !== validUser.email || req.body.password !== validUser.password){
+            if(!req.body.email || !req.body.password){
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'
