@@ -9,24 +9,14 @@ class CustomerController {
 
         let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token} = req.body;
 
-        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
+        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
             if (error) {
               throw error
             }
             return res.status(200).send({
                 success: true,
                 message: 'You have succesfully signed up',
-                data: {
-                    id, 
-                    email, 
-                    firstName, 
-                    lastName, 
-                    phoneNumber, 
-                    password, 
-                    confirmPassword,
-                    accountType, 
-                    token
-                }
+                data: results.rows[0]
             }); 
           })             
     } 
@@ -34,21 +24,15 @@ class CustomerController {
     //API for user(customer) login
     postUserLogin(req, res){
 
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-            bankadb.userLogin.push(login);
-        
-        res.status(200).send({
-            success: true,
-            message: 'Login Successful',
-            login,
-        });
+            const id = parseInt(req.params.id);
+            let {email, password, firstName, lastName, token} = req.body;
+            
+            pool.query('SELECT * FROM signup WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                res.status(200).json(results.rows)
+              })
     }
 
     //API for user(customer) to create a bank account
