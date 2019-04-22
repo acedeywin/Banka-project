@@ -22,13 +22,27 @@
             }
         });
          
+<<<<<<< HEAD
         if(!email || !firstName || !lastName || isNaN(phoneNumber) || !password || !confirmPassword /*|| !validate(email)*/){
+=======
+        if(!req.body.email || !req.body.firstName || !req.body.lastName || !req.body.password || !req.body.confirmPassword){
+>>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
             res.status(406).send({
                 status: 'error', 
                 message: 'All fields are required'
             });
         }
+<<<<<<< HEAD
         else if(password !== confirmPassword){
+=======
+        else if(!validateEmail(req.body.email || isNaN(req.body.phoneNumber))){
+            res.status(406).send({
+                status: 'error', 
+                message: 'Invalid Input'
+            });
+        }
+        else if(req.body.password !== req.body.confirmPassword){
+>>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
             res.status(406).send({
                 status: 'error', 
                 message: 'Password mismatch'
@@ -42,6 +56,7 @@
 
     let {email, password, firstName, lastName, token} = req.body;
     
+<<<<<<< HEAD
     //const id = parseInt(req.params.id);
     
         pool.query('SELECT email, _password, first_name, last_name, token FROM signup WHERE id = $1', [id], (error, results) => {
@@ -67,6 +82,9 @@
         });
     
             if(!email || !password){
+=======
+            if(!req.body.email || !req.body.password){
+>>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'

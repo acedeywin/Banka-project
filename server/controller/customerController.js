@@ -9,6 +9,7 @@ class CustomerController {
     postUserSignup(req, res){        
 
         let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token} = req.body;
+<<<<<<< HEAD
         
             res.status(200).send({
                 success: true,
@@ -25,11 +26,25 @@ class CustomerController {
                     token
                 }
             });            
+=======
+
+        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, token], (error, results) => {
+            if (error) {
+              throw error
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'You have succesfully signed up',
+                data: results.rows[0]
+            }); 
+          })             
+>>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
     } 
 
     //API for user(customer) login
     postUserLogin(req, res){
 
+<<<<<<< HEAD
         const id = parseInt(req.params.id);
 
         let {email, password} = req.body;
@@ -59,6 +74,17 @@ class CustomerController {
                 login: results.rows
             })
           })
+=======
+            const id = parseInt(req.params.id);
+            let {email, password, firstName, lastName, token} = req.body;
+            
+            pool.query('SELECT * FROM signup WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                res.status(200).json(results.rows)
+              })
+>>>>>>> c6c876b65fe424e46ba272b97e9b2aeccf8650ae
     }
 
     //API for user(customer) to create a bank account
