@@ -15,7 +15,7 @@ app.use(express.static('./UI'));
 app.use('/api/v1', apiRouter);
 
 //Handling non-error input
-app.use( (req, res, next) => {
+app.use( (req, res) => {
     res.status(200);
     res.send({
         message: "200 OK"
@@ -23,14 +23,14 @@ app.use( (req, res, next) => {
 })
 
 //Catch error
-app.use((req, res, next) => {
+app.use((req, res) => {
     let err = new Error('Not found');
     err.status = 404;
     next(err);
 });
 
 //error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     //render the error page
     res.status(err.status || 500);
     res.json({
