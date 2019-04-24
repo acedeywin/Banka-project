@@ -1,5 +1,6 @@
 import bankadb from '../memorydb/bankadb';
-import createToken from '../lib/token';
+//import createToken from '../lib/token';
+import pool from '../lib/connectdb';
 
 class AdminStaffController{
 
@@ -113,30 +114,21 @@ class AdminStaffController{
     }
 
     //API for creating a user(admin/staff) account
-    postAdminCreateAccount(req, res, next){
-
-        const createUserAccount = {
-            id : parseInt(req.body.id),
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            userEmail : req.body.userEmail,
-            password : req.body.password,
-            confirmPassword : req.body.confirmPassword,
-            userAccountType : req.body.userAccountType,
-            accountStatus : 'Active',
-            createdOn : new Date(),
-            isAdmin : req.body.isAdmin,
-            token : createToken(req.body.token)
-        }  
-    
-        req.body.userAccountType == 'Staff' ? bankadb.staffUserAccount.push(createUserAccount) : req.body.userAccountType == 'Admin' ? bankadb.adminUserAccount.push(createUserAccount) : undefined;
+    postAdminCreateAccount(req, res){
         
-    
-        return res.status(200).send({
-            success: true,
-            message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Created Successfully`,
-            createUserAccount
-        });
+        let {id, firstName, lastName, email, password, confirmPassword, accountType, accountStatus, createdOn, isAdmin, token} = req.body;
+
+        pool.query('INSERT INTO create_account (id, first_name, last_name, email, _password, confirm_password, account_type, account_status, created_On, isAdmin, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *', [id, firstName, lastName, email, password, confirmPassword, accountType, accountStatus, createdOn, isAdmin, token], (error, results) => {
+            if (error) {
+              throw error
+            }
+            res.status(200).send({
+                success: true,
+                message: 'You have succesfully signed up',
+                data: results.rows[0]
+            }); 
+            return;
+          })
     }
 
     //API for user(admin) account profile
@@ -186,43 +178,41 @@ class AdminStaffController{
         //API for admin login
         postAdminLogin(req, res){
     
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-        
-           bankadb.adminLogin.push(login);
-        
-            res.status(200).send({
-                success: true,
-                message: 'Login Successful',
-                login
-            });
+            const id = parseInt(req.params.id);
+            let {email, password} = req.body;
+            
+            pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }   
+                  });
+              })
         }
 
         //API for staff login
         postStaffLogin(req, res){
 
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-        
-           bankadb.staffLogin.push(login);
-        
-            res.status(200).send({
-                success: true,
-                message: 'Login Successful',
-                login
-            });
+            const id = parseInt(req.params.id);
+            let {email, password} = req.body;
+            
+            pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }   
+                  });
+              })
         }
 
     //API for deleting an admin account

@@ -1,48 +1,44 @@
  import bankadb from '../memorydb/bankadb';
+ //import pool from '../lib/connectdb';
+ import createToken from '../lib/token';
+ import {validateEmail, validateString} from '../lib/emailCheck';
 
     export const validUserSignup = (req, res, next) => {
+
+        let {email, firstName, lastName, phoneNumber, password, confirmPassword} = req.body;
+
+        req.body.id = Math.floor(1111 + Math.random() * 1999); 
+        req.body.accountStatus = 'Active';
+        req.body.accountType = 'Customer';
+        req.body.token = createToken(req.body.token);
          
-        if(!req.body.email || !req.body.firstName || !req.body.lastName || isNaN(req.body.phoneNumber) || !req.body.password || !req.body.confirmPassword){
+        if(!email || !firstName || !lastName || !password || !confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'All fields are required'
             });
         }
-        else if(req.body.password !== req.body.confirmPassword){
+        else if(!validateEmail(email) || isNaN(phoneNumber) || !validateString(firstName) || !validateString(lastName)){
+            res.status(406).send({
+                status: 'error', 
+                message: 'Invalid Input'
+            });
+        }
+        else if(password !== confirmPassword){
             res.status(406).send({
                 status: 'error', 
                 message: 'Password mismatch'
-            });
-        }
-         return next();
+            });    
+    }
+    return next();  
+}
         
-    };
     
   export  const validUserLogin = (req, res, next) => {
+
+    let {email, password} = req.body;
     
-        const id = parseInt(req.params.id);
-    
-            let validUser;  
-            
-            bankadb.userSignup.map((user) => {
-                if (user.id === id) {
-                    validUser = user;
-                    
-                    req.body.id = validUser.id;
-                    req.body.firstName = validUser.firstName;
-                    req.body.lastName = validUser.lastName;
-                    req.body.token = validUser.token;
-                }
-            });
-    
-            if(!validUser){ 
-                res.status(404).send({
-                    status: 'error', 
-                    message: 'Invalid User'
-                });   
-            }
-    
-            if(req.body.email !== validUser.email || req.body.password !== validUser.password){
+            if(!email || !password){
                 res.status(404).send({
                     status: 'error', 
                     message: 'Invalid User'
@@ -70,8 +66,10 @@
             })
     
             if(!validUser){
-                err = new Error('User not found');
-                err.status = 404;
+                res.status(404).send({
+                    status: 'error', 
+                    message: 'User not found'
+                });
             }
     
             if(isNaN(req.body.bvnNumber) || !req.body.dateOfBirth || !req.body.residentialAddress || !req.body.meansOfIdentification || !req.body.idNumber || !req.body.occupation || !req.body.nextOfKin || req.body.relationshipToNextOfKin || !req.body.accountType || !req.body.sex ||!req.body.maritalStatus){

@@ -1,51 +1,45 @@
 import bankadb from '../memorydb/bankadb';
-import createToken from '../lib/token';
+//import createToken from '../lib/token';
 import pool from '../lib/connectdb';
+
 
 class CustomerController {
 
     //API for user(customer) signup
-    postUserSignup(req, res){ 
+    postUserSignup(req, res){        
 
-        const signup = {
-            id : req.body.id = 1000 + bankadb.userSignup.length,
-            email : req.body.email,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            phoneNumber : parseInt(req.body.phoneNumber),
-            password: req.body.password,
-            confirmPassword : req.body.confirmPassword,
-            accountType : 'Customer',
-            token : createToken(req.body.token)
-        };        
+        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token} = req.body;
 
-        
-        
-        return res.status(200).send({
-            success: true,
-            message: 'You have succesfully signed up',
-            signup 
-            });            
+        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token], (error, results) => {
+            if (error) {
+              throw error
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'You have succesfully signed up',
+                data: results.rows[0]
+            }); 
+          })             
     } 
 
     //API for user(customer) login
     postUserLogin(req, res){
 
-            const login = {
-                id : req.body.id,
-                email : req.body.email,
-                password : req.body.password,
-                firstName : req.body.firstName,
-                lastName : req.body.lastName,
-                token : req.body.token
-            }
-            bankadb.userLogin.push(login);
-        
-        res.status(200).send({
-            success: true,
-            message: 'Login Successful',
-            login,
-        });
+            const id = parseInt(req.params.id);
+            let {email, password} = req.body;
+            
+            pool.query('SELECT * FROM signup WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+                    if (key.email == email && key._password == password) {
+                        res.status(200).json(results.rows);
+                    }else{
+                        res.status(404).json('User not found');
+                    }  
+                  });
+              })
     }
 
     //API for user(customer) to create a bank account
