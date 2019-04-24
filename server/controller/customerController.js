@@ -8,9 +8,9 @@ class CustomerController {
     //API for user(customer) signup
     postUserSignup(req, res){        
 
-        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token} = req.body;
+        let {id, email, firstName, lastName, phoneNumber, password, confirmPassword, userAccount, token} = req.body;
 
-        pool.query('INSERT INTO signup (id, email, first_name, last_name, phone_number, _password, confirm_password, account_type, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, accountType, accountStatus, token], (error, results) => {
+        pool.query('INSERT INTO customer (id, email, first_name, last_name, phone_number, _password, confirm_password, user_account, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [id, email, firstName, lastName, phoneNumber, password, confirmPassword, userAccount,  token], (error, results) => {
             if (error) {
               throw error
             }
@@ -28,7 +28,7 @@ class CustomerController {
             const id = parseInt(req.params.id);
             let {email, password} = req.body;
             
-            pool.query('SELECT * FROM signup WHERE id = $1', [id], (error, results) => {
+            pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
                 if (error) {
                   throw error
                 }
@@ -45,45 +45,33 @@ class CustomerController {
     //API for user(customer) to create a bank account
     postCreateBankAccount(req, res){
 
-        const createBankAccount = {
-            id : req.body.id,
-            accountNumber : Math.floor(1111111111 + Math.random() * 1999999999),
-            fullName :  req.body.fullName,
-            owner: req.body.owner,
-            bvnNumber : parseInt(req.body.bvnNumber),
-            dateOfBirth : req.body.dateOfBirth,
-            residentialAddress : req.body.residentialAddress,
-            meansOfIdentification : req.body.meansOfIdentification,
-            idNumber : parseInt(req.body.idNumber),
-            emailAddress : req.body.emailAddress,
-            occupation : req.body.occupation,
-            nextOfKin : req.body.nextOfKin,
-            relationshipToNextOfKin : req.body.relationshipToNextOfKin,
-            phoneNumber : req.body.phoneNumber,
-            accountType : req.body.accountType,
-            accountStatus : 'Active',
-            sex: req.body.sex,
-            maritalStatus : req.body.maritalStatus,
-            currency : 'NGN',
-            createdOn : new Date(),
-            openingBalance : parseFloat(0),
-            credit : parseFloat(0),
-            debit : parseFloat(0),
-            totalCredit : parseFloat(0),
-            totalDebit : parseFloat(0),
-            oldBalance : parseFloat(0),
-            newBalance : parseFloat(0)
-        };
+        let id = parseInt(req.params.id);
 
-        req.body.accountType == 'Savings' ? bankadb.savingsBankAccount.push(createBankAccount) : req.body.accountType == 'Current' ? bankadb.currentBankAccount.push(createBankAccount) : undefined;
+        let {accountNumber, fullName, owner, bvnNumber, dateOfBirth, residentialAddress, meansOfIdentification, idNumber, emailAddress, occupation, nextOfKin, relationshipToNextOfKin, phoneNumber, accountType,accountStatus, sex, maritalStatus, currency, createdOn, openingBalance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance} = req.body; 
 
-        bankadb.accountProfile.push(createBankAccount);
-    
-        res.status(200).send({
-            success: true,
-            message: 'Account Created Successful',
-            createBankAccount
-        });
+        pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
+            if(error){
+                throw error
+            }
+            results.rows.forEach((key) => {
+                if(key.id == id){
+
+                    id = key.id;
+                    fullName = `${key.first_name} ${key.last_name}`; 
+                    owner = key.id; 
+                    emailAddress = key.email; 
+                    phoneNumber = key.phone_number;
+
+                    pool.query('INSERT INTO bank_account (id, account_number, full_name, _owner, bvn_number, date_of_birth, residential_address, means_of_identification, id_number, email_address, occupation, next_of_kin, relationship_to_Kin, phone_number, account_type,account_status, sex, marital_status, currency, created_on, opening_balance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) RETURNING *', [id, accountNumber, fullName, owner, bvnNumber, dateOfBirth, residentialAddress, meansOfIdentification, idNumber, emailAddress, occupation, nextOfKin, relationshipToNextOfKin, phoneNumber, accountType,accountStatus, sex, maritalStatus, currency, createdOn, openingBalance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance], (error, results) => {
+                        if(error){
+                            throw error
+                        }else{
+                            res.status(200).json(results.rows[0]);
+                        }
+                    })
+                }
+            })
+        })
     }
 
     //API for user(customer) account profile
