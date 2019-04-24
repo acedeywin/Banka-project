@@ -206,24 +206,8 @@ export const validAdminCreateAccount = (req, res, next) => {
 
     const id = parseInt(req.params.id);
 
-        let validUser;
-        
-        bankadb.adminUserAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-                
-            req.body.id = validUser.id;
-            req.body.firstName = validUser.firstName;
-            req.body.lastName = validUser.lastName;
-            req.body.email = validUser.userEmail;
-            req.body.accountType = validUser.accountType;
-            req.body.createdOn = validUser.createdOn;
-            req.body.accountStatus = validUser.accountStatus;
-            }
-        });
-
-        if(!validUser){
-            res.status(404).send({
+        if(!id){
+            res.status(406).send({
                 status: 'error', 
                 message: 'User not found'
             });
@@ -235,24 +219,8 @@ export const validStaffProfile = (req, res, next) => {
 
     const id = parseInt(req.params.id);
 
-        let validUser;
-        
-        bankadb.adminUserAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-                
-            req.body.id = validUser.id;
-            req.body.firstName = validUser.firstName;
-            req.body.lastName = validUser.lastName;
-            req.body.email = validUser.userEmail;
-            req.body.accountType = validUser.accountType;
-            req.body.createdOn = validUser.createdOn;
-            req.body.accountStatus = validUser.accountStatus;
-            }
-        });
-
-        if(!validUser){
-            res.status(404).send({
+        if(!id){
+            res.status(406).send({
                 status: 'error', 
                 message: 'User not found'
             });

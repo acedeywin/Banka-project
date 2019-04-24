@@ -64,8 +64,10 @@
     
             if(isNaN(bvnNumber) || !dateOfBirth || !residentialAddress || !meansOfIdentification || isNaN(idNumber) || !occupation || !nextOfKin || relationshipToNextOfKin || !accountType || !sex ||!maritalStatus){
                 
-                let err = new Error('All fields are required');
-                err.status = 404;
+               res.status(406).send({
+                    status: 'error', 
+                    message: 'All fields are required'
+                }); 
             }
             return next();
     };
@@ -74,27 +76,7 @@
 
         const id = parseInt(req.params.id);
 
-        let validUser;
-        
-        bankadb.accountProfile.map((user) => {
-            if (user.id === id) {
-                validUser = user; 
-                
-            req.body.id = validUser.id;
-            req.body.accountNumber = validUser.accountNumber;
-            req.body.accountType = validUser.accountType;
-            req.body.createdOn = validUser.createdOn;
-            req.body.accountOwner = validUser.fullName;
-            req.body.currency = validUser.currency;
-            req.body.accountStatus = validUser.accountStatus;
-            req.body.totalCredit = validUser.totalCredit;
-            req.body.totalDebit = validUser.totalDebit;
-            req.body.accountBalance = validUser.newBalance;
-            req.body.fullName = validUser.fullName
-            }
-        });
-
-        if(!validUser){
+        if(!id){
             res.status(406).send({
                 status: 'error', 
                 message: 'User not found'

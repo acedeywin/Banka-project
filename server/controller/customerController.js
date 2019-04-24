@@ -77,26 +77,24 @@ class CustomerController {
     //API for user(customer) account profile
     getAccountProfile(req, res){
 
-        const accountProfile = {
-            id : req.body.id,
-            accountNumber : req.body.accountNumber,
-            accountType : req.body.accountType,
-            createdOn : req.body.createdOn,
-            accountOwner : req.body.fullName,
-            currency : req.body.currency,
-            accountStatus : req.body.accountStatus,
-            totalCredit : req.body.totalCredit,
-            totalDebit : req.body.totalDebit,
-            accountBalance : req.body.newBalance
-        };
+        const id = parseInt(req.params.id);
+        let fullName = req.body.fullName;
 
-        bankadb.userProfile.push(accountProfile);
+        pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
 
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName} Account Profile`,
-            accountProfile
-        });
+                    fullName = `${key.first_name} ${key.last_name}`
+
+                    res.status(200).json({
+                        success: true,
+                        message: `${fullName}'s Account Profile`,
+                        results: results.rows
+                    }); 
+                });
+            })
     }
 
     //API for user(customer) contact page

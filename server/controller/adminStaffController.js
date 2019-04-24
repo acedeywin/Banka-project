@@ -134,45 +134,51 @@ class AdminStaffController{
     //API for user(admin) account profile
     getAdminProfile(req, res){
 
-        const adminProfile = {
-            id : req.body.id,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            email : req.body.userEmail,
-            accountType : req.body.accountType,
-            createdOn : req.body.createdOn,
-            accountStatus : req.body.accountStatus,
-        };
+        const id = parseInt(req.params.id),
+              accountType = req.params.accountType;
 
-        bankadb.adminProfile.push(adminProfile);
+        let fullName = req.body.fullName;
 
-        return res.status(200).send({
-            success: true,
-            message: `${req.body.accountType} Account Profile`,
-            adminProfile
-        });
+        pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+
+                    fullName = `${key.first_name} ${key.last_name}`
+
+                    res.status(200).json({
+                        success: true,
+                        message: `${fullName}'s Account Profile`,
+                        results: results.rows
+                    }); 
+                });
+            })
     }
 
     //API for user(admin) account profile
     getStaffProfile(req, res){
 
-        const adminProfile = {
-            id : req.body.id,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            email : req.body.userEmail,
-            accountType : req.body.accountType,
-            createdOn : req.body.createdOn,
-            accountStatus : req.body.accountStatus,
-        };
+        const id = parseInt(req.params.id),
+              accountType = req.params.accountType;
 
-        bankadb.adminProfile.push(adminProfile);
+        let fullName = req.body.fullName;
 
-        return res.status(200).send({
-            success: true,
-            message: `${req.body.accountType} Account Profile`,
-            staffProfile
-        });
+        pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+
+                    fullName = `${key.first_name} ${key.last_name}`
+
+                    res.status(200).json({
+                        success: true,
+                        message: `${fullName}'s Account Profile`,
+                        results: results.rows
+                    }); 
+                });
+            })
     }
 
         //API for admin login
