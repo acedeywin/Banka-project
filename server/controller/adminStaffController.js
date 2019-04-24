@@ -21,40 +21,91 @@ class AdminStaffController{
 
     //API for viewing all savings bank accounts
     getAllSavingsAccounts(req, res){
-        res.status(200).send({
-            success: true,
-            message: 'Savings Bank Accounts',
-            savingsBankAccount: bankadb.savingsBankAccount
-        });
+
+        const accountType = req.params.accountType;
+
+        pool.query('SELECT * FROM bank_account WHERE account_type = $1', [accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                    res.status(200).json({
+                        success: true,
+                        message: `List of All Savings Accounts`,
+                        results: results.rows
+                    }); 
+            })
     }
 
     //API for viewing all current bank accounts
     getAllCurrentAccounts(req, res){
-        res.status(200).send({
-            success: true,
-            message: 'Current Bank Accounts',
-            currentBankAccount : bankadb.currentBankAccount
-        });
+
+        const accountType = req.params.accountType;
+
+        pool.query('SELECT * FROM bank_account WHERE account_type = $1', [accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                    res.status(200).json({
+                        success: true,
+                        message: `List of All Current Accounts`,
+                        results: results.rows
+                    }); 
+            })
     }
 
-    //API for viewing a specific savings account
+    //API for viewing a specific user savings account
     getSavingsAccounts(req, res){
         
-        return res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account Profile`,
-            validUser: req.body.validUser
-        });
+        const id = parseInt(req.params.id),
+              accountType = req.params.accountType;
+
+        let {fullName, userAccount} = req.body;
+
+        pool.query('SELECT * FROM bank_account WHERE id = $1 AND account_type = $2', [id, accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+
+                    fullName = `${key.full_name}`;
+                    userAccount = key.account_type;
+
+                    res.status(200).json({
+                        success: true,
+                        message: `${fullName}'s ${userAccount} Account(s)`,
+                        results: results.rows
+                    });
+                }) 
+            })
     }
 
-    //API for viewing a specific current account
+    //API for viewing a specific user current account
     getCurrentAccounts(req, res){
         
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account Profile`,
-            validUser: req.body.validUser
-        });
+        const id = parseInt(req.params.id),
+              accountType = req.params.accountType;
+
+        let {fullName, userAccount} = req.body;
+
+        pool.query('SELECT * FROM bank_account WHERE id = $1 AND account_type = $2', [id, accountType], (error, results) => {
+                if (error) {
+                  return res.status(404).send({
+                status: 'error', 
+                message: 'User not found'
+            });
+                }
+                results.rows.forEach((key) => {
+
+                    fullName = `${key.full_name}`;
+                    userAccount = key.account_type;
+
+                    res.status(200).json({
+                        success: true,
+                        message: `${fullName}'s ${userAccount} Account(s)`,
+                        results: results.rows
+                    });
+                }) 
+            })
     }
 
     //API for deleting a savings account
@@ -139,13 +190,13 @@ class AdminStaffController{
 
         let fullName = req.body.fullName;
 
-        pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
+        pool.query('SELECT * FROM create_account WHERE id = $1 AND account_type = $2', [id, accountType], (error, results) => {
                 if (error) {
                   throw error
                 }
                 results.rows.forEach((key) => {
 
-                    fullName = `${key.first_name} ${key.last_name}`
+                    fullName = `${key.first_name} ${key.last_name}`;
 
                     res.status(200).json({
                         success: true,

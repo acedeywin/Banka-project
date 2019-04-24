@@ -4,22 +4,12 @@ import {validateEmail, validateString} from '../lib/emailCheck';
 
 export const validSavingsAccounts = (req, res, next) => {
 
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id),
+          accountType = req.params.accountType;;
 
-        let validUser;
-        
-        bankadb.savingsBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user; 
-                
-                req.body.fullName = validUser.fullName;
-                req.body.accountType = validUser.accountType;
-                req.body.validUser = validUser;
-            }
-        });
 
-        if(!validUser){
-            res.status(404).send({
+        if(!id || !accountType){
+            return res.status(404).send({
                 status: 'error', 
                 message: 'User not found'
             });
@@ -29,22 +19,12 @@ export const validSavingsAccounts = (req, res, next) => {
 
 export const validCurrentAccounts = (req, res, next) => {
 
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id),
+          accountType = req.params.accountType;;
 
-        let validUser;
-        
-        bankadb.currentBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user; 
-                
-                req.body.fullName = validUser.fullName;
-                req.body.accountType = validUser.accountType;
-                req.body.validUser = validUser;
-            }
-        });
 
-        if(!validUser){
-            res.status(404).send({
+        if(!id || !accountType){
+            return res.status(404).send({
                 status: 'error', 
                 message: 'User not found'
             });

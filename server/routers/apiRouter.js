@@ -49,10 +49,10 @@ router.get('/transactions/history/:id', validTransactionHistory, customerControl
 
 //adminStaffController routers
 router.get('/users', adminStaffController.getAllUserAccount);
-router.get('/accounts/savings', adminStaffController.getAllSavingsAccounts);
-router.get('/accounts/current', adminStaffController.getAllCurrentAccounts);
-router.get('/accounts/savings/:id', validSavingsAccounts, adminStaffController.getSavingsAccounts);
-router.get('/accounts/current/:id', validCurrentAccounts, adminStaffController.getCurrentAccounts);
+router.get('/accounts/savings/:accountType', adminStaffController.getAllSavingsAccounts);
+router.get('/accounts/current/:accountType', adminStaffController.getAllCurrentAccounts);
+router.get('/accounts/savings/:id/:accountType', validSavingsAccounts, adminStaffController.getSavingsAccounts);
+router.get('/accounts/current/:id/:accountType', validCurrentAccounts, adminStaffController.getCurrentAccounts);
 router.get('/profile/admin/:id/:accountType', validAdminProfile, adminStaffController.getAdminProfile);
 router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
 router.get('/admin', adminStaffController.getAdminUserAccounts);
