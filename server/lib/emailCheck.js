@@ -10,3 +10,7 @@ export const validateString = (string) => {
     return regex.test(string);
 }
 
+// export const findOne = (id) => {
+
+	
+// }

@@ -66,37 +66,3 @@ CREATE TABLE create_account (
     isAdmin BOOLEAN NOT NULL,
     token VARCHAR(5000) NOT NULL
 );
-
-const createBankAccount = {
-            id : req.body.id,
-            accountNumber : Math.floor(1111111111 + Math.random() * 1999999999),
-            fullName :  req.body.fullName,
-            owner: req.body.owner,
-            bvnNumber : parseInt(req.body.bvnNumber),
-            dateOfBirth : req.body.dateOfBirth,
-            residentialAddress : req.body.residentialAddress,
-            meansOfIdentification : req.body.meansOfIdentification,
-            idNumber : parseInt(req.body.idNumber),
-            emailAddress : req.body.emailAddress,
-            occupation : req.body.occupation,
-            nextOfKin : req.body.nextOfKin,
-            relationshipToNextOfKin : req.body.relationshipToNextOfKin,
-            phoneNumber : req.body.phoneNumber,
-            accountType : req.body.accountType,
-            accountStatus : 'Active',
-            sex: req.body.sex,
-            maritalStatus : req.body.maritalStatus,
-            currency : 'NGN',
-            createdOn : new Date(),
-            openingBalance : parseFloat(0),
-            credit : parseFloat(0),
-            debit : parseFloat(0),
-            totalCredit : parseFloat(0),
-            totalDebit : parseFloat(0),
-            oldBalance : parseFloat(0),
-            newBalance : parseFloat(0)
-        };
-
-        req.body.accountType == 'Savings' ? bankadb.savingsBankAccount.push(createBankAccount) : req.body.accountType == 'Current' ? bankadb.currentBankAccount.push(createBankAccount) : undefined;
-
-        bankadb.accountProfile.push(createBankAccount);

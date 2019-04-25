@@ -88,7 +88,7 @@ class CustomerController {
 
                     fullName = `${key.first_name} ${key.last_name}`
 
-                    res.status(200).json({
+                   return res.status(200).json({
                         success: true,
                         message: `${fullName}'s Account Profile`,
                         results: results.rows
