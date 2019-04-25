@@ -1,6 +1,7 @@
 import bankadb from '../memorydb/bankadb';
 import createToken from '../lib/token';
 import {validateEmail, validateString} from '../lib/emailCheck';
+import pool from '../lib/connectdb';
 
 export const validSavingsAccounts = (req, res, next) => {
 
@@ -33,86 +34,73 @@ export const validCurrentAccounts = (req, res, next) => {
 
 }
 
-export const validDeleteSavingsAccount = (req, res, next) => {
+// export const validDeleteCurrentAccount = (req, res, next) => {
 
-    const id = parseInt(req.params.id);
-        let validUser;
+//     const id = parseInt(req.params.id);
+//         let validUser;
 
-        bankadb.savingsBankAccount.map((user, index) => {
-            if (user.id === id) {
-                validUser = user
+//         bankadb.currentBankAccount.map((user, index) => {
+//             if (user.id === id) {
+//                 validUser = user
 
-                req.body.fullName = validUser.fullName;
-                req.body.accountType = validUser.accountType;
+//                 req.body.fullName = validUser.fullName;
+//                 req.body.accountType = validUser.accountType;
 
-                bankadb.savingsBankAccount.splice(index, 1);
-            }
-        });
+//                 bankadb.currentBankAccount.splice(index, 1);
+//             }
+//         });
 
-        if(!validUser){
-            res.status(404).send({
-                status: 'error', 
-                message: 'User not found'
+//         if(!validUser){
+//             res.status(404).send({
+//                 status: 'error', 
+//                 message: 'User not found'
+//             });
+//         }
+//         return next();
+// }
+
+export const validPatchBankAccount = (req, res, next) => {
+    const accountNumber = parseInt(req.params.accountNumber);
+
+    let { accountStatus, fullName, userAccount, userStatus } = req.body;
+
+          pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2',
+            [accountStatus, accountNumber],
+            (error, results) => {
+              if (error) {
+                throw error
+              }
+              results.rows.forEach((key) => {
+
+                 fullName = key.full_name;
+                 userAccount = key.account_type;
+                 userStatus = key.account_status;
+
+                 if(accountNumber != key.account_number){
+                    res.status(404).send({
+                        status: 'error', 
+                        message: 'User not found'
+                    });
+                 }
+
+                 if(key.account_status == 'Active'){
+                    account_status = 'Dormant';
+                    userStatus = 'Dormant';
+
+                }
+                else if(key.account_status == 'Dormant'){
+                        account_status = 'Active';
+                        userStatus = 'Active';
+                }
+
+                return res.status(200).json({
+                 success: true,
+                 message: `${fullName}'s ${userAccount} Account is now ${userStatus}`,
+                 results: results.rows
+              })
+                 
             });
-        }
-        return next();
-}
-
-export const validDeleteCurrentAccount = (req, res, next) => {
-
-    const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.currentBankAccount.map((user, index) => {
-            if (user.id === id) {
-                validUser = user
-
-                req.body.fullName = validUser.fullName;
-                req.body.accountType = validUser.accountType;
-
-                bankadb.currentBankAccount.splice(index, 1);
-            }
-        });
-
-        if(!validUser){
-            res.status(404).send({
-                status: 'error', 
-                message: 'User not found'
-            });
-        }
-        return next();
-}
-
-export const validPatchSavingsAccount = (req, res, next) => {
-    const id = parseInt(req.params.id);
-    let validUser;
-
-    bankadb.savingsBankAccount.map((user) => {
-        if (user.id === id) {
-            validUser = user;
-
-            req.body.validUser = validUser;
-            req.body.fullName = validUser.fullName;
-            req.body.accountType = validUser.accountType;
-        }
-    });
-
-    if(!validUser){
-        res.status(404).send({
-            status: 'error', 
-            message: 'User not found'
-        });
-    }
-
-    if(validUser.accountStatus == 'Active'){
-        validUser.accountStatus = 'Dormant';
-        req.body.accountStatus = 'Dormant';
-
-    }
-    else if(validUser.accountStatus == 'Dormant'){
-        validUser.accountStatus = 'Active';
-        req.body.accountStatus = 'Active';
-    }
+        })
 
     return next();
 }
@@ -160,7 +148,7 @@ export const validAdminCreateAccount = (req, res, next) => {
     req.body.accountStatus = 'Active';
     req.body.createdOn = new Date();
 
-    if(!validateString(firstName) || !validateString(lastName) || !validateEmail(email) || !validateString(accountType) || !id || !password || !confirmPassword){
+    if(!validateString(firstName) || !validateString(lastName) || !validateEmail(email) || !validateString(accountType) || isNaN(id) || !password || !confirmPassword){
         res.status(406).send({
             status: 'error', 
             message: 'All inputs must be valid'

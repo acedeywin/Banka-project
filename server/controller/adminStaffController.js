@@ -4,57 +4,46 @@ import pool from '../lib/connectdb';
 
 class AdminStaffController{
 
-    //API for viewing all bank/user accounts
-    getAllUserAccount(req, res){
-        res.status(200).send({
-            success: true,
-            message: 'All Accounts',
-            signupCustomer : bankadb.userSignup,
-            savingsBankAccount: bankadb.savingsBankAccount,
-            currentBankAccount : bankadb.currentBankAccount,
-            accountProfile : bankadb.accountProfile,
-            adminAccount : bankadb.adminUserAccount,
-            staffAccount : bankadb.staffUserAccount,
-            transactions : bankadb.transactions 
-        });
-    }
+    // //API for viewing all bank/user accounts
+    // getAllUserAccount(req, res){
+    //     res.status(200).send({
+    //         success: true,
+    //         message: 'All Accounts',
+    //         signupCustomer : bankadb.userSignup,
+    //         savingsBankAccount: bankadb.savingsBankAccount,
+    //         currentBankAccount : bankadb.currentBankAccount,
+    //         accountProfile : bankadb.accountProfile,
+    //         adminAccount : bankadb.adminUserAccount,
+    //         staffAccount : bankadb.staffUserAccount,
+    //         transactions : bankadb.transactions 
+    //     });
+    // }
 
-    //API for viewing all savings bank accounts
-    getAllSavingsAccounts(req, res){
+    //API for viewing all bank accounts
+    getAllBankAccounts(req, res){
 
         const accountType = req.params.accountType;
+        let userAccount = req.body.userAccount;
 
         pool.query('SELECT * FROM bank_account WHERE account_type = $1', [accountType], (error, results) => {
                 if (error) {
                   throw error
                 }
+                results.rows.forEach((key) => {
+
+                    userAccount = key.accountType;
+
                     res.status(200).json({
                         success: true,
-                        message: `List of All Savings Accounts`,
+                        message: `List of All ${userAccount} Accounts`,
                         results: results.rows
                     }); 
-            })
-    }
-
-    //API for viewing all current bank accounts
-    getAllCurrentAccounts(req, res){
-
-        const accountType = req.params.accountType;
-
-        pool.query('SELECT * FROM bank_account WHERE account_type = $1', [accountType], (error, results) => {
-                if (error) {
-                  throw error
-                }
-                    res.status(200).json({
-                        success: true,
-                        message: `List of All Current Accounts`,
-                        results: results.rows
-                    }); 
+                })
             })
     }
 
     //API for viewing a specific user savings account
-    getSavingsAccounts(req, res){
+    getBankAccounts(req, res){
         
         const id = parseInt(req.params.id),
               accountType = req.params.accountType;
@@ -79,62 +68,53 @@ class AdminStaffController{
             })
     }
 
-    //API for viewing a specific user current account
-    getCurrentAccounts(req, res){
-        
-        const id = parseInt(req.params.id),
-              accountType = req.params.accountType;
-
-        let {fullName, userAccount} = req.body;
-
-        pool.query('SELECT * FROM bank_account WHERE id = $1 AND account_type = $2', [id, accountType], (error, results) => {
-                if (error) {
-                  return res.status(404).send({
-                status: 'error', 
-                message: 'User not found'
-            });
-                }
-                results.rows.forEach((key) => {
-
-                    fullName = `${key.full_name}`;
-                    userAccount = key.account_type;
-
-                    res.status(200).json({
-                        success: true,
-                        message: `${fullName}'s ${userAccount} Account(s)`,
-                        results: results.rows
-                    });
-                }) 
-            })
-    }
-
+    
     //API for deleting a savings account
-    deleteSavingsAccount(req, res){
-        
-            res.status(200).send({
+    deleteBankAccount(req, res){
+        console.log('i got herea')
+
+        const accountNumber = parseInt(req.params.accountNumber);
+
+        pool.query('DELETE FROM bank_account WHERE account_number = $1 RETURNING *', [accountNumber], (error, results) => {
+            if (error) {
+              throw error
+            }
+            return res.status(200).json({
                 success: true,
-                message: `${req.body.fullName}'s ${req.body.accountType} Account has been Successfully Deleted`
-            });
-          
+                message: ` Account has been Successfully Deleted`,
+            });  
+        })  
     }
 
-    //API for deleting a current account
-    deleteCurrentAccount(req, res, next){
-          
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account has been Successfully Deleted`
+    //API for activating/deactivating a bank account
+    patchBankAccount(req, res){
+
+        const accountNumber = parseInt(req.params.accountNumber)
+        let { accountStatus, fullName, userAccount, userStatus } = req.body
+
+          pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2',
+            [accountStatus, accountNumber],
+            (error, results) => {
+              if (error) {
+                throw error
+              }
+              results.rows.forEach((key) => {
+
+                 fullName = key.full_name;
+                 userAccount = key.account_type;
+                 userStatus = key.account_status;
+
+                 res.status(200).json({
+                 success: true,
+                 message: `${fullName}'s ${userAccount} Account is now ${userStatus}`,
+                 results: results.rows
+              })
+                 
         });
-    }
-
-    //API for activating/deactivating a savings account
-    patchSavingsAccount(req, res){
+            }
+          )
          
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account is now ${req.body.accountStatus}`,
-            validUser: req.body.validUser
-        });
+       
     }
 
     //API for activating/deactivating a current account
@@ -170,15 +150,22 @@ class AdminStaffController{
         let {id, firstName, lastName, email, password, confirmPassword, accountType, accountStatus, createdOn, isAdmin, token} = req.body;
 
         pool.query('INSERT INTO create_account (id, first_name, last_name, email, _password, confirm_password, account_type, account_status, created_On, isAdmin, token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *', [id, firstName, lastName, email, password, confirmPassword, accountType, accountStatus, createdOn, isAdmin, token], (error, results) => {
+            console.log(error);
+            console.log(results.rows[0]);
             if (error) {
               throw error
             }
-            res.status(200).send({
+            results.rows.forEach((key) => {
+
+                const fullName = `${key.first_name} ${key.last_name}`;
+                const userAccount = key.account_type;
+
+                return res.status(200).send({
                 success: true,
-                message: 'You have succesfully signed up',
-                data: results.rows[0]
+                message: `${fullName}'s ${userAccount} Account has been succesfully created`,
+                data: results.rows 
             }); 
-            return;
+            })
           })
     }
 
@@ -273,21 +260,41 @@ class AdminStaffController{
         }
 
     //API for deleting an admin account
-    deleteAdminAccount(req, res){
-        
-            res.status(200).send({
+    deleteUserAccount(req, res){
+        console.log('i got hereb')
+        const id = parseInt(req.params.id),
+            accountType = req.params.accountType;
+
+        pool.query('DELETE FROM create_account WHERE id = $1 AND account_type = $2 RETURNING *', [id, accountType], (error, results) => {
+            if (error) {
+              throw error
+            }
+            return res.status(200).json({
                 success: true,
-                message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Successfully Deleted`
-            });
+                 message: `Account has been Successfully Deleted`,
+            }); 
+        }) 
         
     }
 
     //API for deleting a staff account
-    deleteStaffAccount(req, res, next){
-        res.status(200).send({
-            success: true,
-            message: `${req.body.firstName} ${req.body.lastName}'s ${req.body.userAccountType} Account has been Successfully Deleted`
-        });
+    deleteCustomerAccount(req, res){
+        console.log(req.params.id)
+
+        const id = parseInt(req.params.id);
+
+        pool.query('DELETE FROM customer WHERE id = $1 RETURNING *', [id], (error, results) => {
+            console.log(error);
+            console.log(results.rows[0]);
+            if (error) {
+              throw error
+            }
+            res.status(200).json({
+                success: true,
+                message: ` Account has been Successfully Deleted`,
+                results: results.rows[0]
+            });  
+        })  
     }
 
     //API for activating/deactivating admin account

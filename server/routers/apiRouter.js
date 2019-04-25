@@ -12,18 +12,14 @@ import {
     } from '../middleware/customerValidator';
 import {
     validSavingsAccounts,
-    validDeleteSavingsAccount,
-    validDeleteCurrentAccount,
     validCurrentAccounts,
-    validPatchSavingsAccount,
+    validPatchBankAccount,
     validPatchCurrentAccount,
     validAdminCreateAccount,
     validAdminProfile,
     validStaffProfile,
     validAdminLogin,
     validStaffLogin,
-    validDeleteAdminAccount,
-    validDeleteStaffAccount,
     validPatchAdminAccount,
     validPatchStaffAccount,
     validUpdateCurrentAccount,
@@ -48,20 +44,20 @@ router.get('/profile/customers/:id', validAccountProfile, customerController.get
 router.get('/transactions/history/:id', validTransactionHistory, customerController.getTransactionHistory);
 
 //adminStaffController routers
-router.get('/users', adminStaffController.getAllUserAccount);
-router.get('/accounts/savings/:accountType', adminStaffController.getAllSavingsAccounts);
-router.get('/accounts/current/:accountType', adminStaffController.getAllCurrentAccounts);
-router.get('/accounts/savings/:id/:accountType', validSavingsAccounts, adminStaffController.getSavingsAccounts);
-router.get('/accounts/current/:id/:accountType', validCurrentAccounts, adminStaffController.getCurrentAccounts);
+//router.get('/users', adminStaffController.getAllUserAccount);
+router.get('/accounts/:accountType', adminStaffController.getAllBankAccounts);
+
+router.get('/accounts/:id/:accountType', validSavingsAccounts, adminStaffController.getBankAccounts);
+
 router.get('/profile/admin/:id/:accountType', validAdminProfile, adminStaffController.getAdminProfile);
 router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
 router.get('/admin', adminStaffController.getAdminUserAccounts);
 router.get('/staff', adminStaffController.getStaffUserAccounts);
-router.delete('/accounts/savings/:id', validDeleteSavingsAccount, adminStaffController.deleteSavingsAccount);
-router.delete('/accounts/current/:id', validDeleteCurrentAccount, adminStaffController.deleteCurrentAccount)
-router.delete('/admin/:id', validDeleteAdminAccount, adminStaffController.deleteAdminAccount);
-router.delete('/staff/:id', validDeleteStaffAccount, adminStaffController.deleteStaffAccount);
-router.patch('/accounts/savings/:id', validPatchSavingsAccount,  adminStaffController.patchSavingsAccount);
+router.delete('/accounts/:accountNumber', adminStaffController.deleteBankAccount);
+
+router.delete('/customer/accounts/:id', adminStaffController.deleteCustomerAccount);
+router.delete('/accounts/:id/:accountType', adminStaffController.deleteUserAccount);
+router.patch('/accounts/:accountNumber', validPatchBankAccount,  adminStaffController.patchBankAccount);
 router.patch('/accounts/current/:id', validPatchCurrentAccount, adminStaffController.patchCurrentAccount);
 router.patch('/admin/:id', validPatchAdminAccount, adminStaffController.patchAdminAccount);
 router.patch('/staff/:id', validPatchStaffAccount, adminStaffController.patchStaffAccount);
