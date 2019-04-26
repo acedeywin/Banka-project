@@ -9,9 +9,11 @@ CREATE TABLE customer (
     confirm_password VARCHAR(50) NOT NULL,
     user_account VARCHAR(20) NOT NULL,
     token VARCHAR(5000) NOT NULL,
-    account_number BIGINT REFERENCES bank_account (account_number),
-    UNIQUE(account_number)
+    account_number BIGINT
 );
+
+REFERENCES bank_account (account_number),
+    UNIQUE(account_number)
 
 CREATE TABLE bank_account (
     sn SERIAL,
@@ -34,19 +36,19 @@ CREATE TABLE bank_account (
     sex VARCHAR(10) NOT NULL,
     marital_status VARCHAR(20) NOT NULL,
     currency VARCHAR(7) NOT NULL,
-    created_On TIMESTAMP NOT NULL,
-    opening_Balance  FLOAT NOT NULL,
+    created_on TIMESTAMP NOT NULL,
+    opening_balance  FLOAT NOT NULL,
     credit FLOAT NOT NULL,
     debit FLOAT NOT NULL,
-    totalCredit FLOAT NOT NULL,
-    totalDebit FLOAT NOT NULL,
-    oldBalance FLOAT NOT NULL,
-    newBalance FLOAT NOT NULL
+    total_credit FLOAT NOT NULL,
+    total_debit FLOAT NOT NULL,
+    old_balance FLOAT NOT NULL,
+    new_balance FLOAT NOT NULL
 );
 
 CREATE TABLE contact_form (
     sn SERIAL,
-    id INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL,
     full_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     _message VARCHAR(2000) NOT NULL
@@ -67,36 +69,14 @@ CREATE TABLE create_account (
     token VARCHAR(5000) NOT NULL
 );
 
-const createBankAccount = {
-            id : req.body.id,
-            accountNumber : Math.floor(1111111111 + Math.random() * 1999999999),
-            fullName :  req.body.fullName,
-            owner: req.body.owner,
-            bvnNumber : parseInt(req.body.bvnNumber),
-            dateOfBirth : req.body.dateOfBirth,
-            residentialAddress : req.body.residentialAddress,
-            meansOfIdentification : req.body.meansOfIdentification,
-            idNumber : parseInt(req.body.idNumber),
-            emailAddress : req.body.emailAddress,
-            occupation : req.body.occupation,
-            nextOfKin : req.body.nextOfKin,
-            relationshipToNextOfKin : req.body.relationshipToNextOfKin,
-            phoneNumber : req.body.phoneNumber,
-            accountType : req.body.accountType,
-            accountStatus : 'Active',
-            sex: req.body.sex,
-            maritalStatus : req.body.maritalStatus,
-            currency : 'NGN',
-            createdOn : new Date(),
-            openingBalance : parseFloat(0),
-            credit : parseFloat(0),
-            debit : parseFloat(0),
-            totalCredit : parseFloat(0),
-            totalDebit : parseFloat(0),
-            oldBalance : parseFloat(0),
-            newBalance : parseFloat(0)
-        };
-
-        req.body.accountType == 'Savings' ? bankadb.savingsBankAccount.push(createBankAccount) : req.body.accountType == 'Current' ? bankadb.currentBankAccount.push(createBankAccount) : undefined;
-
-        bankadb.accountProfile.push(createBankAccount);
+CREATE TABLE transaction (
+    sn SERIAL,
+    id INT,
+    transaction_date TIMESTAMP,
+    account_number,
+    account_type VARCHAR(50),
+    transaction_type VARCHAR(50),
+    deposit BIGINT,
+    withdrawal BIGINT,
+    balance BIGINT
+);
