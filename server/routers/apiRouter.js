@@ -50,8 +50,8 @@ router.get('/accounts/:accountType', adminStaffController.getAllBankAccounts);
 router.get('/accounts/:id/:accountType', validSavingsAccounts, adminStaffController.getBankAccounts);
 
 router.get('/profile/admin/:id/:accountType', validAdminProfile, adminStaffController.getAdminStaffProfile);
-router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
-router.get('/admin', adminStaffController.getAdminUserAccounts);
+//router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
+router.get('/admin', adminStaffController.getAdminStaffAccounts);
 router.get('/staff', adminStaffController.getStaffUserAccounts);
 router.delete('/accounts/:accountNumber', adminStaffController.deleteBankAccount);
 
@@ -59,7 +59,7 @@ router.delete('/customer/accounts/:id', adminStaffController.deleteCustomerAccou
 router.delete('/accounts/:id/:accountType', adminStaffController.deleteUserAccount);
 
 router.patch('/customer/accounts/:accountNumber', adminStaffController.patchBankAccount);
-router.patch('/accounts/current/:id', adminStaffController.patchCurrentAccount);
+//router.patch('/accounts/current/:id', adminStaffController.patchCurrentAccount);
 router.patch('/admin/:id', validPatchAdminAccount, adminStaffController.patchAdminAccount);
 router.patch('/staff/:id', validPatchStaffAccount, adminStaffController.patchStaffAccount);
 router.post('/auth/personnel', validAdminCreateAccount, adminStaffController.postAdminCreateAccount);

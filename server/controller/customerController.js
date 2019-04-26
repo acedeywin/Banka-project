@@ -104,25 +104,40 @@ class CustomerController {
     //API for user(customer) contact page
     postContactPage(req, res){
 
-        const contact = {
-            id : req.body.id,
-            fullName : req.body.fullName,
-            email : req.body.emailAddress,
-            message : req.body.message
-        };
 
-        bankadb.contactMessage.push(contact);
+        let id = parseInt(req.params.id);
 
-        res.status(200).send({
-            success: true,
-            message: 'Message successfully sent!',
-            contact
-        });
+        let {fullName, email, message} = req.body; 
+
+        pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
+            if(error){
+                throw error
+            }
+            results.rows.forEach((key) => {
+                if(key.id == id){
+
+                    id = key.id;
+                    fullName = `${key.first_name} ${key.last_name}`; 
+                    email = key.email; 
+
+                    pool.query('INSERT INTO contact_form (id, full_name, email, _message) VALUES ($1, $2, $3, $4) RETURNING *', [id, fullName, email, message], (error, results) => {
+                        if(error){
+                            throw error
+                        }else{
+                            res.status(200).json({
+                                success: true,
+                                message: 'Message sent successfully',
+                                results: results.rows[0]
+                            });
+                        }
+                    })
+                }
+            })
+        })
     }
 
     getTransactionHistory(req, res){
 
-        
 
         const transactionHistory = {
             id : req.body.id,

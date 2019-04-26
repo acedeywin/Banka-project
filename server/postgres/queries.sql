@@ -46,7 +46,7 @@ CREATE TABLE bank_account (
 
 CREATE TABLE contact_form (
     sn SERIAL,
-    id INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL,
     full_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     _message VARCHAR(2000) NOT NULL
