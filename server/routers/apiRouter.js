@@ -22,7 +22,7 @@ import {
     validStaffLogin,
     validPatchAdminAccount,
     validPatchStaffAccount,
-    validUpdateCurrentAccount,
+    validupdateBankAccount,
     validUpdateSavingsAccount
 
 } from '../middleware/adminStaffValidator';
@@ -65,7 +65,7 @@ router.patch('/staff/:id', validPatchStaffAccount, adminStaffController.patchSta
 router.post('/auth/personnel', validAdminCreateAccount, adminStaffController.postAdminCreateAccount);
 router.post('/auth/login/:id/:accountType', validAdminLogin, adminStaffController.postAdminStaffLogin);
 //router.post('/auth/login/staff/:id', validStaffLogin, adminStaffController.postStaffLogin);
-router.put('/transactions/:accountNumber/:transactionType', validUpdateCurrentAccount, adminStaffController.updateCurrentAccount);
+router.put('/transactions/:accountNumber/:transactionType', validupdateBankAccount, adminStaffController.updateBankAccount);
 //router.put('/transactions/savings/:id', validUpdateSavingsAccount, adminStaffController.updateSavingsAccount);
 
 //editProfileController routers

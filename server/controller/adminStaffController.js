@@ -350,7 +350,7 @@ class AdminStaffController{
     }
 
     //API for staff to credit/debit a current account
-    updateCurrentAccount(req, res){
+    updateBankAccount(req, res){
 
        //const id = parseInt(req.params.id);
         const accountNumber = parseInt(req.params.accountNumber),
@@ -381,33 +381,33 @@ class AdminStaffController{
         // });
     }
 
-    //API for staff to credit/debit savings accounts
-    updateSavingsAccount(req, res){
+    // //API for staff to credit/debit savings accounts
+    // updateSavingsAccount(req, res){
         
-        const accountTransactions = {
-            fullName : req.body.fullName,
-            accountEmail : req.body.emailAddress,
-            id : req.body.id,
-            accountNumber : req.body.accountNumber,
-            amount : parseFloat(req.body.amount),
-            accountType : req.body.accountType,
-            transactionDate : new Date(),
-            cashier : req.body.cashier,
-            transactionType : req.body.transactionType,
-            totalCredit : req.body.totalCredit,
-            totalDebit : req.body.totalDebit,
-            oldBalance : req.body.oldBalance,
-            newBalance : req.body.newBalance
-        }    
+    //     const accountTransactions = {
+    //         fullName : req.body.fullName,
+    //         accountEmail : req.body.emailAddress,
+    //         id : req.body.id,
+    //         accountNumber : req.body.accountNumber,
+    //         amount : parseFloat(req.body.amount),
+    //         accountType : req.body.accountType,
+    //         transactionDate : new Date(),
+    //         cashier : req.body.cashier,
+    //         transactionType : req.body.transactionType,
+    //         totalCredit : req.body.totalCredit,
+    //         totalDebit : req.body.totalDebit,
+    //         oldBalance : req.body.oldBalance,
+    //         newBalance : req.body.newBalance
+    //     }    
     
-        bankadb.transactions.push(accountTransactions);
+    //     bankadb.transactions.push(accountTransactions);
     
-        res.status(200).send({
-            success: true,
-            message: `Account Number ${req.body.accountNumber} has been successfully ${req.body.transactionType}ed with NGN${req.body.amount}`,
-            accountTransactions
-        });     
-    }
+    //     res.status(200).send({
+    //         success: true,
+    //         message: `Account Number ${req.body.accountNumber} has been successfully ${req.body.transactionType}ed with NGN${req.body.amount}`,
+    //         accountTransactions
+    //     });     
+    // }
 }
 
 const adminStaffController = new AdminStaffController();
