@@ -9,9 +9,11 @@ CREATE TABLE customer (
     confirm_password VARCHAR(50) NOT NULL,
     user_account VARCHAR(20) NOT NULL,
     token VARCHAR(5000) NOT NULL,
-    account_number BIGINT REFERENCES bank_account (account_number),
-    UNIQUE(account_number)
+    account_number BIGINT
 );
+
+REFERENCES bank_account (account_number),
+    UNIQUE(account_number)
 
 CREATE TABLE bank_account (
     sn SERIAL,
@@ -34,14 +36,14 @@ CREATE TABLE bank_account (
     sex VARCHAR(10) NOT NULL,
     marital_status VARCHAR(20) NOT NULL,
     currency VARCHAR(7) NOT NULL,
-    created_On TIMESTAMP NOT NULL,
-    opening_Balance  FLOAT NOT NULL,
+    created_on TIMESTAMP NOT NULL,
+    opening_balance  FLOAT NOT NULL,
     credit FLOAT NOT NULL,
     debit FLOAT NOT NULL,
-    totalCredit FLOAT NOT NULL,
-    totalDebit FLOAT NOT NULL,
-    oldBalance FLOAT NOT NULL,
-    newBalance FLOAT NOT NULL
+    total_credit FLOAT NOT NULL,
+    total_debit FLOAT NOT NULL,
+    old_balance FLOAT NOT NULL,
+    new_balance FLOAT NOT NULL
 );
 
 CREATE TABLE contact_form (
@@ -65,4 +67,16 @@ CREATE TABLE create_account (
     created_On TIMESTAMP NOT NULL,
     isAdmin BOOLEAN NOT NULL,
     token VARCHAR(5000) NOT NULL
+);
+
+CREATE TABLE transaction (
+    sn SERIAL,
+    id INT,
+    transaction_date TIMESTAMP,
+    account_number,
+    account_type VARCHAR(50),
+    transaction_type VARCHAR(50),
+    deposit BIGINT,
+    withdrawal BIGINT,
+    balance BIGINT
 );

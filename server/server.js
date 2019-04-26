@@ -14,8 +14,12 @@ app.use(express.static('./UI'));
 //Mount the routers
 app.use('/api/v1', apiRouter);
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Banka' })
+})
+
 //Handling non-error input
-app.use( (req, res) => {
+app.use((req, res) => {
     res.status(200);
     res.send({
         message: "200 OK"

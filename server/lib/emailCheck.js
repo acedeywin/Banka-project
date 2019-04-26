@@ -10,6 +10,22 @@ export const validateString = (string) => {
     return regex.test(string);
 }
 
+// export const validateAmount = (amount) => {
+// 	const regex = /^[0-9]+$/;
+// 	return regex.test(amount);
+// }
+
+export const validateAmount = (amount) =>{
+    if (isNaN(amount) || amount.toString().indexOf(".") < 0) {
+        return false;
+    }else {
+        if (parseFloat(amount)) 
+	    return true;
+        else
+            return false;
+    }
+}
+
 // export const findOne = (id) => {
 
 	
