@@ -1,6 +1,6 @@
 import bankadb from '../memorydb/bankadb';
 import createToken from '../lib/token';
-import {validateEmail, validateString} from '../lib/emailCheck';
+import {validateEmail, validateString, validateAmount} from '../lib/emailCheck';
 import pool from '../lib/connectdb';
 
 export const validSavingsAccounts = (req, res, next) => {
@@ -60,21 +60,14 @@ export const validCurrentAccounts = (req, res, next) => {
 // }
 
 export const validPatchBankAccount = (req, res, next) => {
-    const accountNumber = parseInt(req.params.accountNumber);
+    
 
     let { accountStatus, fullName, userAccount, userStatus } = req.body;
 
-          pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2',
-            [accountStatus, accountNumber],
-            (error, results) => {
-              if (error) {
-                throw error
-              }
-              results.rows.forEach((key) => {
 
                  fullName = key.full_name;
                  userAccount = key.account_type;
-                 userStatus = key.account_status;
+                 req.body.accountStatus = 'Dormant';
 
                  if(accountNumber != key.account_number){
                     res.status(404).send({
@@ -99,8 +92,8 @@ export const validPatchBankAccount = (req, res, next) => {
                  results: results.rows
               })
                  
-            });
-        })
+         
+
 
     return next();
 }
@@ -340,109 +333,104 @@ export const validPatchStaffAccount = (req, res, next) => {
     return next();
 }
 
-export const validUpdateCurrentAccount = (req, res, next) => {
-    const id = parseInt(req.params.id);
-        let validUser;
+export const validupdateBankAccount = (req, res, next) => {
+           
+           const accountNumber = parseInt(req.params.accountNumber),
+                 transactionType = req.params.transactionType;
 
-        bankadb.currentBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
+           // let {fullName, accountEmail, accountType,totalCredit, totalDebit, oldBalance, newBalance, cashier, credit, debit} = req.body;
 
-            req.body.fullName = validUser.fullName;
-            req.body.accountEmail = validUser.emailAddress;
-            req.body.id = validUser.id;
-            req.body.accountNumber = validUser.accountNumber;
-            req.body.accountType = validUser.accountType;
-            req.body.totalCredit = validUser.totalCredit;
-            req.body.totalDebit = validUser.totalDebit;
-            req.body.oldBalance = validUser.oldBalance;
-            req.body.newBalance = validUser.newBalance
-            }
-        });
+            req.body.amount = parseFloat(req.body.amount);
+            req.body.transactionDate = new Date();
+            req.body.newBalance = 0;
+            const amount = req.body.amount; 
+            
+    
 
-        if(!validUser){
-            res.status(404).send({
+        if(isNaN(amount) || amount < 1 || isNaN(req.body.cashier)){
+            
+            return res.status(404).send({
                 status: 'error', 
-                message: 'User not found'
+                message: 'All fields are required and must be valid'
             });
         }
 
-        if(!req.body.amount || !req.body.transactionType || isNaN(req.body.cashier)){
-            res.status(404).send({
+        if(transactionType == 'credit'){
+            req.body.credit = req.body.amount;
+            req.body.totalCredit = req.body.credit;
+            req.body.debit = 0;
+            req.body.totalDebit = req.body.debit;
+            req.body.oldBalance = req.body.newBalance;
+            req.body.newBalance = req.body.totalCredit - req.body.totalDebit;
+        }
+        else if(transactionType == 'debit'){
+                req.body.debit = req.body.amount;
+                req.body.totalDebit = req.body.debit; 
+                req.body.credit = 0;
+                req.body.totalCredit = req.body.credit;       
+                req.body.oldBalance = req.body.newBalance;
+                req.body.newBalance = req.body.totalCredit - req.body.totalDebit;
+        }else {
+           return res.status(402).send({
                 status: 'error', 
-                message: 'All fields are required'
-            });
-        }
-        
-        if(req.body.transactionType == 'Credit'){
-            validUser.credit = parseFloat(req.body.amount);
-            validUser.totalCredit = validUser.totalCredit + validUser.credit;
-            validUser.debit = parseFloat(0);
-            validUser.totalDebit = validUser.totalDebit + validUser.debit;
-            validUser.oldBalance = validUser.newBalance;
-            validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
-        }
-        else if(req.body.transactionType == 'Debit'){
-                validUser.debit = parseFloat(req.body.amount);
-                validUser.totalDebit = validUser.totalDebit + validUser.debit; 
-                validUser.credit = parseFloat(0);
-                validUser.totalCredit = validUser.totalCredit + validUser.credit;       
-                validUser.oldBalance = validUser.newBalance;
-                validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
-        }
-        return next();
-}
-
-export const validUpdateSavingsAccount = (req, res, next) => {
-
-    const id = parseInt(req.params.id);
-        let validUser;
-
-        bankadb.savingsBankAccount.map((user) => {
-            if (user.id === id) {
-                validUser = user;
-
-            req.body.fullName = validUser.fullName;
-            req.body.accountEmail = validUser.emailAddress;
-            req.body.id = validUser.id;
-            req.body.accountNumber = validUser.accountNumber;
-            req.body.accountType = validUser.accountType;
-            req.body.totalCredit = validUser.totalCredit;
-            req.body.totalDebit = validUser.totalDebit;
-            req.body.oldBalance = validUser.oldBalance;
-            req.body.newBalance = validUser.newBalance
-            }
-        });
-
-        if(!validUser){
-            res.status(404).send({
-                status: 'error', 
-                message: 'User not found'
-            });
-        }
-
-        if(!req.body.amount || !req.body.transactionType || isNaN(req.body.cashier)){
-            res.status(404).send({
-                status: 'error', 
-                message: 'All fields are required'
+                message: 'Invalid transaction'
             });
         }
         
-        if(req.body.transactionType == 'Credit'){
-            validUser.credit = parseFloat(req.body.amount);
-            validUser.totalCredit = validUser.totalCredit + validUser.credit;
-            validUser.debit = parseFloat(0);
-            validUser.totalDebit = validUser.totalDebit + validUser.debit;
-            validUser.oldBalance = validUser.newBalance;
-            validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
-        }
-        else if(req.body.transactionType == 'Debit'){
-                validUser.debit = parseFloat(req.body.amount);
-                validUser.totalDebit = validUser.totalDebit + validUser.debit; 
-                validUser.credit = parseFloat(0);
-                validUser.totalCredit = validUser.totalCredit + validUser.credit;       
-                validUser.oldBalance = validUser.newBalance;
-                validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
-        }
+        
         return next();
 }
+
+// export const validUpdateSavingsAccount = (req, res, next) => {
+
+//     const id = parseInt(req.params.id);
+//         let validUser;
+
+//         bankadb.savingsBankAccount.map((user) => {
+//             if (user.id === id) {
+//                 validUser = user;
+
+//             req.body.fullName = validUser.fullName;
+//             req.body.accountEmail = validUser.emailAddress;
+//             req.body.id = validUser.id;
+//             req.body.accountNumber = validUser.accountNumber;
+//             req.body.accountType = validUser.accountType;
+//             req.body.totalCredit = validUser.totalCredit;
+//             req.body.totalDebit = validUser.totalDebit;
+//             req.body.oldBalance = validUser.oldBalance;
+//             req.body.newBalance = validUser.newBalance
+//             }
+//         });
+
+//         if(!validUser){
+//             res.status(404).send({
+//                 status: 'error', 
+//                 message: 'User not found'
+//             });
+//         }
+
+//         if(!req.body.amount || req.body.amount < 1 || !req.body.transactionType || isNaN(req.body.cashier)){
+//             res.status(404).send({
+//                 status: 'error', 
+//                 message: 'All fields are required'
+//             });
+//         }
+        
+//         if(req.body.transactionType == 'Credit'){
+//             validUser.credit = parseFloat(req.body.amount);
+//             validUser.totalCredit = validUser.totalCredit + validUser.credit;
+//             validUser.debit = parseFloat(0);
+//             validUser.totalDebit = validUser.totalDebit + validUser.debit;
+//             validUser.oldBalance = validUser.newBalance;
+//             validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
+//         }
+//         else if(req.body.transactionType == 'Debit'){
+//                 validUser.debit = parseFloat(req.body.amount);
+//                 validUser.totalDebit = validUser.totalDebit + validUser.debit; 
+//                 validUser.credit = parseFloat(0);
+//                 validUser.totalCredit = validUser.totalCredit + validUser.credit;       
+//                 validUser.oldBalance = validUser.newBalance;
+//                 validUser.newBalance = validUser.totalCredit - validUser.totalDebit;
+//         }
+//         return next();
+// }

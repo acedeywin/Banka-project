@@ -66,7 +66,7 @@ class CustomerController {
                     emailAddress = key.email; 
                     phoneNumber = key.phone_number;
 
-                    pool.query('INSERT INTO bank_account (id, account_number, full_name, _owner, bvn_number, date_of_birth, residential_address, means_of_identification, id_number, email_address, occupation, next_of_kin, relationship_to_Kin, phone_number, account_type,account_status, sex, marital_status, currency, created_on, opening_balance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) RETURNING *', [id, accountNumber, fullName, owner, bvnNumber, dateOfBirth, residentialAddress, meansOfIdentification, idNumber, emailAddress, occupation, nextOfKin, relationshipToNextOfKin, phoneNumber, accountType,accountStatus, sex, maritalStatus, currency, createdOn, openingBalance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance], (error, results) => {
+                    pool.query('INSERT INTO bank_account (id, account_number, full_name, _owner, bvn_number, date_of_birth, residential_address, means_of_identification, id_number, email_address, occupation, next_of_kin, relationship_to_Kin, phone_number, account_type,account_status, sex, marital_status, currency, created_on, opening_balance, credit, debit, total_credit, total_debit, old_balance, new_balance) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) RETURNING *', [id, accountNumber, fullName, owner, bvnNumber, dateOfBirth, residentialAddress, meansOfIdentification, idNumber, emailAddress, occupation, nextOfKin, relationshipToNextOfKin, phoneNumber, accountType,accountStatus, sex, maritalStatus, currency, createdOn, openingBalance, credit, debit, totalCredit, totalDebit, oldBalance, newBalance], (error, results) => {
                         if(error){
                             throw error
                         }else{
@@ -104,25 +104,40 @@ class CustomerController {
     //API for user(customer) contact page
     postContactPage(req, res){
 
-        const contact = {
-            id : req.body.id,
-            fullName : req.body.fullName,
-            email : req.body.emailAddress,
-            message : req.body.message
-        };
 
-        bankadb.contactMessage.push(contact);
+        let id = parseInt(req.params.id);
 
-        res.status(200).send({
-            success: true,
-            message: 'Message successfully sent!',
-            contact
-        });
+        let {fullName, email, message} = req.body; 
+
+        pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
+            if(error){
+                throw error
+            }
+            results.rows.forEach((key) => {
+                if(key.id == id){
+
+                    id = key.id;
+                    fullName = `${key.first_name} ${key.last_name}`; 
+                    email = key.email; 
+
+                    pool.query('INSERT INTO contact_form (id, full_name, email, _message) VALUES ($1, $2, $3, $4) RETURNING *', [id, fullName, email, message], (error, results) => {
+                        if(error){
+                            throw error
+                        }else{
+                            res.status(200).json({
+                                success: true,
+                                message: 'Message sent successfully',
+                                results: results.rows[0]
+                            });
+                        }
+                    })
+                }
+            })
+        })
     }
 
     getTransactionHistory(req, res){
 
-        
 
         const transactionHistory = {
             id : req.body.id,

@@ -22,7 +22,7 @@ import {
     validStaffLogin,
     validPatchAdminAccount,
     validPatchStaffAccount,
-    validUpdateCurrentAccount,
+    validupdateBankAccount,
     validUpdateSavingsAccount
 
 } from '../middleware/adminStaffValidator';
@@ -49,24 +49,24 @@ router.get('/accounts/:accountType', adminStaffController.getAllBankAccounts);
 
 router.get('/accounts/:id/:accountType', validSavingsAccounts, adminStaffController.getBankAccounts);
 
-router.get('/profile/admin/:id/:accountType', validAdminProfile, adminStaffController.getAdminStaffProfile);
-router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
-router.get('/admin', adminStaffController.getAdminUserAccounts);
-router.get('/staff', adminStaffController.getStaffUserAccounts);
+router.get('/profile/user/:id/:accountType', validAdminProfile, adminStaffController.getAdminStaffProfile);
+//router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
+router.get('accounts/users/:accountType', adminStaffController.getAdminStaffAccounts);
+//router.get('/staff', adminStaffController.getStaffUserAccounts);
 router.delete('/accounts/:accountNumber', adminStaffController.deleteBankAccount);
 
 router.delete('/customer/accounts/:id', adminStaffController.deleteCustomerAccount);
 router.delete('/accounts/:id/:accountType', adminStaffController.deleteUserAccount);
 
-router.patch('/customer/accounts/:accountNumber', adminStaffController.patchBankAccount);
-router.patch('/accounts/current/:id', adminStaffController.patchCurrentAccount);
+router.patch('/accounts/dormant/:accountNumber', adminStaffController.dormantBankAccount);
+router.patch('/accounts/active/:accountNumber', adminStaffController.activeBankAccount);
 router.patch('/admin/:id', validPatchAdminAccount, adminStaffController.patchAdminAccount);
 router.patch('/staff/:id', validPatchStaffAccount, adminStaffController.patchStaffAccount);
 router.post('/auth/personnel', validAdminCreateAccount, adminStaffController.postAdminCreateAccount);
-router.post('/auth/login/admin/:id', validAdminLogin, adminStaffController.postAdminLogin);
-router.post('/auth/login/staff/:id', validStaffLogin, adminStaffController.postStaffLogin);
-router.put('/transactions/current/:id', validUpdateCurrentAccount, adminStaffController.updateCurrentAccount);
-router.put('/transactions/savings/:id', validUpdateSavingsAccount, adminStaffController.updateSavingsAccount);
+router.post('/auth/login/:id/:accountType', validAdminLogin, adminStaffController.postAdminStaffLogin);
+//router.post('/auth/login/staff/:id', validStaffLogin, adminStaffController.postStaffLogin);
+router.put('/transactions/:accountNumber/:transactionType', validupdateBankAccount, adminStaffController.updateBankAccount);
+//router.put('/transactions/savings/:id', validUpdateSavingsAccount, adminStaffController.updateSavingsAccount);
 
 //editProfileController routers
 router.put('/password/customers/:id', validCustomerPassword, editProfileController.updateCustomerPassword);
