@@ -90,49 +90,57 @@ class AdminStaffController{
     patchBankAccount(req, res){
 
         const accountNumber = parseInt(req.params.accountNumber)
-        let { accountStatus, fullName, userAccount, userStatus } = req.body
+        let { accountStatus, fullName, userAccount, userStatus } = req.body;
 
-          pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2',
-            [accountStatus, accountNumber],
-            (error, results) => {
-              if (error) {
+
+        pool.query('SELECT * FROM customer WHERE account_number = $1', [accountNumber], (error, results) => {
+            if(error){
                 throw error
-              }
-              results.rows.forEach((key) => {
-
-                 fullName = key.full_name;
-                 userAccount = key.account_type;
-                 userStatus = key.account_status;
-
-                 res.status(200).json({
-                 success: true,
-                 message: `${fullName}'s ${userAccount} Account is now ${userStatus}`,
-                 results: results.rows
-              })
-                 
-        });
             }
-          )
-         
-       
-    }
+            results.rows.forEach((key) => {
 
-    //API for activating/deactivating a current account
-    patchCurrentAccount(req, res, next){
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account is now ${req.body.accountStatus}`,
-            validUser: req.body.validUser
-        });
+                pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2 RETURNING *',[accountStatus, accountNumber], (error, results) => {
+                  if (error) {
+                    throw error
+                  }
+                  if(key.account_status == 'Active'){
+                        accountStatus = 'Dormant';
+                        userStatus = accountStatus;
+                    }
+                    else if(key.account_status == 'Dormant'){
+                        accountStatus = 'Active';
+                        userStatus = accountStatus;
+                    } 
+
+                    res.status(200).json(results.rows[0]);
+                
+                })
+            })
+        })  
     }
 
     //API for viewing all admin user accounts
-    getAdminUserAccounts(req, res){
-        res.status(200).send({
-            success: true,
-            message: 'Admin User Accounts',
-            adminAccount: bankadb.adminUserAccount
-        });
+    getAdminStaffAccounts(req, res){
+
+        const accountType = req.params.accountType;
+        let userAccount = req.body.userAccount;
+
+        pool.query('SELECT * FROM create_account WHERE account_type = $1', [accountType], (error, results) => {
+                if (error) {
+                  throw error
+                }
+                results.rows.forEach((key) => {
+
+                    userAccount = key.accountType;
+
+                    res.status(200).json({
+                        success: true,
+                        message: `List of All ${userAccount} Accounts`,
+                        results: results.rows
+                    }); 
+                })
+            })
+        
     }
 
     //API for viewing all staff user accounts
@@ -170,7 +178,7 @@ class AdminStaffController{
     }
 
     //API for user(admin) account profile
-    getAdminProfile(req, res){
+    getAdminStaffProfile(req, res){
 
         const id = parseInt(req.params.id),
               accountType = req.params.accountType;
@@ -194,30 +202,30 @@ class AdminStaffController{
             })
     }
 
-    //API for user(admin) account profile
-    getStaffProfile(req, res){
+    // //API for user(admin) account profile
+    // getStaffProfile(req, res){
 
-        const id = parseInt(req.params.id),
-              accountType = req.params.accountType;
+    //     const id = parseInt(req.params.id),
+    //           accountType = req.params.accountType;
 
-        let fullName = req.body.fullName;
+    //     let fullName = req.body.fullName;
 
-        pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
-                if (error) {
-                  throw error
-                }
-                results.rows.forEach((key) => {
+    //     pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
+    //             if (error) {
+    //               throw error
+    //             }
+    //             results.rows.forEach((key) => {
 
-                    fullName = `${key.first_name} ${key.last_name}`
+    //                 fullName = `${key.first_name} ${key.last_name}`
 
-                    res.status(200).json({
-                        success: true,
-                        message: `${fullName}'s Account Profile`,
-                        results: results.rows
-                    }); 
-                });
-            })
-    }
+    //                 res.status(200).json({
+    //                     success: true,
+    //                     message: `${fullName}'s Account Profile`,
+    //                     results: results.rows
+    //                 }); 
+    //             });
+    //         })
+    // }
 
         //API for admin login
         postAdminLogin(req, res){

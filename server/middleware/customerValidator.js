@@ -48,8 +48,6 @@
     
    export const validBankAccount = (req, res, next) => {
 
-        let err = {};
-    
         let {bvnNumber, dateOfBirth, residentialAddress, meansOfIdentification, idNumber, occupation, nextOfKin, relationshipToNextOfKin, accountType, sex, maritalStatus} = req.body; 
 
         req.body.accountNumber = Math.floor(1111111111 + Math.random() * 1999999999);
@@ -151,24 +149,6 @@
 
         const id = parseInt(req.params.id);
 
-        let validUser;
-        
-        bankadb.userSignup.map((user) => {
-            if (user.id === id) {
-                validUser = user;  
-                
-            req.body.id = validUser.id;
-            req.body.fullName = validUser.fullName;
-            req.body.email = validUser.emailAddress;
-            }
-        });
-
-        if(!validUser){
-            res.status(404).send({
-                status: 'error', 
-                message: 'User not found'
-            });
-        }
 
         if(!req.body.message){
             res.status(406).send({

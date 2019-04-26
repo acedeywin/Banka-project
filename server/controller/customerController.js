@@ -34,7 +34,11 @@ class CustomerController {
                 }
                 results.rows.forEach((key) => {
                     if (key.email == email && key._password == password) {
-                        res.status(200).json(results.rows);
+                        res.status(200).json({
+                            success: true,
+                            message: `Login Successfull`,
+                            results: results.rows
+                        });
                     }else{
                         res.status(404).json('User not found');
                     }  

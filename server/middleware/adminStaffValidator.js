@@ -105,40 +105,40 @@ export const validPatchBankAccount = (req, res, next) => {
     return next();
 }
 
-export const validPatchCurrentAccount = (req, res, next) => {
+// export const validPatchCurrentAccount = (req, res, next) => {
 
-    const id = parseInt(req.params.id);
-    let validUser;
+//     const id = parseInt(req.params.id);
+//     let validUser;
 
-    bankadb.currentBankAccount.map((user) => {
-        if (user.id === id) {
-            validUser = user;
+//     bankadb.currentBankAccount.map((user) => {
+//         if (user.id === id) {
+//             validUser = user;
 
-            req.body.validUser = validUser;
-            req.body.fullName = validUser.fullName;
-            req.body.accountType = validUser.accountType;
-        }
-    });
+//             req.body.validUser = validUser;
+//             req.body.fullName = validUser.fullName;
+//             req.body.accountType = validUser.accountType;
+//         }
+//     });
 
-    if(!validUser){
-        res.status(404).send({
-            status: 'error', 
-            message: 'User not found'
-        });
-    }
+//     if(!validUser){
+//         res.status(404).send({
+//             status: 'error', 
+//             message: 'User not found'
+//         });
+//     }
 
-    if(validUser.accountStatus == 'Active'){
-        validUser.accountStatus = 'Dormant';
-        req.body.accountStatus = 'Dormant';
+//     if(validUser.accountStatus == 'Active'){
+//         validUser.accountStatus = 'Dormant';
+//         req.body.accountStatus = 'Dormant';
 
-    }
-    else if(validUser.accountStatus == 'Dormant'){
-        validUser.accountStatus = 'Active';
-        req.body.accountStatus = 'Active';
-    }
+//     }
+//     else if(validUser.accountStatus == 'Dormant'){
+//         validUser.accountStatus = 'Active';
+//         req.body.accountStatus = 'Active';
+//     }
 
-    return next();
-}
+//     return next();
+// }
 
 export const validAdminCreateAccount = (req, res, next) => {
 
