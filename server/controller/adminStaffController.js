@@ -4,21 +4,6 @@ import pool from '../lib/connectdb';
 
 class AdminStaffController{
 
-    // //API for viewing all bank/user accounts
-    // getAllUserAccount(req, res){
-    //     res.status(200).send({
-    //         success: true,
-    //         message: 'All Accounts',
-    //         signupCustomer : bankadb.userSignup,
-    //         savingsBankAccount: bankadb.savingsBankAccount,
-    //         currentBankAccount : bankadb.currentBankAccount,
-    //         accountProfile : bankadb.accountProfile,
-    //         adminAccount : bankadb.adminUserAccount,
-    //         staffAccount : bankadb.staffUserAccount,
-    //         transactions : bankadb.transactions 
-    //     });
-    // }
-
     //API for viewing all bank accounts
     getAllBankAccounts(req, res){
 
@@ -93,12 +78,13 @@ class AdminStaffController{
     }
 
     //API for deactivating a bank account
-    dormantBankAccount(req, res){
+    patchBankAccount(req, res){
 
-        const accountNumber = parseInt(req.params.accountNumber);
+        const accountNumber = parseInt(req.params.accountNumber),
+              statusUpdate  = req.params.statusUpdate;
         let { accountStatus, fullName, userAccount, userStatus } = req.body;
 
-                 accountStatus = 'Dormant';
+                 
 
                 pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2 RETURNING *',[accountStatus, accountNumber], (error, results) => {
 
@@ -118,32 +104,7 @@ class AdminStaffController{
       
     }
 
-    //API for activating a bank account
-    activeBankAccount(req, res){
-
-        const accountNumber = parseInt(req.params.accountNumber);
-        let { accountStatus, fullName, userAccount, userStatus } = req.body;
-
-                 accountStatus = 'Active';
-
-                pool.query('UPDATE bank_account SET account_status = $1 WHERE account_number = $2 RETURNING *',[accountStatus, accountNumber], (error, results) => {
-
-                  if (error) {
-                    throw error
-                  }else{
-                    res.status(200).json({
-                        success: true,
-                        message: `${results.rows[0].account_type} Account ${results.rows[0].account_number} is now ${accountStatus}.`,
-                        accountNumber: results.rows[0].account_number,
-                        accountType: results.rows[0].account_type,
-                        accountStatus: accountStatus     
-                    });
-                  }
-                
-            })
-      
-    }
-
+   
     //API for viewing all admin/staff user accounts
     getAdminStaffAccounts(req, res){
 
@@ -168,14 +129,6 @@ class AdminStaffController{
         
     }
 
-    // //API for viewing all staff user accounts
-    // getStaffUserAccounts(req, res){
-    //     res.status(200).send({
-    //         success: true,
-    //         message: 'Staff User Accounts',
-    //         staffAccount: bankadb.staffUserAccount
-    //     });
-    // }
 
     //API for creating a user(admin/staff) account
     postAdminCreateAccount(req, res){
@@ -227,31 +180,6 @@ class AdminStaffController{
             })
     }
 
-    // //API for user(admin) account profile
-    // getStaffProfile(req, res){
-
-    //     const id = parseInt(req.params.id),
-    //           accountType = req.params.accountType;
-
-    //     let fullName = req.body.fullName;
-
-    //     pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
-    //             if (error) {
-    //               throw error
-    //             }
-    //             results.rows.forEach((key) => {
-
-    //                 fullName = `${key.first_name} ${key.last_name}`
-
-    //                 res.status(200).json({
-    //                     success: true,
-    //                     message: `${fullName}'s Account Profile`,
-    //                     results: results.rows
-    //                 }); 
-    //             });
-    //         })
-    // }
-
         //API for admin login
         postAdminStaffLogin(req, res){
     
@@ -273,28 +201,9 @@ class AdminStaffController{
               })
         }
 
-        // //API for staff login
-        // postStaffLogin(req, res){
-
-        //     const id = parseInt(req.params.id);
-        //     let {email, password} = req.body;
-            
-        //     pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
-        //         if (error) {
-        //           throw error
-        //         }
-        //         results.rows.forEach((key) => {
-        //             if (key.email == email && key._password == password) {
-        //                 res.status(200).json(results.rows);
-        //             }else{
-        //                 res.status(404).json('User not found');
-        //             }   
-        //           });
-        //       })
-        // }
 
     //API for deleting an admin account
-    deleteUserAccount(req, res){
+    deleteAdminStaffAccount(req, res){
         console.log('i got hereb')
         const id = parseInt(req.params.id),
             accountType = req.params.accountType;
@@ -311,7 +220,7 @@ class AdminStaffController{
         
     }
 
-    //API for deleting a staff account
+    //API for deleting customer account
     deleteCustomerAccount(req, res){
         console.log(req.params.id)
 
@@ -331,26 +240,35 @@ class AdminStaffController{
         })  
     }
 
-    //API for activating/deactivating admin account
-    patchAdminAccount(req, res){
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account is now ${req.body.accountStatus}`,
-            validUser: req.body.validUser
-        });
+    //API for activating a admin/staff account
+    patchAdminStaffAccount(req, res){
+
+        const id = parseInt(req.params.id),
+              statusUpdate  = req.params.statusUpdate;
+
+        let { accountStatus, fullName, userAccount, userStatus } = req.body;
+
+
+                pool.query('UPDATE create_account SET account_status = $1 WHERE id = $2 RETURNING *',[accountStatus, id], (error, results) => {
+
+                  if (error) {
+                    throw error
+                  }else{
+                    res.status(200).json({
+                        success: true,
+                        message: `${results.rows[0].account_type} Account with ID Number ${results.rows[0].id} is now ${accountStatus}.`,
+                        id: results.rows[0].id,
+                        accountType: results.rows[0].account_type,
+                        accountStatus: accountStatus     
+                    });
+                  }
+                
+            }) 
     }
 
-    //API for activating/deactivating current accounts
-    patchStaffAccount(req, res, next){
-        res.status(200).send({
-            success: true,
-            message: `${req.body.fullName}'s ${req.body.accountType} Account is now ${req.body.accountStatus}`,
-            validUser: req.body.validUser
-        });
-    }
 
     //API for staff to credit/debit a current account
-    updateCurrentAccount(req, res){
+    updateBankAccount(req, res){
 
        //const id = parseInt(req.params.id);
         const accountNumber = parseInt(req.params.accountNumber),
@@ -372,41 +290,6 @@ class AdminStaffController{
             }
                 
         })
-      
-    
-        // res.status(200).send({
-        //     success: true,
-        //     message: `Account Number ${accountNumber} has been successfully ${transactionType}ed with NGN${amount}`,
-            
-        // });
-    }
-
-    //API for staff to credit/debit savings accounts
-    updateSavingsAccount(req, res){
-        
-        const accountTransactions = {
-            fullName : req.body.fullName,
-            accountEmail : req.body.emailAddress,
-            id : req.body.id,
-            accountNumber : req.body.accountNumber,
-            amount : parseFloat(req.body.amount),
-            accountType : req.body.accountType,
-            transactionDate : new Date(),
-            cashier : req.body.cashier,
-            transactionType : req.body.transactionType,
-            totalCredit : req.body.totalCredit,
-            totalDebit : req.body.totalDebit,
-            oldBalance : req.body.oldBalance,
-            newBalance : req.body.newBalance
-        }    
-    
-        bankadb.transactions.push(accountTransactions);
-    
-        res.status(200).send({
-            success: true,
-            message: `Account Number ${req.body.accountNumber} has been successfully ${req.body.transactionType}ed with NGN${req.body.amount}`,
-            accountTransactions
-        });     
     }
 }
 
