@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());                                    
 app.use(bodyParser.json({ type: 'application/json'}));
-app.use(express.static('./UI'));
+//app.use(express.static('./UI'));
 
 //Mount the routers
 app.use('/api/v1', apiRouter);

@@ -4,20 +4,6 @@ import pool from '../lib/connectdb';
 
 class AdminStaffController{
 
-    // //API for viewing all bank/user accounts
-    // getAllUserAccount(req, res){
-    //     res.status(200).send({
-    //         success: true,
-    //         message: 'All Accounts',
-    //         signupCustomer : bankadb.userSignup,
-    //         savingsBankAccount: bankadb.savingsBankAccount,
-    //         currentBankAccount : bankadb.currentBankAccount,
-    //         accountProfile : bankadb.accountProfile,
-    //         adminAccount : bankadb.adminUserAccount,
-    //         staffAccount : bankadb.staffUserAccount,
-    //         transactions : bankadb.transactions 
-    //     });
-    // }
 
     //API for viewing all bank accounts
     getAllBankAccounts(req, res){
@@ -168,14 +154,6 @@ class AdminStaffController{
         
     }
 
-    // //API for viewing all staff user accounts
-    // getStaffUserAccounts(req, res){
-    //     res.status(200).send({
-    //         success: true,
-    //         message: 'Staff User Accounts',
-    //         staffAccount: bankadb.staffUserAccount
-    //     });
-    // }
 
     //API for creating a user(admin/staff) account
     postAdminCreateAccount(req, res){
@@ -227,30 +205,6 @@ class AdminStaffController{
             })
     }
 
-    // //API for user(admin) account profile
-    // getStaffProfile(req, res){
-
-    //     const id = parseInt(req.params.id),
-    //           accountType = req.params.accountType;
-
-    //     let fullName = req.body.fullName;
-
-    //     pool.query('SELECT * FROM create_account WHERE id = $1 AND accountType = $2', [id, accountType], (error, results) => {
-    //             if (error) {
-    //               throw error
-    //             }
-    //             results.rows.forEach((key) => {
-
-    //                 fullName = `${key.first_name} ${key.last_name}`
-
-    //                 res.status(200).json({
-    //                     success: true,
-    //                     message: `${fullName}'s Account Profile`,
-    //                     results: results.rows
-    //                 }); 
-    //             });
-    //         })
-    // }
 
         //API for admin login
         postAdminStaffLogin(req, res){
@@ -273,25 +227,6 @@ class AdminStaffController{
               })
         }
 
-        // //API for staff login
-        // postStaffLogin(req, res){
-
-        //     const id = parseInt(req.params.id);
-        //     let {email, password} = req.body;
-            
-        //     pool.query('SELECT * FROM create_account WHERE id = $1', [id], (error, results) => {
-        //         if (error) {
-        //           throw error
-        //         }
-        //         results.rows.forEach((key) => {
-        //             if (key.email == email && key._password == password) {
-        //                 res.status(200).json(results.rows);
-        //             }else{
-        //                 res.status(404).json('User not found');
-        //             }   
-        //           });
-        //       })
-        // }
 
     //API for deleting an admin account
     deleteUserAccount(req, res){
@@ -373,41 +308,7 @@ class AdminStaffController{
                 
         })
       
-    
-        // res.status(200).send({
-        //     success: true,
-        //     message: `Account Number ${accountNumber} has been successfully ${transactionType}ed with NGN${amount}`,
-            
-        // });
     }
-
-    // //API for staff to credit/debit savings accounts
-    // updateSavingsAccount(req, res){
-        
-    //     const accountTransactions = {
-    //         fullName : req.body.fullName,
-    //         accountEmail : req.body.emailAddress,
-    //         id : req.body.id,
-    //         accountNumber : req.body.accountNumber,
-    //         amount : parseFloat(req.body.amount),
-    //         accountType : req.body.accountType,
-    //         transactionDate : new Date(),
-    //         cashier : req.body.cashier,
-    //         transactionType : req.body.transactionType,
-    //         totalCredit : req.body.totalCredit,
-    //         totalDebit : req.body.totalDebit,
-    //         oldBalance : req.body.oldBalance,
-    //         newBalance : req.body.newBalance
-    //     }    
-    
-    //     bankadb.transactions.push(accountTransactions);
-    
-    //     res.status(200).send({
-    //         success: true,
-    //         message: `Account Number ${req.body.accountNumber} has been successfully ${req.body.transactionType}ed with NGN${req.body.amount}`,
-    //         accountTransactions
-    //     });     
-    // }
 }
 
 const adminStaffController = new AdminStaffController();

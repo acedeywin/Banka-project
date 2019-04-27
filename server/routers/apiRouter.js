@@ -44,17 +44,15 @@ router.get('/profile/customers/:id', validAccountProfile, customerController.get
 router.get('/transactions/history/:id', validTransactionHistory, customerController.getTransactionHistory);
 
 //adminStaffController routers
-//router.get('/users', adminStaffController.getAllUserAccount);
 router.get('/accounts/:accountType', adminStaffController.getAllBankAccounts);
 
 router.get('/accounts/:id/:accountType', validSavingsAccounts, adminStaffController.getBankAccounts);
 
 router.get('/profile/user/:id/:accountType', validAdminProfile, adminStaffController.getAdminStaffProfile);
-//router.get('/profile/staff/:id/:accountType', validStaffProfile, adminStaffController.getStaffProfile);
 router.get('accounts/users/:accountType', adminStaffController.getAdminStaffAccounts);
-//router.get('/staff', adminStaffController.getStaffUserAccounts);
-router.delete('/accounts/:accountNumber', adminStaffController.deleteBankAccount);
 
+
+router.delete('/accounts/:accountNumber', adminStaffController.deleteBankAccount);
 router.delete('/customer/accounts/:id', adminStaffController.deleteCustomerAccount);
 router.delete('/accounts/:id/:accountType', adminStaffController.deleteUserAccount);
 
@@ -62,11 +60,10 @@ router.patch('/accounts/dormant/:accountNumber', adminStaffController.dormantBan
 router.patch('/accounts/active/:accountNumber', adminStaffController.activeBankAccount);
 router.patch('/admin/:id', validPatchAdminAccount, adminStaffController.patchAdminAccount);
 router.patch('/staff/:id', validPatchStaffAccount, adminStaffController.patchStaffAccount);
+
 router.post('/auth/personnel', validAdminCreateAccount, adminStaffController.postAdminCreateAccount);
 router.post('/auth/login/:id/:accountType', validAdminLogin, adminStaffController.postAdminStaffLogin);
-//router.post('/auth/login/staff/:id', validStaffLogin, adminStaffController.postStaffLogin);
 router.put('/transactions/:accountNumber/:transactionType', validupdateBankAccount, adminStaffController.updateBankAccount);
-//router.put('/transactions/savings/:id', validUpdateSavingsAccount, adminStaffController.updateSavingsAccount);
 
 //editProfileController routers
 router.put('/password/customers/:id', validCustomerPassword, editProfileController.updateCustomerPassword);
