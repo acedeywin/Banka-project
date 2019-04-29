@@ -34,12 +34,6 @@
 		<!--User login starts here-->
 		<div class="user-login">
 
-	      	<div class="personnel">Authorized Personnel
-	      		<ul class="hide-personnel">
-		      		<li class="admin hover" title="Admin Only">Admin</li>
-		      		<li class="staff hover" title="Staff Only">Staff</li>
-	      		</ul>
-	      	</div>
 
 			<div class="row">
 
@@ -65,8 +59,15 @@
 								<div class="textbox">
 									<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
 								</div>
+
+								<div class="textbox">
+					              <select class="select-user">
+					                <option value="nothing" disabled selected>Select User</option>
+					              </select>
+					            </div>
 								
-								<button class="btn btn-space btn-main"><a href="#">Sign in</a></button><!--../customer/account-profile.html-->
+								<button class="signin btn btn-space btn-main" id="signin">Sign in</button>
+
 								<button class="btn btn-signup btn-main"><a href="./UI/customer/signup.html">Sign up</a></button>
 								<span class="forgot-btn"><a href="#">Forgot Password?</a></span>
 							</form>
@@ -79,100 +80,7 @@
 		</div>
 		<!--User login ends here-->
 
-		<!--Admin login starts here-->
-		<div class="admin-login hide">
-
-	      	<div class="login-btn">
-	      		<ul>
-		      		<li class="user" title="User Login">User</li>
-		      		<li class="staff hover arrow" title="Staff Only">Staff</li>
-	      		</ul>
-	      	</div>
-
-      
-			<div class="row">
-
-					<div class="col-1-of-2 wrapper"  id="row">
-					
-						<h1 class="name">
-							<span class="admin--main">Authorized Personnel Only</span>				
-						</h1>			
-
-				</div>
-
-					<div class="col-1-of-2 wrapper">
-						<div class="login-box">
-
-							<h1>Admin Login</h1>
-
-							<form>
-
-								<div class="textbox">
-									<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
-								</div>
-	
-								<div class="textbox">
-									<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
-								</div>
-								
-								<button class="btn btn-main"><a href="./UI/admin/admin-profile.html">Sign in</a></button> <!--../admin/create-account.html--->
-
-							</form>
-
-						</div>
-					</div>		
-
-			</div>	
-
-		</div>
-		<!--Admin login ends here-->
-
-		<!--Staff login starts here-->
-		<div class="staff-login hide">
-
-	      	<div class="login-btn">
-	      		<ul >
-	      			<li class="user" title="User Login">User</li>
-		      		<li class="admin hover arrow" title="Admin Only">Admin</li>
-	      		</ul>
-	      	</div>
-
-      
-			<div class="row">
-
-					<div class="col-1-of-2 wrapper"  id="row">
-					
-						<h1 class="name">
-							<span class="staff--main">Authorized Bank Personnel Only</span>
-						</h1>			
-
-				</div>
-
-					<div class="col-1-of-2 wrapper">
-						<div class="login-box">
-
-							<h1>Staff Login</h1>
-
-							<form>
-									<div class="textbox">
-											<input type="email" placeholder="Email" required><i class="fas fa-envelope"></i>
-										</div>
-			
-										<div class="textbox">
-											<input type="password" placeholder="Password" required><i class="fas fa-lock"></i>
-										</div>
-										
-										<button class="btn btn-main"><a href="./UI/staff/staff-profile.html">Sign in</a></button>
-							</form>
-							
-						</div>
-					</div>		
-
-			</div>
-
-		</div>
-		<!--Staff login ends here-->
-
+		
 	<!-- Start footer -->
 	<footer class="footer">	
 	    <a href="https://www.facebook.com/stephen.okpala.7" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -188,6 +96,7 @@
 	
   <script type="text/javascript" src="./UI/scripts/helper.js"></script>
   <script type="text/javascript" src="./UI/scripts/script.js"></script>
+  <script type="text/javascript" src="./UI/scripts/index.js"></script>
 
 </body>
 

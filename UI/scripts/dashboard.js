@@ -10,7 +10,7 @@ const identification = [{
 	id:'NAT', name: 'National ID Card'
 }, {
 	id:'IPP', name: 'International Passport'
-}];
+}]; 
 
 const account = [{
 	id: 'CUR', name: 'Current'

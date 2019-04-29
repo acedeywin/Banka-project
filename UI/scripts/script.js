@@ -4,51 +4,7 @@ $(document).ready(() => {
 	$('.green-bg').css('background-color', 'rgb(51, 153, 102)')
 	//Navigating through the various login pages
 
-	const $adminLogin = $('.admin-login');
-	const $userLogin = $('.user-login');
-	const $staffLogin = $('.staff-login');
 
-	//Navigate to user login page
-	$('.user').click(() => {
-		$userLogin.show();
-		$adminLogin.hide();
-		$staffLogin.hide();
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/main.jpeg)');
-		$('title').text('Banka | User Login');
-	});
-
-	//Navigate to admin login page
-	$('.admin').click(() => {
-		$userLogin.hide();
-		$staffLogin.hide();
-		$adminLogin.show();
-		$('.admin--main').css('font-size', '5rem');
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/admin.jpeg)');
-		$('title').text('Banka | Admin Login');
-	});
-
-	//Navigate to staff login page
-	$('.staff').click(() => {
-		$userLogin.hide();
-		$adminLogin.hide();
-		$staffLogin.show();
-		$('.staff--main').css('font-size', '5rem');
-		$('.main').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(./UI/images/staff.jpeg)');
-		$('title').text('Banka | Staff Login');
-	});
-
-	//Hide and toggle "Authorized personnel" home link
-	$('.hide-personnel').hide();
-	$('.personnel').click(() => {
-		$('.hide-personnel').toggle();
-	})
-
-	//Added elements to the sign-up page
-	$('.textbox2').append('<span class="star">*</span>');
-	$('.mark').prepend('*').css({'color': '#ff4d4d', 'font-size': '2rem'});
-	$('.modal p').prepend('<span class="star">*</span>');
-	$('.user').prepend('&#8592; ');
-	$('.arrow').append(' &#8594;');
 
 	//Navbar functionalities
 	$('.hide-admin-staff').hide();
@@ -67,15 +23,6 @@ $(document).ready(() => {
 	$('.sh-cli-acct').click(() => {
 		$('.hide-sh-cli-acct').toggle();
 	});
-
-	//Admin page background-image
-	$('.admin-bg').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(../images/admin.jpg)');
-
-	//Staff page background-image
-	$('.staff-bg').css('background-image', 'linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(13, 13, 13, 0.7)), url(../images/staff.jpg)');
-
-	//Space between buttons
-	// $('.btn-space').css('margin-right', '6rem');
 
 	//Client create-account functionalities
 	$('.create-acct').click(() => {
@@ -179,4 +126,44 @@ const year = document.querySelector('.year');
 const date = new Date(); 
 year.innerText = ` Copyright ${date.getFullYear()}. Banka`;
 
+const user = [{
+	id:'./UI/customer/account-profile.html', name: 'Customer'
+}, {
+	id:'./UI/admin/admin-profile.html', name: 'Admin'
+}, {
+	id:'./UI/staff/staff-profile.html', name: 'Staff'
+}];
+
+
+
+
+
+user.forEach((userId) => {  
+
+	const selectUser = document.querySelector('.select-user');
+	const signIn = document.querySelector('.signin');
+
+        const option = document.createElement('option');
+        option.value = userId.id;
+        option.innerText = userId.name;
+        selectUser.add(option);
+    });
+
+
+const userSelection = () => {
+
+	const selectUser = document.querySelector('.select-user');
+	const signIn = document.querySelector('#signin');
+
+	signIn.addEventListener('click', () => {
+
+		const userOption  = selectUser.options[selectUser.selectedIndex];
+
+		if(userOption != 'nothing'){
+		location.href = userOption.value;
+		}
+	});
+} 
+
+userSelection();
 
